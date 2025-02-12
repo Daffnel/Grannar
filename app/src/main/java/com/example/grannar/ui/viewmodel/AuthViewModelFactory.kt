@@ -10,6 +10,6 @@ class AuthViewModelFactory: ViewModelProvider.Factory {
         if (modelClass.isAssignableFrom(AuthViewModel::class.java)) {
             return AuthViewModel(AuthRepo(FirebaseManager())) as T
         }
-        throw IllegalArgumentException("Uknown ViewModel")
+        throw IllegalArgumentException("Unknown ViewModel")
     }
 }

@@ -1,13 +1,13 @@
-package com.example.grannar
+package com.example.grannar.ui.activities
 
 import android.os.Bundle
-import android.util.Log
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
-import com.example.grannar.data.firebase.FirebaseManager
+import com.example.grannar.R
 import com.example.grannar.databinding.ActivityMainBinding
 import com.example.grannar.ui.viewmodel.AuthViewModel
 import com.example.grannar.ui.viewmodel.AuthViewModelFactory
@@ -30,17 +30,26 @@ class MainActivity : AppCompatActivity() {
         }
 
         val signup = binding.ButtonCreateAccount
+        val login = binding.ButtonLogin
 
         signup.setOnClickListener {
-            createAccount()
+            val email = binding.EditTextLoginName.text.toString()
+            val password = binding.EditTextLoginPassword.text.toString()
+            authViewModel.registerUser(email, password)
         }
 
-    }
+        login.setOnClickListener {
+            val email = binding.EditTextLoginName.text.toString()
+            val password = binding.EditTextLoginPassword.text.toString()
+            authViewModel.loginUser(email, password)
+        }
 
-    private fun createAccount(){
-        val email = binding.EditTextLoginName.text.toString()
-        val password = binding.EditTextLoginPassword.text.toString()
-        authViewModel.registerUser(email, password)
-        Log.e("!!!", "$email")
+        authViewModel.authResult.observe(this) { (success, message) ->
+            if (success){
+                Toast.makeText(this, "$message!", Toast.LENGTH_SHORT).show()
+            } else{
+                Toast.makeText(this, "$message!", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }

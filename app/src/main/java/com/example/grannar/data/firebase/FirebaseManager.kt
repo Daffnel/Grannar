@@ -10,7 +10,7 @@ class FirebaseManager {
     private val db = Firebase.firestore
     private val auth = FirebaseAuth.getInstance()
 
-    fun registerUser(email: String, password: String, onResult: (Boolean, String?) -> Unit) {
+    fun registerUser(email: String, password: String, onResult: (Boolean, String) -> Unit) {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
@@ -19,16 +19,16 @@ class FirebaseManager {
                         id = userId,
                         email = email
                     )
-                    saveNewUser(user) { success ->
-                        onResult(success, if (success) "Account created" else "Failed to create user")
+                    saveNewUser(user) { success, message ->
+                        onResult(success, message)
                     }
                 } else{
-                    onResult(false, task.exception?.message)
+                    onResult(false, task.exception?.message ?: "Failed to create user")
                 }
             }
     }
 
-    fun saveNewUser(user: User, onResult: (Boolean) -> Unit){
+    fun saveNewUser(user: User, onResult: (Boolean, String) -> Unit){
         //Get the users ID from Firebase Auth and return out of the function if no user is logged in
         val userId = auth.currentUser?.uid ?: return
 
@@ -36,22 +36,24 @@ class FirebaseManager {
         db.collection("users").document(userId)
             .set(user)
             .addOnSuccessListener {
-                onResult(true)
+                onResult(true, "success")
             }
             .addOnFailureListener {
-                onResult(false)
+                onResult(false, "success")
             }
     }
-    fun loginUser(email: String, password: String, onResult: (Boolean, String?) -> Unit){
+
+    fun loginUser(email: String, password: String, onResult: (Boolean, String) -> Unit){
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful){
-                    onResult(true, null)
+                    onResult(true, "Login Successfully")
                 } else{
-                    onResult(false, task.exception?.message)
+                    onResult(false, "Login failed")
                 }
             }
     }
+
     fun logout(){
         auth.signOut()
     }

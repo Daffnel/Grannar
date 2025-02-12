@@ -5,15 +5,17 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".ui.activities.MainActivity">
 
     <Button
         android:id="@+id/Button_Login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
         android:text="Login"
-        tools:layout_editor_absoluteX="160dp"
-        tools:layout_editor_absoluteY="426dp" />
+        app:layout_constraintBottom_toTopOf="@+id/EditText_LoginName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/Button_CreateAccount"
@@ -37,7 +39,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="text"
+        android:inputType="textPassword"
         android:text="Password"
         app:layout_constraintBottom_toTopOf="@+id/Button_CreateAccount"
         app:layout_constraintEnd_toEndOf="parent"
