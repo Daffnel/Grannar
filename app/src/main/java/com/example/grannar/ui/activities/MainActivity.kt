@@ -29,18 +29,18 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        val signup = binding.ButtonCreateAccount
+        val signup = binding.buttonCreateAccount
         val login = binding.ButtonLogin
 
         signup.setOnClickListener {
-            val email = binding.EditTextLoginName.text.toString()
-            val password = binding.EditTextLoginPassword.text.toString()
+            val email = binding.editTextLoginName.text.toString()
+            val password = binding.editTextLoginPassword.text.toString()
             authViewModel.registerUser(email, password)
         }
 
         login.setOnClickListener {
-            val email = binding.EditTextLoginName.text.toString()
-            val password = binding.EditTextLoginPassword.text.toString()
+            val email = binding.editTextLoginName.text.toString()
+            val password = binding.editTextLoginPassword.text.toString()
             authViewModel.loginUser(email, password)
         }
 
