@@ -5,63 +5,92 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/powder"
     tools:context=".ui.activities.MainActivity">
 
     <Button
         android:id="@+id/Button_Login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/green"
         android:text="Login"
-        app:layout_constraintBottom_toTopOf="@+id/EditText_LoginName"
+        android:textColor="@color/powder"
+        android:shadowColor="#000000"
+        android:shadowRadius="5"
+        android:shadowDy="2"
+        android:shadowDx="2"
+        app:layout_constraintBottom_toTopOf="@+id/button_CreateAccount"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText_LoginPassword"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
-        android:id="@+id/Button_CreateAccount"
+        android:id="@+id/button_CreateAccount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="48dp"
         android:text="Create Account"
+        android:backgroundTint="@color/green"
+        android:textColor="@color/powder"
+        android:shadowColor="#000000"
+        android:shadowRadius="5"
+        android:shadowDy="2"
+        android:shadowDx="2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textView_LoginTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="176dp"
-        tools:layout_editor_absoluteY="68dp" />
-
-    <EditText
-        android:id="@+id/EditText_LoginPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPassword"
-        android:text="Password"
-        app:layout_constraintBottom_toTopOf="@+id/Button_CreateAccount"
+        android:layout_marginTop="56dp"
+        android:fontFamily="sans-serif-condensed-light"
+        android:text="Neighbors"
+        android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/EditText_LoginName"
+        android:id="@+id/editText_LoginName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="52dp"
         android:ems="10"
+        android:hint="Name"
         android:inputType="text"
-        android:text="Name"
-        app:layout_constraintBottom_toTopOf="@+id/EditText_LoginPassword"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.522"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView_LoginIcon" />
 
     <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="349dp"
-        android:layout_height="93dp"
-        tools:layout_editor_absoluteX="31dp"
-        tools:layout_editor_absoluteY="150dp"
-        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+        android:id="@+id/imageView_LoginIcon"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_LoginTitle"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <EditText
+        android:id="@+id/editText_LoginPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.527"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText_LoginName" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
