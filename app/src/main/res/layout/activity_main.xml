@@ -78,7 +78,7 @@
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_LoginTitle"
-        tools:srcCompat="@drawable/neighbors_icon" />
+        tools:srcCompat="@tools:sample/avatars" />
 
     <EditText
         android:id="@+id/editText_LoginPassword"
