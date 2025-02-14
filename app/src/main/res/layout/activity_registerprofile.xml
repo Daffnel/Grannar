@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/powder">
+
+    <ImageView
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:src="@drawable/neighbors_icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toEndOf="@+id/button_backProfile"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <ImageView
+        android:id="@+id/button_backProfile"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/back_icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.069"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="37dp" />
+
+
+    <EditText
+        android:layout_width="321dp"
+        android:layout_height="45dp"
+        android:background="@drawable/border1"
+        android:drawableStart="@drawable/person_icon"
+        android:drawablePadding="10dp"
+        android:hint="Name"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="176dp" />
+
+    <EditText
+        android:layout_width="321dp"
+        android:layout_height="45dp"
+        android:background="@drawable/border1"
+        android:drawableStart="@drawable/cake_icon"
+        android:drawablePadding="10dp"
+        android:hint="Age"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="229dp" />
+
+    <EditText
+        android:layout_width="321dp"
+        android:layout_height="45dp"
+        android:background="@drawable/border1"
+        android:drawableStart="@drawable/location_icon"
+        android:drawablePadding="10dp"
+        android:hint="City"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="281dp" />
+
+    <EditText
+        android:layout_width="321dp"
+        android:layout_height="45dp"
+        android:background="@drawable/border1"
+        android:drawableStart="@drawable/hobby_icon"
+        android:drawablePadding="10dp"
+        android:hint="Interests"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="334dp" />
+
+    <EditText
+        android:layout_width="321dp"
+        android:layout_height="250dp"
+        android:background="@drawable/border1"
+        android:gravity="top"
+        android:hint="About me"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="388dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="36dp"
+        android:backgroundTint="@color/green"
+        android:text="Register"
+        android:textColor="@color/powder"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
