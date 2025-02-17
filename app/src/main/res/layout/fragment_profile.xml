@@ -25,7 +25,6 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="37dp" />
 
-
     <EditText
         android:layout_width="321dp"
         android:layout_height="45dp"
@@ -34,6 +33,8 @@
         android:drawablePadding="10dp"
         android:hint="Name"
         android:padding="10dp"
+        android:focusable="false"
+        android:inputType="none"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="176dp" />
@@ -46,6 +47,8 @@
         android:drawablePadding="10dp"
         android:hint="Age"
         android:padding="10dp"
+        android:focusable="false"
+        android:inputType="none"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="229dp" />
@@ -58,6 +61,8 @@
         android:drawablePadding="10dp"
         android:hint="City"
         android:padding="10dp"
+        android:focusable="false"
+        android:inputType="none"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="281dp" />
@@ -81,21 +86,10 @@
         android:gravity="top"
         android:hint="About me"
         android:padding="10dp"
+        android:focusable="false"
+        android:inputType="none"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="388dp" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="36dp"
-        android:backgroundTint="@color/green"
-        android:text="Save"
-        android:textColor="@color/powder"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
