@@ -12,7 +12,4 @@ class AuthRepo(private val firebaseManager: FirebaseManager) {
         firebaseManager.loginUser(email, password, onResult)
     }
 
-    fun logout(){
-        firebaseManager.logout()
-    }
 }
