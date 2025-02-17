@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.grannar.databinding.FragmentRegisterBinding
+import com.example.grannar.ui.activities.HomeActivity
 import com.example.grannar.ui.viewmodel.AuthViewModel
 import com.example.grannar.ui.viewmodel.AuthViewModelFactory
 
