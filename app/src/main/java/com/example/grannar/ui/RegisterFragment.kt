@@ -1,4 +1,4 @@
-package com.example.grannar.ui.fragments
+package com.example.grannar.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,15 +8,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.grannar.R
-import com.example.grannar.databinding.FragmentLoginBinding
-import com.example.grannar.ui.RegisterFragment
+import com.example.grannar.databinding.FragmentRegisterBinding
 import com.example.grannar.ui.activities.HomeActivity
 import com.example.grannar.ui.viewmodel.AuthViewModel
 import com.example.grannar.ui.viewmodel.AuthViewModelFactory
 
-class LoginFragment : Fragment() {
-    private lateinit var binding: FragmentLoginBinding
+class RegisterFragment : Fragment() {
+    private lateinit var binding: FragmentRegisterBinding
     private lateinit var authViewModel: AuthViewModel
 
     override fun onCreateView(
@@ -24,34 +22,32 @@ class LoginFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentLoginBinding.inflate(inflater, container, false)
+        binding = FragmentRegisterBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        authViewModel = ViewModelProvider(requireActivity(), AuthViewModelFactory())[AuthViewModel::class.java]
 
-        val login = binding.ButtonLogin
+        authViewModel = ViewModelProvider(this, AuthViewModelFactory())[AuthViewModel::class.java]
 
-        val gotToRegister = binding.buttonCreateAccount
+        //Register when clicking next
+        binding.buttonNext.setOnClickListener {
+            val email = binding.editTextRegisterName.text.toString()
+            val password = binding.EditTextRegisterPassword.text.toString()
 
-        login.setOnClickListener {
-            val email = binding.editTextLoginEmail.text.toString()
-            val password = binding.editTextLoginPassword.text.toString()
-            authViewModel.loginUser(email, password)
+            if (email.isNotEmpty() && password.isNotEmpty()) {
+                authViewModel.registerUser(email, password)
+            } else {
+                Toast.makeText(requireContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show()
+            }
         }
 
-
-        //TODO needs to go to register fragment, remember to add the fragment to the backstack
-        gotToRegister.setOnClickListener {
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.main, RegisterFragment())
-                .addToBackStack(null)
-                .commit()
+        // Navigates back to Login
+        binding.buttonBackRegister.setOnClickListener {
+            parentFragmentManager.popBackStack()
         }
 
-        // Goes to the home activity if succesful
         authViewModel.authResult.observe(viewLifecycleOwner) { (success, message) ->
             if (success){
                 Toast.makeText(requireContext(), "$message!", Toast.LENGTH_SHORT).show()
@@ -63,5 +59,4 @@ class LoginFragment : Fragment() {
             }
         }
     }
-
 }

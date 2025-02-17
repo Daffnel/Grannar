@@ -2,69 +2,76 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/powder"
-    tools:context=".ui.activities.MainActivity">
+    android:background="@color/powder">
 
 
     <Button
-        android:id="@+id/Button_CreateAccount"
+        android:id="@+id/button_next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="84dp"
+        android:layout_marginBottom="192dp"
         android:backgroundTint="@color/green"
         android:drawableEnd="@drawable/next_icon"
         android:text="Next"
         android:textColor="@color/powder"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <ImageView
+        android:id="@+id/button_backRegister"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:src="@drawable/back_icon"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.069"
+        app:layout_constraintHorizontal_bias="0.041"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="37dp" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="10dp"/>
 
     <ImageView
+        android:id="@+id/imageview_registerLogo"
         android:layout_width="200dp"
         android:layout_height="200dp"
+        android:layout_marginTop="160dp"
         android:src="@drawable/neighbors_icon"
-        tools:layout_editor_absoluteX="125dp"
-        tools:layout_editor_absoluteY="184dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textView_registerTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:fontFamily="casual"
         android:text="Neighbors"
+        android:textColor="@color/dark_blue"
         android:textSize="25sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="138dp" />
-
-    <EditText
-        android:id="@+id/EditText_LoginPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="92dp"
-        android:ems="10"
-        android:hint="Password"
-        android:inputType="textPassword"
-        android:drawableStart="@drawable/password_icon"
-        android:drawablePadding="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/Button_CreateAccount"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/imageview_registerLogo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/EditText_LoginName"
+        android:id="@+id/EditText_registerPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:drawableStart="@drawable/password_icon"
+        android:drawablePadding="10dp"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword"
+        app:layout_constraintBottom_toTopOf="@+id/button_next"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/editText_registerName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -73,7 +80,7 @@
         android:inputType="text"
         android:drawableStart="@drawable/mail_icon"
         android:drawablePadding="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/EditText_LoginPassword"
+        app:layout_constraintBottom_toTopOf="@+id/EditText_registerPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
