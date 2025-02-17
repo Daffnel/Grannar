@@ -1,17 +1,13 @@
 package com.example.grannar.ui.activities
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.lifecycle.ViewModelProvider
 import com.example.grannar.R
 import com.example.grannar.databinding.ActivityMainBinding
-import com.example.grannar.ui.fragments.LoginFragment
-import com.example.grannar.ui.viewmodel.AuthViewModel
-import com.example.grannar.ui.viewmodel.AuthViewModelFactory
+import com.example.grannar.ui.fragment.LoginFragment
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
