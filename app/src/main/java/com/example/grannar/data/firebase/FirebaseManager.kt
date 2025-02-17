@@ -55,8 +55,5 @@ class FirebaseManager {
                 }
             }
     }
-    fun logout(){
-        FirebaseAuth.getInstance().signOut()
-    }
 }
 

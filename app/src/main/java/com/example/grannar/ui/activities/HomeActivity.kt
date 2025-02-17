@@ -21,12 +21,18 @@ class HomeActivity : AppCompatActivity() {
 
         userStatusViewModel = ViewModelProvider(this).get(UserStatusViewModel::class.java)
 
+        //Checks if the user is currently logged in, and if not sends back to login page
         userStatusViewModel.userStatus.observe(this) {isLoggedIn ->
             if (!isLoggedIn){
                 val intent = Intent(this, MainActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)
             }
+        }
+
+        //Example for the logout button
+        binding.logout.setOnClickListener {
+            userStatusViewModel.logout()
         }
 
     }
