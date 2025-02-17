@@ -55,5 +55,24 @@ class FirebaseManager {
                 }
             }
     }
+
+    fun updateUserProfile(userId: String, name: String, age: Int, city: String, bio: String, interests: List<String>, callback: (Boolean) -> Unit){
+        val userUpdate = mapOf(
+            "name" to name,
+            "age" to age,
+            "city" to city,
+            "bio" to bio,
+            "interests" to interests
+        )
+
+        db.collection("users").document(userId)
+            .update(userUpdate)
+            .addOnSuccessListener {
+                callback(true)
+            }
+            .addOnFailureListener {
+                callback(false)
+            }
+    }
 }
 
