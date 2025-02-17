@@ -1,6 +1,8 @@
 package com.example.grannar.data.firebase
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.grannar.data.model.User
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
@@ -53,9 +55,8 @@ class FirebaseManager {
                 }
             }
     }
-
     fun logout(){
-        auth.signOut()
+        FirebaseAuth.getInstance().signOut()
     }
 }
 
