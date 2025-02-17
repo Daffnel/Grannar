@@ -1,4 +1,4 @@
-package com.example.grannar.ui.fragments
+package com.example.grannar.ui.fragment
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.grannar.R
 import com.example.grannar.databinding.FragmentLoginBinding
-import com.example.grannar.ui.RegisterFragment
 import com.example.grannar.ui.activities.HomeActivity
 import com.example.grannar.ui.viewmodel.AuthViewModel
 import com.example.grannar.ui.viewmodel.AuthViewModelFactory
