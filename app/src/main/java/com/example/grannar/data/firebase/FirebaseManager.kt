@@ -100,6 +100,7 @@ class FirebaseManager {
             }
     }
 
+
     //fun sendmessage
 
     fun sendMessage(chatId: String, message: ChatMessage, onResult: (Boolean, String) -> Unit) {

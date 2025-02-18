@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+
 import com.example.grannar.R
 import com.example.grannar.data.firebase.FirebaseManager
 import com.example.grannar.databinding.FragmentLoginBinding
@@ -18,6 +19,7 @@ import com.example.grannar.ui.viewmodel.ProfileViewModelFactory
 class ProfileFragment : Fragment() {
     private lateinit var binding: FragmentProfileBinding
     private lateinit var viewModel: ProfileViewModel
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -62,6 +64,7 @@ class ProfileFragment : Fragment() {
         }
 
         return binding.root
+
     }
 
 
