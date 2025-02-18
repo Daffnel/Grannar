@@ -1,9 +1,11 @@
 package com.example.grannar.data.firebase
 
 import android.util.Log
+import com.example.grannar.data.model.ChatMessage
 import com.example.grannar.data.model.User
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.firestore
 
 class FirebaseManager {
@@ -57,5 +59,37 @@ class FirebaseManager {
     fun logout(){
         auth.signOut()
     }
+
+    //fun sendmessage
+
+    fun sendMessage(chatId: String, message: ChatMessage, onResult: (Boolean, String) -> Unit) {
+        val db = Firebase.firestore
+
+        // إضافة الرسالة إلى مستند المحادثة في Firestore
+        db.collection("chats").document(chatId).collection("messages")
+            .add(message)
+            .addOnSuccessListener {
+                onResult(true, "Message sent successfully")
+            }
+            .addOnFailureListener { exception ->
+                onResult(false, "Failed to send message: ${exception.message}")
+            }
+    }
+//fun recivemessge
+
+    fun getMessages(chatId: String, onResult: (List<ChatMessage>) -> Unit) {
+        val db = Firebase.firestore
+        db.collection("chats").document(chatId).collection("messages")
+            .orderBy("timestamp", Query.Direction.ASCENDING)
+            .addSnapshotListener { snapshots, error ->
+                if (error != null) {
+                    Log.e("Chat", "Failed to load messages: ${error.message}")
+                    return@addSnapshotListener
+                }
+                val messages = snapshots?.documents?.map { it.toObject(ChatMessage::class.java)!! } ?: emptyList()
+                onResult(messages)
+            }
+    }
+
 }
 
