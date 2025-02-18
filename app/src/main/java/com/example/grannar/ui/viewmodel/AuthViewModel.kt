@@ -4,11 +4,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.grannar.data.repository.AuthRepo
+import com.google.firebase.auth.FirebaseAuth
 
 class AuthViewModel(private val authRepo: AuthRepo) : ViewModel() {
 
     private val _authResult = MutableLiveData<Pair<Boolean, String?>>()
     val authResult: LiveData<Pair<Boolean, String?>> get() = _authResult
+
 
     fun registerUser(email: String, password: String){
         authRepo.registerUser(email, password) { success, message ->
@@ -20,9 +22,5 @@ class AuthViewModel(private val authRepo: AuthRepo) : ViewModel() {
         authRepo.loginUser(email, password) { success, message ->
             _authResult.value = Pair(success, message)
         }
-    }
-
-    fun logout(){
-        authRepo.logout()
     }
 }

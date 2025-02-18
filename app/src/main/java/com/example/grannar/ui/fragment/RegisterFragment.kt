@@ -1,4 +1,4 @@
-package com.example.grannar.ui
+package com.example.grannar.ui.fragment
 
 import android.content.Intent
 import android.os.Bundle

@@ -1,7 +1,10 @@
 package com.example.grannar.data.firebase
 
 import android.util.Log
+
 import com.example.grannar.data.model.ChatMessage
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.grannar.data.model.User
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
@@ -56,6 +59,7 @@ class FirebaseManager {
                 }
             }
     }
+
 
     fun logout(){
         auth.signOut()
@@ -252,5 +256,6 @@ class FirebaseManager {
                 onResult(false, "Failed to fetch group data: ${exception.message}")
             }
     }
+
 }
 
