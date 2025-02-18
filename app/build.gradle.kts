@@ -19,7 +19,10 @@ android {
     }
 
     buildFeatures {
-        viewBinding = true }
+        viewBinding = true
+        //noinspection DataBindingWithoutKapt
+        dataBinding = true
+    }
 
     buildTypes {
         release {
@@ -53,4 +56,6 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+
 }

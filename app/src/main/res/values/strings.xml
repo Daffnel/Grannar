@@ -2,4 +2,24 @@
     <string name="app_name">Grannar</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="btnLabel_calendar">Kalender</string>
+    <string name="btn_label_calender_previous">Föregående</string>
+    <string name="btn_label_next">Nästa</string>
+    <string name="calendar_label_monday">Mån</string>
+    <string name="calendar_label_thuesday">Tis</string>
+    <string name="calendar_label_wensday">Ons</string>
+    <string name="calendar_label_wendsday">Ons</string>
+    <string name="calendar_label_torsdag">Tor</string>
+    <string name="calendar_label_friday">fredag</string>
+    <string name="calendar_label_saturday">Lör</string>
+    <string name="calendar_label_sunday">Sön</string>
+    <string name="btn_calendar_label_prev_month">Bakåt</string>
+    <string name="btn_label_calender_next_month">Framåt</string>
+    <string name="calendar_label_mandag">Mån</string>
+    <string name="calendar_label_tisdag">Tis</string>
+    <string name="calendar_label_onsdag">Ons</string>
+    <string name="calendar_label_torsda">Tors</string>
+    <string name="calendar_label_fredag">Fre</string>
+    <string name="calendar_label_lordag">Lör</string>
+    <string name="calendar_label_sondag">Sön</string>
 </resources>

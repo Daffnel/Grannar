@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/border"
+        android:layout_marginTop="16dp"
+        android:padding="8dp">
+
+
+
+        <Button
+            android:id="@+id/btnPrevMonth"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/green"
+            android:shadowColor="#000000"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            android:shadowRadius="5"
+            android:text="@string/btn_calendar_label_prev_month"
+            android:textColor="@color/powder" />
+
+        <TextView
+            android:id="@+id/tvCalendarMontYear"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            android:fontFamily="casual"
+            android:gravity="center"
+            android:text="Feb 2025"
+            android:textColor="@color/dark_blue"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+
+        <Button
+            android:id="@+id/btnNextMonth"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/green"
+            android:shadowColor="#000000"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            android:shadowRadius="5"
+            android:text="@string/btn_label_calender_next_month"
+            android:textColor="@color/powder" />
+
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border"
+        android:padding="8dp"
+        android:layout_marginTop="2dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="casual"
+            android:text="@string/calendar_label_mandag"
+            android:textAlignment="center"
+            android:textColor="@color/dark_blue"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="casual"
+            android:text="@string/calendar_label_tisdag"
+            android:textAlignment="center"
+            android:textColor="@color/dark_blue"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="casual"
+            android:text="@string/calendar_label_onsdag"
+            android:textAlignment="center"
+            android:textColor="@color/dark_blue"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="casual"
+            android:text="@string/calendar_label_torsda"
+            android:textAlignment="center"
+            android:textColor="@color/dark_blue"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="casual"
+            android:text="@string/calendar_label_fredag"
+            android:textAlignment="center"
+            android:textColor="@color/dark_blue"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="casual"
+            android:text="@string/calendar_label_lordag"
+            android:textAlignment="center"
+            android:textColor="@color/dark_blue"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="casual"
+            android:text="@string/calendar_label_sondag"
+            android:textAlignment="center"
+            android:textColor="@color/dark_blue"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+
+    </LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/calenderRecyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border"
+        android:layout_marginTop="4dp"/>
+</LinearLayout>
