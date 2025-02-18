@@ -7,25 +7,29 @@
     android:background="@color/powder">
 
     <ImageView
+        android:id="@+id/imageView"
         android:layout_width="75dp"
         android:layout_height="75dp"
+        android:layout_marginTop="20dp"
         android:src="@drawable/neighbors_icon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toEndOf="@+id/button_backProfile"
-        tools:layout_editor_absoluteY="16dp" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/button_backProfile"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:src="@drawable/back_icon"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.069"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="37dp" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
+        android:id="@+id/editTextName"
         android:layout_width="321dp"
         android:layout_height="45dp"
         android:background="@drawable/border1"
@@ -33,13 +37,15 @@
         android:drawablePadding="10dp"
         android:hint="Name"
         android:padding="10dp"
+        android:layout_marginTop="20dp"
         android:focusable="false"
         android:inputType="none"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="176dp" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <EditText
+        android:id="@+id/editTextAge"
         android:layout_width="321dp"
         android:layout_height="45dp"
         android:background="@drawable/border1"
@@ -51,9 +57,10 @@
         android:inputType="none"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="229dp" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextName" />
 
     <EditText
+        android:id="@+id/editTextCity"
         android:layout_width="321dp"
         android:layout_height="45dp"
         android:background="@drawable/border1"
@@ -65,9 +72,10 @@
         android:inputType="none"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="281dp" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextAge" />
 
     <EditText
+        android:id="@+id/editTextInterest"
         android:layout_width="321dp"
         android:layout_height="45dp"
         android:background="@drawable/border1"
@@ -77,9 +85,10 @@
         android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="334dp" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextCity" />
 
     <EditText
+        android:id="@+id/editTextBio"
         android:layout_width="321dp"
         android:layout_height="250dp"
         android:background="@drawable/border1"
@@ -90,6 +99,21 @@
         android:inputType="none"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="388dp" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextInterest" />
+
+    <Button
+        android:id="@+id/btnSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="36dp"
+        android:backgroundTint="@color/green"
+        android:text="Save"
+        android:textColor="@color/powder"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

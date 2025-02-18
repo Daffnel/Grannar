@@ -13,7 +13,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toEndOf="@+id/button_backProfile"
-        tools:layout_editor_absoluteY="16dp" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/button_backProfile"
@@ -27,6 +27,7 @@
 
 
     <EditText
+        android:id="@+id/editText"
         android:layout_width="321dp"
         android:layout_height="45dp"
         android:background="@drawable/border1"

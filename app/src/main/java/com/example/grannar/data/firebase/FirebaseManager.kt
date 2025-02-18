@@ -65,6 +65,42 @@ class FirebaseManager {
         auth.signOut()
     }
 
+    fun updateUserProfile(name: String, age: Int, city: String, bio: String, interests: List<String>, callback: (Boolean, String?) -> Unit){
+        val userId = auth.currentUser?.uid ?: return
+
+        val userUpdate = mapOf(
+            "name" to name,
+            "age" to age,
+            "city" to city,
+            "bio" to bio,
+            "interests" to interests
+        )
+
+        db.collection("users").document(userId)
+            .update(userUpdate)
+            .addOnSuccessListener {
+                callback(true, "Profile updated!")
+            }
+            .addOnFailureListener { e ->
+                callback(false, e.localizedMessage)
+            }
+    }
+
+    fun getUserProfile(callback: (User?) -> Unit){
+        val userId = auth.currentUser?.uid ?: return
+
+        db.collection("users").document(userId)
+            .get()
+            .addOnSuccessListener { document ->
+                val user = document.toObject(User::class.java)
+                callback(user)
+            }
+            .addOnFailureListener {
+                callback(null)
+            }
+    }
+
+
     //fun sendmessage
 
     fun sendMessage(chatId: String, message: ChatMessage, onResult: (Boolean, String) -> Unit) {
