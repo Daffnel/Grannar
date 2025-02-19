@@ -1,13 +1,14 @@
 package com.example.grannar.data.Calender
 
 data class EventsData(
-    val day: Int,
-    val month: Int,
-    val year: Int,
-    val title: String,
-    val moreInfo: String,
-    var attend: Boolean
+    val day: Int = 0,
+    val month: Int = 0,
+    val year: Int = 0,
+    val title: String = "",
+    val moreInfo: String = "",
+    var attend: Boolean = false
 ) {
+
 
 
     companion object {
