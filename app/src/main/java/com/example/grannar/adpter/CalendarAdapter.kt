@@ -47,9 +47,9 @@ class CalendarAdapter(var dayOfMonth: ArrayList<String>): RecyclerView.Adapter<C
 
         holder.tvDayOfMonth.text = dayOfMonth[position]
 
-            if(daySelected == position){
-                holder.tvDayOfMonth.setBackgroundResource(R.drawable.calender_selected)
-            }
+        if (daySelected == position) {
+            holder.tvDayOfMonth.setBackgroundResource(R.drawable.calender_selected)
+        }
 
         holder.tvDayOfMonth.setOnClickListener {
             daySelected = position  // Uppdatera valt datum

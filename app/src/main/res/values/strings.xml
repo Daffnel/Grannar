@@ -22,4 +22,12 @@
     <string name="calendar_label_fredag">Fre</string>
     <string name="calendar_label_lordag">Lör</string>
     <string name="calendar_label_sondag">Sön</string>
+    <string name="calendar_addEvent_button">Lägg till aktvivitet</string>
+    <string name="Caelnder_title_demo">Sön 3 Mars</string>
+    <string name="Calendar_demo_text">Grilla Med Bosse och Måns</string>
+    <string name="calender_popup_title">Event Titel</string>
+    <string name="calender_popup_dateAndTime">Datum: 12/2/2025</string>
+    <string name="calendar_popup_moreinfo">Här Kommer all världens info om eventet</string>
+    <string name="calendar_popup_accept">Deltar</string>
+    <string name="calendar_popup_not_intressted">inte Intresserad</string>
 </resources>
