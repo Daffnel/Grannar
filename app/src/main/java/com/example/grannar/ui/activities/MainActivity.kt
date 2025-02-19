@@ -8,7 +8,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.grannar.R
 import com.example.grannar.databinding.ActivityMainBinding
 import com.example.grannar.ui.fragment.LoginFragment
-
+//hej test
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
 
