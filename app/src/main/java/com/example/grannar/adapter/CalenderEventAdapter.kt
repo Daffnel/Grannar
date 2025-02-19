@@ -1,4 +1,4 @@
-package com.example.grannar.adpter
+package com.example.grannar.adapter
 
 import android.util.Log
 import android.view.LayoutInflater
