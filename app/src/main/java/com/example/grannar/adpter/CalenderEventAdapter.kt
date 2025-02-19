@@ -12,7 +12,7 @@ import com.example.grannar.data.Calender.EventsData
 
 
 class CalenderEventAdapter(
-    val events: List<EventsData>,
+    var events: List<EventsData>,
     val listener: OnItemClickListener): RecyclerView.Adapter<CalenderEventAdapter.ViewHolder>(){
 
 
@@ -38,6 +38,11 @@ class CalenderEventAdapter(
 
             }
         }
+
+    fun updateData(newEvents: List<EventsData>){
+        events = newEvents
+        notifyDataSetChanged()
+    }
 
 
 
