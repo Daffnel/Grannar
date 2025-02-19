@@ -1,11 +1,8 @@
-package com.example.grannar.adpter
+package com.example.grannar.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.grannar.R
 import com.example.grannar.data.model.ChatMessage
 import com.example.grannar.databinding.ItemReceiveBinding
 import com.example.grannar.databinding.ItemSendBinding
