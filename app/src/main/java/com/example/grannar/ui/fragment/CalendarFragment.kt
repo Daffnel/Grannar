@@ -10,6 +10,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.get
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,8 +18,12 @@ import com.example.grannar.R
 import com.example.grannar.adpter.CalendarAdapter
 import com.example.grannar.adpter.CalenderEventAdapter
 import com.example.grannar.data.Calender.EventsData
+import com.example.grannar.data.repository.EventsRepository
 import com.example.grannar.databinding.FragmentCalendarBinding
 import com.example.grannar.ui.viewmodel.CalendarViewModel
+import com.example.grannar.ui.viewmodel.CalenderViewModelFactory
+import com.example.grannar.ui.viewmodel.ProfileViewModel
+import com.example.grannar.ui.viewmodel.ProfileViewModelFactory
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.time.LocalDate
 
@@ -26,23 +31,18 @@ import java.time.LocalDate
 class CalendarFragment : Fragment(), CalenderEventAdapter.OnItemClickListener {
 
     private lateinit var viewModel: CalendarViewModel
-
+    private val eventsRepository = EventsRepository()
     private var _binding: FragmentCalendarBinding? = null
     private val binding get() = _binding!!
 
 
-    private var layoutManager: RecyclerView.LayoutManager? = null
-    private var adapter: RecyclerView.Adapter<CalendarAdapter.ViewHolder>? = null
+    private lateinit var layoutManagerEvents: LinearLayoutManager
+    private lateinit var adapterEvents: CalenderEventAdapter
 
-    private var layoutManagerEvents: RecyclerView.LayoutManager? = null
-    private var adapterEvents: RecyclerView.Adapter<CalenderEventAdapter.ViewHolder>? = null
+    private var selectedYear = LocalDate.now().year
+    private var selectedMonth = LocalDate.now().monthValue
 
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this)[CalendarViewModel::class.java]
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,50 +50,55 @@ class CalendarFragment : Fragment(), CalenderEventAdapter.OnItemClickListener {
     ): View? {
         // Inflate the layout for this fragment
        _binding = FragmentCalendarBinding.inflate(inflater, container,false)
-
-
-        setup()
-
-
-        binding.btnNextMonth.setOnClickListener {
-        showNextMoth()
-    }
-
-    binding.btnPrevMonth.setOnClickListener{
-        showPrevMoth()
-    }
-
         return binding.root
     }
 
-    private fun setup() {
-        viewModel.selectedDate = LocalDate.now()
-        setMonthView()
-        setEventsView()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        viewModel = ViewModelProvider(this, CalenderViewModelFactory(eventsRepository)).get(CalendarViewModel::class.java)
+
+        setupRecyclerView()
+
+        viewModel.getEvents(selectedYear, selectedMonth)
+
+        viewModel.events.observe(viewLifecycleOwner) { eventList ->
+            adapterEvents.updateData(eventList)
+        }
+
+
+        binding.btnNextMonth.setOnClickListener {
+            showNextMoth()
+        }
+
+        binding.btnPrevMonth.setOnClickListener {
+            showPrevMoth()
+        }
     }
 
-    private fun setEventsView() {
 
-        //Mockup data
-        val mockUpList: List<EventsData> = EventsData.mockUpData()
-
+    private fun setupRecyclerView() {
         layoutManagerEvents = LinearLayoutManager(requireContext())
-
         binding.eventsRecyclerView.layoutManager = layoutManagerEvents
-        adapterEvents = CalenderEventAdapter(mockUpList,this)
+
+        adapterEvents = CalenderEventAdapter(emptyList(), this)
         binding.eventsRecyclerView.adapter = adapterEvents
+
     }
 
     private fun showPrevMoth() {
 
         viewModel.selectedDate = viewModel.selectedDate.minusMonths(1)
         setMonthView()
-        
+
+        viewModel.getEvents(viewModel.selectedDate.year, viewModel.selectedDate.monthValue)
     }
 
     private fun showNextMoth() {
         viewModel.selectedDate = viewModel.selectedDate.plusMonths(1)
         setMonthView()
+
+        viewModel.getEvents(viewModel.selectedDate.year, viewModel.selectedDate.monthValue)
     }
 
     fun setMonthView(){
@@ -102,10 +107,9 @@ class CalendarFragment : Fragment(), CalenderEventAdapter.OnItemClickListener {
 
         val daysInMonth: ArrayList<String> = viewModel.daysInMonthArray(viewModel.selectedDate)
 
-        layoutManager = GridLayoutManager(requireContext(), 7)
-
+        val layoutManager = GridLayoutManager(requireContext(), 7)
         binding.calenderRecyclerview.layoutManager = layoutManager
-        adapter = CalendarAdapter(daysInMonth)
+        val adapter = CalendarAdapter(daysInMonth)
         binding.calenderRecyclerview.adapter = adapter
 
 

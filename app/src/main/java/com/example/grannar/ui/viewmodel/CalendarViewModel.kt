@@ -1,22 +1,25 @@
 package com.example.grannar.ui.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.grannar.data.Calender.EventsData
+import com.example.grannar.data.repository.EventsRepository
 import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
 
-class CalendarViewModel: ViewModel() {
+class CalendarViewModel(private val repository: EventsRepository): ViewModel() {
 
-    lateinit var selectedDate: LocalDate
+    var selectedDate: LocalDate = LocalDate.now()
 
-    val selectedEvent = MutableLiveData<EventsData>()
+    private val _events = MutableLiveData<List<EventsData>>()
+    val events: LiveData<List<EventsData>> get() = _events
 
-    fun selectEvent(event: EventsData){
-
-        selectedEvent.value = event
-
+    fun getEvents(year: Int, month: Int){
+        repository.getEventsForMonth(year, month){ eventList ->
+            _events.value = eventList
+        }
     }
 
     // TODO Sorter ut Events efter månad
