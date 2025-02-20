@@ -15,8 +15,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.grannar.R
-import com.example.grannar.adpter.CalendarAdapter
-import com.example.grannar.adpter.CalenderEventAdapter
+import com.example.grannar.adapter.CalendarAdapter
+import com.example.grannar.adapter.CalenderEventAdapter
 import com.example.grannar.data.Calender.EventsData
 import com.example.grannar.data.repository.EventsRepository
 import com.example.grannar.databinding.FragmentCalendarBinding

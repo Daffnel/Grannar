@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.grannar.adpter.ChatAdapter
+import com.example.grannar.adapter.ChatAdapter
 import com.example.grannar.data.firebase.FirebaseManager
 import com.example.grannar.data.model.ChatMessage
 import com.example.grannar.databinding.FragmentChatBinding
