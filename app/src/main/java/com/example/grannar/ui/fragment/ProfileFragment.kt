@@ -50,9 +50,6 @@ class ProfileFragment : Fragment() {
             }
         }
 
-
-
-
         binding.btnSave.setOnClickListener {
             val name = binding.editTextName.text.toString()
             val age = binding.editTextAge.text.toString().toIntOrNull() ?: 0

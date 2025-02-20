@@ -3,13 +3,14 @@ package com.example.grannar.ui.activities
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.setupWithNavController
 import com.example.grannar.R
 import com.example.grannar.databinding.ActivityHomeBinding
+import com.example.grannar.ui.fragment.CalendarFragment
+import com.example.grannar.ui.fragment.ChatFragment
+import com.example.grannar.ui.fragment.ProfileFragment
 import com.example.grannar.ui.viewmodel.UserStatusViewModel
-import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class HomeActivity : AppCompatActivity() {
 
@@ -32,6 +33,32 @@ class HomeActivity : AppCompatActivity() {
                 startActivity(intent)
             }
         }
-
+            binding.ibCalendar.setOnClickListener{
+                useOfImageButton(CalendarActivity::class.java)
+            }
+            binding.ibChat.setOnClickListener{
+                useOfImageButton(ChatFragment())
+            }
+            binding.ibHome.setOnClickListener{
+                useOfImageButton(HomeActivity::class.java)
+            }
+           // binding.ibGroup.setOnClickListener{
+           //     useOfImageButton(GroupFragment())
+           // }
+            binding.ibProfile.setOnClickListener{
+                useOfImageButton(ProfileFragment())
+            }
+    }
+    private fun useOfImageButton(destination: Any){
+        when (destination) {
+            is Fragment ->{
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, destination)
+            .addToBackStack(null)
+            .commit()
+        } is Class<*> -> {
+            val intent = Intent(this, destination)
+            startActivity(intent)
+        }        }
     }
 }
