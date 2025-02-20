@@ -18,7 +18,8 @@ class CalendarViewModel(private val repository: EventsRepository): ViewModel() {
 
     fun getEvents(year: Int, month: Int){
         repository.getEventsForMonth(year, month){ eventList ->
-            _events.value = eventList
+            val sortedList = eventList.sortedBy { it.day }
+            _events.value = sortedList
         }
     }
 
