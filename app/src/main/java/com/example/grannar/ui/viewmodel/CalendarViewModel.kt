@@ -22,10 +22,6 @@ class CalendarViewModel(private val repository: EventsRepository): ViewModel() {
         }
     }
 
-    // TODO Sorter ut Events efter månad
-
-
-
 
 
 
