@@ -4,12 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.setupWithNavController
-import com.example.grannar.R
 import com.example.grannar.databinding.ActivityHomeBinding
 import com.example.grannar.ui.viewmodel.UserStatusViewModel
-import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class HomeActivity : AppCompatActivity() {
 
