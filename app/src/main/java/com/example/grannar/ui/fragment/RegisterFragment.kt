@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.grannar.R
 import com.example.grannar.databinding.FragmentRegisterBinding
 import com.example.grannar.ui.activities.HomeActivity
 import com.example.grannar.ui.viewmodel.AuthViewModel
@@ -51,9 +52,10 @@ class RegisterFragment : Fragment() {
         authViewModel.authResult.observe(viewLifecycleOwner) { (success, message) ->
             if (success){
                 Toast.makeText(requireContext(), "$message!", Toast.LENGTH_SHORT).show()
-                val intent = Intent(requireContext(), HomeActivity::class.java)
-                startActivity(intent)
-                requireActivity().finish()
+               parentFragmentManager.beginTransaction()
+                   .replace(R.id.main, ProfileFragment())
+                   .addToBackStack(null)
+                   .commit()
             } else{
                 Toast.makeText(requireContext(), "$message!", Toast.LENGTH_SHORT).show()
             }
