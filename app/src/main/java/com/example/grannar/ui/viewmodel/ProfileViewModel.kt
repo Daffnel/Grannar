@@ -20,6 +20,7 @@ class ProfileViewModel(private val firebaseManager: FirebaseManager) : ViewModel
             _updateStatus.value = Pair(success, message)
         }
     }
+
     fun getUserProfile(){
         firebaseManager.getUserProfile { user ->
             _userProfile.value = user

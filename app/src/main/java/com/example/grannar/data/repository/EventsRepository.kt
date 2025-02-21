@@ -1,6 +1,7 @@
 package com.example.grannar.data.repository
 
 import android.util.Log
+import android.widget.Toast
 import com.example.grannar.adapter.CalenderEventAdapter
 import com.example.grannar.data.Calender.EventsData
 import com.google.firebase.Firebase
@@ -57,6 +58,19 @@ class EventsRepository {
             }
             .addOnFailureListener {
                 callback(emptyList())
+            }
+    }
+
+    //Function to add event objects to firestore
+    fun addEventToFirebase(event: EventsData){
+        db.collection("events")
+            .document(event.id)
+            .set(event)
+            .addOnSuccessListener {
+                Log.i("Firebase", "Event added!")
+            }
+            .addOnFailureListener { e ->
+                Log.e("Firebase", "Failed to add event", e)
             }
     }
 
