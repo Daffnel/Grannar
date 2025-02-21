@@ -45,7 +45,7 @@ class LoginFragment : Fragment() {
         //TODO needs to go to register fragment, remember to add the fragment to the backstack
         gotToRegister.setOnClickListener {
             parentFragmentManager.beginTransaction()
-                .replace(R.id.main, CalendarFragment())
+                .replace(R.id.main, RegisterFragment())
                 .addToBackStack(null)
                 .commit()
         }
