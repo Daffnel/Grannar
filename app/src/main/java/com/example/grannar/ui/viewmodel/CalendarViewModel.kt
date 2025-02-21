@@ -1,5 +1,6 @@
 package com.example.grannar.ui.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,14 +14,27 @@ class CalendarViewModel(private val repository: EventsRepository): ViewModel() {
 
     var selectedDate: LocalDate = LocalDate.now()
 
+    //kopplade till kalendern
     private val _events = MutableLiveData<List<EventsData>>()
     val events: LiveData<List<EventsData>> get() = _events
 
-    fun getEvents(year: Int, month: Int){
+    fun getEvents(year: Int, month: Int){                           //hämtar aktiviteter per månad
         repository.getEventsForMonth(year, month){ eventList ->
             _events.value = eventList
         }
     }
+
+   //koplade till att visa aktuella Aktiviteter i hem skärmen
+    private val _eventsHomeDisplay = MutableLiveData<List<EventsData>>()
+    val  eventsHomeDisplay: LiveData<List<EventsData>> get() = _eventsHomeDisplay
+
+    fun getEventsHomeDisply(){
+        repository.getAttendEvents(){ attendedList ->
+            Log.d("!!!", "Attended List: $attendedList") //TODO test
+            _eventsHomeDisplay.value = attendedList
+        }
+    }
+        //Todo ta bort endast för testning
 
 
 

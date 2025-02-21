@@ -5,12 +5,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activities.HomeActivity">
+    tools:context=".ui.activities.HomeActivity"
+    android:layout_marginTop="20dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_homescreen1"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginBottom="4dp"
         android:background="@drawable/border1"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,6 +26,7 @@
         android:id="@+id/rv_homescreen2"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginBottom="4dp"
         android:background="@drawable/border1"
         app:layout_constraintTop_toBottomOf="@id/rv_homescreen1"
         app:layout_constraintStart_toStartOf="parent"

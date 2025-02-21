@@ -59,6 +59,8 @@ class CalendarFragment : Fragment(), CalenderEventAdapter.OnItemClickListener {
 
         setupRecyclerView()
 
+        viewModel.getEventsHomeDisply() //TODO test
+
         viewModel.getEvents(selectedYear, selectedMonth)
 
         viewModel.events.observe(viewLifecycleOwner) { eventList ->
