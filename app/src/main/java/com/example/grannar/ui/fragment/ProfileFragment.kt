@@ -1,5 +1,6 @@
 package com.example.grannar.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.provider.ContactsContract.Profile
 import androidx.fragment.app.Fragment
@@ -13,6 +14,7 @@ import com.example.grannar.R
 import com.example.grannar.data.firebase.FirebaseManager
 import com.example.grannar.databinding.FragmentLoginBinding
 import com.example.grannar.databinding.FragmentProfileBinding
+import com.example.grannar.ui.activities.HomeActivity
 import com.example.grannar.ui.viewmodel.ProfileViewModel
 import com.example.grannar.ui.viewmodel.ProfileViewModelFactory
 
@@ -45,6 +47,9 @@ class ProfileFragment : Fragment() {
         viewModel.updateStatus.observe(viewLifecycleOwner){ (success, message) ->
             if (success){
                 Toast.makeText(requireContext(), "Profile Updated", Toast.LENGTH_SHORT).show()
+                val intent = Intent(requireContext(), HomeActivity::class.java)
+                startActivity(intent)
+                requireActivity().finish()
             }else {
                 Toast.makeText(requireContext(), "Error: $message", Toast.LENGTH_SHORT).show()
             }
