@@ -30,4 +30,6 @@
     <string name="calendar_popup_moreinfo">Här Kommer all världens info om eventet</string>
     <string name="calendar_popup_accept">Deltar</string>
     <string name="calendar_popup_not_intressted">inte Intresserad</string>
+    <string name="Calender_dialog_reg_newEvent">Registrera ny Aktivitet</string>
+    <string name="registrera_ny_aktvitet">Registrera ny aktvitet</string>
 </resources>

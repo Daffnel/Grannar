@@ -1,19 +1,20 @@
 package com.example.grannar.ui.fragment
-
+import android.app.DatePickerDialog
+import android.icu.util.Calendar
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.grannar.R
 import com.example.grannar.adapter.CalendarAdapter
 import com.example.grannar.adapter.CalenderEventAdapter
@@ -22,8 +23,6 @@ import com.example.grannar.data.repository.EventsRepository
 import com.example.grannar.databinding.FragmentCalendarBinding
 import com.example.grannar.ui.viewmodel.CalendarViewModel
 import com.example.grannar.ui.viewmodel.CalenderViewModelFactory
-import com.example.grannar.ui.viewmodel.ProfileViewModel
-import com.example.grannar.ui.viewmodel.ProfileViewModelFactory
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.time.LocalDate
 
@@ -39,7 +38,7 @@ class CalendarFragment : Fragment(), CalenderEventAdapter.OnItemClickListener {
     private lateinit var layoutManagerEvents: LinearLayoutManager
     private lateinit var adapterEvents: CalenderEventAdapter
 
-    private var selectedYear = LocalDate.now().year
+   private var selectedYear = LocalDate.now().year
     private var selectedMonth = LocalDate.now().monthValue
 
 
@@ -47,7 +46,7 @@ class CalendarFragment : Fragment(), CalenderEventAdapter.OnItemClickListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
        _binding = FragmentCalendarBinding.inflate(inflater, container,false)
         return binding.root
@@ -56,7 +55,7 @@ class CalendarFragment : Fragment(), CalenderEventAdapter.OnItemClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(this, CalenderViewModelFactory(eventsRepository)).get(CalendarViewModel::class.java)
+        viewModel = ViewModelProvider(this, CalenderViewModelFactory(eventsRepository))[CalendarViewModel::class.java]
 
         setupRecyclerView()
 
@@ -73,6 +72,11 @@ class CalendarFragment : Fragment(), CalenderEventAdapter.OnItemClickListener {
 
         binding.btnPrevMonth.setOnClickListener {
             showPrevMoth()
+        }
+
+        binding.btnAddEvent.setOnClickListener {
+             addNewEventPopUp()
+            //Toast.makeText(context, "knappjäveln fungerar", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -111,6 +115,82 @@ class CalendarFragment : Fragment(), CalenderEventAdapter.OnItemClickListener {
         binding.calenderRecyclerview.layoutManager = layoutManager
         val adapter = CalendarAdapter(daysInMonth)
         binding.calenderRecyclerview.adapter = adapter
+
+
+    }
+
+    //en popup för att kunna registera een ny aktivitet
+
+    private fun addNewEventPopUp(){
+
+        val vy= layoutInflater.inflate(R.layout.calender_make_new_event_dialog,null)
+
+        val builder = AlertDialog.Builder(requireContext())
+
+        builder.setView(vy)
+
+        val popupMenu = builder.create()
+
+        val btnPickDate: ImageButton = vy.findViewById(R.id.btnNewEventPopUpPickDate)
+        val tvSelectedDate: TextView = vy.findViewById(R.id.tvNewEventPopUpSelectedDate)
+        val btnAddEvent: Button = vy.findViewById(R.id.btnAddNewEventPopUp)
+        val btnCancel: Button = vy.findViewById(R.id.btnbtnAddNewEventPopUpCancel)
+
+
+
+
+
+        btnAddEvent.setOnClickListener {
+
+        }
+
+        btnCancel.setOnClickListener {
+
+            popupMenu.dismiss()         //Stänger popupmenyn
+
+            Log.d("!!!","Stänger")
+        }
+
+        btnPickDate.setOnClickListener {
+            showDatePicDialog(tvSelectedDate)
+
+        }
+
+
+
+        popupMenu.show()
+
+
+    }
+    fun showDatePicDialog(choosenDate: TextView): IntArray {
+
+        val calendar = Calendar.getInstance()   //hämta dagens datum (år, månad och dag)
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+
+        val date = IntArray(3)
+
+        val datePickerDialog = DatePickerDialog(requireContext(),{ _, selectedYear, selectedMonth , selectedDay ->
+            date[0] = selectedYear
+            date[1] = selectedMonth + 1             //obs!! månaderna går 0 till 11
+            date[2] = selectedDay
+
+            val dayMonthText = EventsData.makeDayMonth(selectedDay,selectedMonth +1)     //snygga till det i formatet 1 mars
+            val formatedText = "Valt datum: $dayMonthText $selectedYear"
+            choosenDate.text = formatedText
+
+        }, year, month, day)        //öppna med dagens datum
+
+
+
+
+        datePickerDialog.show()
+
+
+
+        return date
 
 
     }
@@ -156,8 +236,6 @@ class CalendarFragment : Fragment(), CalenderEventAdapter.OnItemClickListener {
 
      }
 
-    fun onItemClick(event: EventsData) {
-        Toast.makeText(requireContext(), "Du klickade på ${event.title}", Toast.LENGTH_SHORT).show()    }
 
     override fun onDestroy() {
         super.onDestroy()

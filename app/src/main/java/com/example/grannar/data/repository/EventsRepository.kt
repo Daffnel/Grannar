@@ -26,4 +26,6 @@ class EventsRepository {
                 callback(emptyList())
             }
     }
+
+   // fun saveEventToDB(title: String, moreInfo: String, )
 }
