@@ -4,10 +4,19 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.grannar.adapter.HomeScreenAdapter
+import com.example.grannar.data.Calender.EventsData
 import com.example.grannar.databinding.ActivityHomeBinding
 import com.example.grannar.ui.viewmodel.UserStatusViewModel
 
 class HomeActivity : AppCompatActivity() {
+
+    //Recycler view i topp för kommande aktiviteter
+    private var layoutManagerEvent: RecyclerView.LayoutManager? = null
+    private var adapterEvent: RecyclerView.Adapter<HomeScreenAdapter.ViewHolder>? = null
+
 
     private lateinit var binding: ActivityHomeBinding
     private lateinit var userStatusViewModel: UserStatusViewModel
@@ -29,5 +38,23 @@ class HomeActivity : AppCompatActivity() {
             }
         }
 
+        /* TESTING  skapar lite test data */
+
+        val testLista: List<EventsData> = EventsData.mockUpData()
+
+        showRecyclerviewTop(testLista)
+
+
+
     }
+
+    fun showRecyclerviewTop(lista: List<EventsData>){
+        layoutManagerEvent = LinearLayoutManager(this)
+        binding.rvHomescreen1.layoutManager =layoutManagerEvent
+        adapterEvent = HomeScreenAdapter(lista)
+        binding.rvHomescreen1.adapter = adapterEvent
+
+
+    }
+
 }
