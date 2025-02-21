@@ -19,8 +19,4 @@ class UserStatusViewModel: ViewModel() {
             _userStatus.value = firebaseAuth.currentUser != null
         }
     }
-
-    fun logout(){
-        auth.signOut()
-    }
 }
