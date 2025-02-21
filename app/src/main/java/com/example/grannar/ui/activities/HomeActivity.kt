@@ -40,9 +40,9 @@ class HomeActivity : AppCompatActivity() {
 
         /* TESTING  skapar lite test data */
 
-        val testLista: List<EventsData> = EventsData.mockUpData()
-
-        showRecyclerviewTop(testLista)
+//        val testLista: List<EventsData> = EventsData.mockUpData()
+//
+//        showRecyclerviewTop(testLista)
 
 
 
