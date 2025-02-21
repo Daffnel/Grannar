@@ -9,6 +9,8 @@ import com.google.firebase.firestore.toObject
 class EventsRepository {
     private val db = Firebase.firestore
 
+    //Get the events from firestore if the chosen year and month matches anything in the database
+    //Returns a list of matched events
     fun getEventsForMonth(year: Int, month: Int, callback: (List<EventsData>) -> Unit){
         db.collection("events")
             .whereEqualTo("year", year)

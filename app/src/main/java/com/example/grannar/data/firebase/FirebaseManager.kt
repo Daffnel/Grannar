@@ -16,6 +16,7 @@ class FirebaseManager {
     private val db = Firebase.firestore
     private val auth = FirebaseAuth.getInstance()
 
+    //Function to register the user with firebase authentication also calls the saveNewUser if successful
     fun registerUser(email: String, password: String, onResult: (Boolean, String) -> Unit) {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
@@ -34,8 +35,8 @@ class FirebaseManager {
             }
     }
 
+    //Function to save the user to firestore database with userId and Email
     fun saveNewUser(user: User, onResult: (Boolean, String) -> Unit){
-        //Get the users ID from Firebase Auth and return out of the function if no user is logged in
         val userId = auth.currentUser?.uid ?: return
 
         //Create new user document in Firestore
@@ -49,6 +50,7 @@ class FirebaseManager {
             }
     }
 
+    //Function to login with firebase authentication
     fun loginUser(email: String, password: String, onResult: (Boolean, String) -> Unit){
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
@@ -65,6 +67,7 @@ class FirebaseManager {
         auth.signOut()
     }
 
+    //Function to update the other fields of the user thats logged in thru the profile
     fun updateUserProfile(name: String, age: Int, city: String, bio: String, interests: List<String>, callback: (Boolean, String?) -> Unit){
         val userId = auth.currentUser?.uid ?: return
 
@@ -86,6 +89,7 @@ class FirebaseManager {
             }
     }
 
+    //Function to get the currently logged in user to update the information fields in the profile
     fun getUserProfile(callback: (User?) -> Unit){
         val userId = auth.currentUser?.uid ?: return
 
