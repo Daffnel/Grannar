@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Layout for Search Bar -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:layout_marginBottom="9dp">
+
+        <!-- EditText for Search -->
+
+
+        <EditText
+            android:id="@+id/etSearch"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:layout_marginLeft="12dp"
+            android:layout_marginBottom="9dp"
+            android:hint="   Search groups by name"
+            android:drawableLeft="@drawable/search_icon"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:maxLines="1"
+            android:ellipsize="end"/>
+
+
+
+    </LinearLayout>
+
+    <!-- Progress Bar for loading data -->
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="invisible" />
+
+
+    <!-- RecyclerView for displaying results -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvChatGroups"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="5dp"/>
+
+</LinearLayout>
