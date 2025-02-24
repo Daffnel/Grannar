@@ -13,6 +13,8 @@ class GroupAdapter(
     private val itemClickListener: (Group) -> Unit
 ) : RecyclerView.Adapter<GroupAdapter.GroupViewHolder>() {
 
+    private var filteredList: List<Group> = groupList
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GroupViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_group_chatt, parent, false)
         return GroupViewHolder(view)
@@ -23,13 +25,24 @@ class GroupAdapter(
         holder.bind(group)
     }
 
-    override fun getItemCount(): Int = groupList.size
+    override fun getItemCount(): Int = filteredList.size
 
     // Function to update the list and notify RecyclerView of changes
     fun updateData(newGroups: List<Group>) {
         groupList = newGroups
+        filteredList = newGroups
         notifyDataSetChanged() // Notify the adapter that the data has changed
     }
+    // Function to filter the list based on the query
+    fun filter(query: String) {
+        filteredList = if (query.isEmpty()) {
+            groupList
+        } else {
+            groupList.filter { it.groupName.contains(query, ignoreCase = true) }
+        }
+        notifyDataSetChanged()
+    }
+
 
     inner class GroupViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val groupNameTextView: TextView = itemView.findViewById(R.id.groupNameTextView)
@@ -43,4 +56,7 @@ class GroupAdapter(
             }
         }
     }
+
+
+
 }
