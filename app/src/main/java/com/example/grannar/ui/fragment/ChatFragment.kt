@@ -21,6 +21,7 @@ class ChatFragment : Fragment() {
     private lateinit var chatId: String
     private lateinit var currentUserId: String
     private lateinit var receiverId: String
+    private lateinit var groupName: String
 
     private val messagesList = mutableListOf<ChatMessage>()
 
@@ -39,7 +40,13 @@ class ChatFragment : Fragment() {
         arguments?.let {
             currentUserId = it.getString("currentUserId") ?: ""
             receiverId = it.getString("receiverId") ?: ""
+            groupName = it.getString("GROUP_NAME") ?: ""
+
+
         }
+
+        // Set the group name in the UI
+        binding.groupName.text = groupName
 
         // creat unic chatId
         chatId = generateUniqueChatId()
