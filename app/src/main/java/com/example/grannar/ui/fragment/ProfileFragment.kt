@@ -1,5 +1,4 @@
 package com.example.grannar.ui.fragment
-
 import android.content.Intent
 import android.os.Bundle
 import android.provider.ContactsContract.Profile
@@ -53,6 +52,10 @@ class ProfileFragment : Fragment() {
             }else {
                 Toast.makeText(requireContext(), "Error: $message", Toast.LENGTH_SHORT).show()
             }
+        }
+
+        binding.buttonBackProfile.setOnClickListener {
+            requireActivity().supportFragmentManager.popBackStack()
         }
 
 
