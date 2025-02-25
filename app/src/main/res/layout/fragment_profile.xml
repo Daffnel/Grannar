@@ -97,7 +97,7 @@
         android:id="@+id/btnSave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="36dp"
+        android:layout_marginBottom="100dp"
         android:backgroundTint="@color/green"
         android:text="Save"
         android:textColor="@color/powder"
