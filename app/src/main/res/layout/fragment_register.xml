@@ -11,15 +11,21 @@
         android:id="@+id/button_next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="92dp"
+        android:layout_marginTop="8dp"
         android:backgroundTint="@color/green"
         android:drawableEnd="@drawable/next_icon"
+        android:shadowColor="@color/black"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="5"
         android:text="Next"
         android:textColor="@color/powder"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/EditText_registerPassword"
+        app:layout_constraintVertical_bias="0.021" />
 
     <ImageView
         android:id="@+id/button_backRegister"
@@ -34,59 +40,58 @@
 
     <ImageView
         android:id="@+id/imageview_registerLogo"
-        android:layout_width="350dp"
-        android:layout_height="350dp"
-        android:layout_marginTop="116dp"
+        android:layout_width="404dp"
+        android:layout_height="411dp"
+        android:layout_marginTop="4dp"
         android:src="@drawable/neighbors_icon"
-        app:layout_constraintBottom_toTopOf="@+id/editText_registerName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.649" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_registerTitle" />
 
     <TextView
         android:id="@+id/textView_registerTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
+        android:layout_marginTop="68dp"
         android:fontFamily="casual"
         android:text="Neighbors"
         android:textColor="@color/dark_blue"
         android:textSize="40sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/imageview_registerLogo"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/EditText_registerPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="64dp"
+        android:layout_marginTop="4dp"
         android:drawableStart="@drawable/password_icon"
         android:drawablePadding="10dp"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
         android:textSize="25sp"
-        app:layout_constraintBottom_toTopOf="@+id/button_next"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText_registerName" />
 
     <EditText
         android:id="@+id/editText_registerName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="12dp"
         android:drawableStart="@drawable/mail_icon"
         android:drawablePadding="10dp"
         android:ems="10"
         android:hint="Email"
         android:inputType="text"
         android:textSize="25sp"
-        app:layout_constraintBottom_toTopOf="@+id/EditText_registerPassword"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageview_registerLogo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
