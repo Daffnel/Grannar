@@ -10,7 +10,7 @@
         android:id="@+id/Button_Login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:backgroundTint="@color/green"
         android:shadowColor="#000000"
         android:shadowDx="2"
@@ -18,18 +18,18 @@
         android:shadowRadius="5"
         android:text="Login"
         android:textColor="@color/powder"
-        app:layout_constraintBottom_toTopOf="@+id/button_CreateAccount"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText_LoginPassword"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.021" />
 
     <Button
         android:id="@+id/button_CreateAccount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="56dp"
+        android:layout_marginBottom="68dp"
         android:backgroundTint="@color/green"
         android:shadowColor="#000000"
         android:shadowDx="2"
@@ -37,6 +37,7 @@
         android:shadowRadius="5"
         android:text="Create Account"
         android:textColor="@color/powder"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -45,14 +46,13 @@
         android:id="@+id/textView_LoginTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="96dp"
+        android:layout_marginTop="64dp"
         android:fontFamily="casual"
         android:text="Neighbors"
         android:textColor="@color/dark_blue"
-        android:textSize="25sp"
+        android:textSize="40sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -60,27 +60,28 @@
         android:id="@+id/editText_LoginEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         android:drawableStart="@drawable/mail_icon"
         android:drawablePadding="10dp"
         android:ems="10"
         android:hint="Email"
         android:inputType="text"
+        android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView_LoginIcon" />
 
     <ImageView
         android:id="@+id/imageView_LoginIcon"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="32dp"
+        android:layout_width="404dp"
+        android:layout_height="411dp"
+        android:layout_marginTop="4dp"
+        android:src="@drawable/neighbors_icon"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.488"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_LoginTitle"
-        android:src="@drawable/neighbors_icon"/>
+        app:layout_constraintTop_toBottomOf="@+id/textView_LoginTitle" />
 
     <EditText
         android:id="@+id/editText_LoginPassword"
@@ -91,6 +92,7 @@
         android:drawablePadding="10dp"
         android:ems="10"
         android:hint="Password"
+        android:textSize="25sp"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
