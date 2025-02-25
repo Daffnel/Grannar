@@ -39,7 +39,7 @@ class CalendarViewModel(private val repository: EventsRepository): ViewModel() {
     fun addEvent(event: EventsData){
         repository.addEventToFirebase(event)
     }
-        //Todo ta bort endast för testning
+
 
 
 
