@@ -57,5 +57,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@color/powder"
+        app:itemIconTint="@color/bottom_nav_icon_color"
+        app:itemBackground="@null"
         app:menu="@menu/bottom_navigation"/>
 </RelativeLayout>
