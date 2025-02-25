@@ -10,7 +10,7 @@ import com.example.grannar.databinding.ActivityHomeBinding
 import com.example.grannar.ui.activities.MainActivity
 import com.example.grannar.ui.fragment.CalendarFragment
 import com.example.grannar.ui.fragment.ChatFragment
-import com.example.grannar.ui.fragment.GroupsFragment
+//import com.example.grannar.ui.fragment.GroupsFragment
 import com.example.grannar.ui.fragment.ProfileFragment
 import com.example.grannar.ui.viewmodel.UserStatusViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
