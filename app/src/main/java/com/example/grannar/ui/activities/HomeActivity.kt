@@ -10,6 +10,7 @@ import com.example.grannar.databinding.ActivityHomeBinding
 import com.example.grannar.ui.activities.MainActivity
 import com.example.grannar.ui.fragment.CalendarFragment
 import com.example.grannar.ui.fragment.ChatFragment
+import com.example.grannar.ui.fragment.GroupFragment
 //import com.example.grannar.ui.fragment.GroupsFragment
 import com.example.grannar.ui.fragment.ProfileFragment
 import com.example.grannar.ui.viewmodel.UserStatusViewModel
@@ -51,10 +52,10 @@ class HomeActivity : AppCompatActivity() {
                     supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
                     true
                 }
-                /* R.id.group_menu -> {
+                R.id.group_menu -> {
                      showGroupFragment()
                      true
-                 } */
+                 }
                 R.id.profile_menu -> {
                     showProfileFragment()
                     true
@@ -84,13 +85,13 @@ class HomeActivity : AppCompatActivity() {
              .commit()
      } */
 
-    /* private fun showGroupFragment() {
-         val groupFragment = GroupsFragment()
+     private fun showGroupFragment() {
+         val groupFragment = GroupFragment()
          supportFragmentManager.beginTransaction()
              .replace(R.id.main_frame_layout, groupFragment)
              .addToBackStack(null)
              .commit()
-     } */
+     }
 
     private fun showProfileFragment() {
         val profileFragment = ProfileFragment()
