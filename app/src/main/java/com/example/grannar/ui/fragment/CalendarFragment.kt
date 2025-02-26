@@ -92,7 +92,6 @@ class CalendarFragment : Fragment(), CalenderEventAdapter.OnItemClickListener {
 
         adapterEvents = CalenderEventAdapter(emptyList(), this)
         binding.eventsRecyclerView.adapter = adapterEvents
-
     }
 
     private fun showPrevMoth() {
