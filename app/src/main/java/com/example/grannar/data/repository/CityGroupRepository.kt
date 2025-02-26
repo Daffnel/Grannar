@@ -60,8 +60,8 @@ class CityGroupRepository {
 
 
     /**
-     *  Hämtar vilken stad Användren har registrerat
-     *  rerunerar stad i en sträng
+     *  Hämtar vilken stad Användaren har registrerat
+     *  returnerar stad i en sträng
      */
     fun getUserCity(callback: (String?)-> Unit){
         if(userId != null){
@@ -106,7 +106,7 @@ class CityGroupRepository {
         db.collection("groups").document(groupId)
             .update("members", FieldValue.arrayUnion(userId))
             .addOnSuccessListener {
-                Log.d("!!!","Nu medlem i lagts till i gruppen")
+                Log.d("!!!","Ny medlem har lagts till i gruppen")
             }
             .addOnFailureListener { e ->
                 Log.e("!!!","Misslyckades att lägga till medlem",e)

@@ -77,7 +77,7 @@ class FragmentHomeChatt : Fragment() {
     }
 
 
-    //this just test for recylkerview
+    //this is just test for recyclerView
 
     private fun fetchGroups() {
         binding.progressBar.visibility = View.VISIBLE
@@ -106,7 +106,7 @@ class FragmentHomeChatt : Fragment() {
         }, 1500)
     }
 
-    //this  fetch from firbase data you can take out aftr
+    //this  fetch from firebase data you can take out after
 
   //  private fun fetchGroups() {
 //        binding.progressBar.visibility = View.VISIBLE

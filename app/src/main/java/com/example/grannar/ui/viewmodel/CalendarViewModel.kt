@@ -25,7 +25,7 @@ class CalendarViewModel(private val repository: EventsRepository): ViewModel() {
         }
     }
 
-   //koplade till att visa aktuella Aktiviteter i hem skärmen
+   //kopplade till att visa aktuella Aktiviteter i hemskärmen
     private val _eventsHomeDisplay = MutableLiveData<List<EventsData>>()
     val  eventsHomeDisplay: LiveData<List<EventsData>> get() = _eventsHomeDisplay
 
@@ -75,7 +75,7 @@ class CalendarViewModel(private val repository: EventsRepository): ViewModel() {
 
     /**
      *
-     * Formaterar ett datumobjekt i formen ååå mmmm
+     * Formaterar ett datumobjekt i formatet: år sen månad
      *
      */
 
@@ -85,9 +85,5 @@ class CalendarViewModel(private val repository: EventsRepository): ViewModel() {
 
         return date.format(formatedDate) //  Använd `format()` på `date`
 
-        //tack chatGpt
-
     }
-
-
 }
