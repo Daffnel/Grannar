@@ -145,7 +145,7 @@ class FragmentHomeChatt : Fragment() {
         }
 
         requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.container, chatFragment)
+            .replace(R.id.container_homescreen, chatFragment)
             .addToBackStack(null)
             .commit()
     }
