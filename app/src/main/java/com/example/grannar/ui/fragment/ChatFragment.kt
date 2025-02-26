@@ -36,7 +36,7 @@ class ChatFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //reciv infor from ather fragment Bundle
+        //receive info from another fragment Bundle
         arguments?.let {
             currentUserId = it.getString("currentUserId") ?: ""
             receiverId = it.getString("receiverId") ?: ""
@@ -48,7 +48,7 @@ class ChatFragment : Fragment() {
         // Set the group name in the UI
         binding.groupName.text = groupName
 
-        // creat unic chatId
+        // create unique chatId
         chatId = generateUniqueChatId()
 
         firebaseManager = FirebaseManager()
@@ -96,7 +96,7 @@ class ChatFragment : Fragment() {
         }
     }
 
-    // generate unic ide
+    // generate unique ide
     private fun generateUniqueChatId(): String {
         return UUID.randomUUID().toString()
     }

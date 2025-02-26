@@ -42,7 +42,6 @@ class LoginFragment : Fragment() {
         }
 
 
-        //TODO needs to go to register fragment, remember to add the fragment to the backstack
         gotToRegister.setOnClickListener {
             parentFragmentManager.beginTransaction()
                 .replace(R.id.main, RegisterFragment())
@@ -50,7 +49,7 @@ class LoginFragment : Fragment() {
                 .commit()
         }
 
-        // Goes to the home activity if succesful
+        // Goes to the home activity if successful
         authViewModel.authResult.observe(viewLifecycleOwner) { (success, message) ->
             if (success){
                 Toast.makeText(requireContext(), "$message!", Toast.LENGTH_SHORT).show()

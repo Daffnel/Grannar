@@ -123,7 +123,7 @@ class CalendarFragment : Fragment(), CalenderEventAdapter.OnItemClickListener {
 
     }
 
-    //en popup för att kunna registera een ny aktivitet
+    //en popup för att kunna registera en ny aktivitet
 
     private fun addNewEventPopUp(){
 
@@ -154,7 +154,7 @@ class CalendarFragment : Fragment(), CalenderEventAdapter.OnItemClickListener {
             }
         }
 
-        //Gets the title, info and date to make a event object to then add to firebase
+        //Gets the title, info and date to make an event object to then add to firebase
         btnAddEvent.setOnClickListener {
             val title = etTitle.text.toString().trim()
             val moreInfo = etMoreInfo.text.toString().trim()

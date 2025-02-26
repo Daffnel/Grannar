@@ -68,7 +68,7 @@ class FirebaseManager {
         auth.signOut()
     }
 
-    //Function to update the other fields of the user thats logged in thru the profile
+    //Function to update the other fields of the user that's logged in through the profile
     fun updateUserProfile(name: String, age: Int, city: String, bio: String, interests: List<String>, callback: (Boolean, String?) -> Unit){
         val userId = auth.currentUser?.uid ?: return
 
@@ -107,7 +107,6 @@ class FirebaseManager {
 
 
     //fun sendmessage
-
     fun sendMessage(chatId: String, message: ChatMessage, onResult: (Boolean, String) -> Unit) {
         val db = Firebase.firestore
 
@@ -121,8 +120,8 @@ class FirebaseManager {
                 onResult(false, "Failed to send message: ${exception.message}")
             }
     }
-//fun recivemessge
 
+    //fun receive message
     fun getMessages(chatId: String, onResult: (List<ChatMessage>) -> Unit) {
         val db = Firebase.firestore
         db.collection("chats").document(chatId).collection("messages")
@@ -137,7 +136,7 @@ class FirebaseManager {
             }
     }
 
-    // fun creatgruochat
+    // fun create group chat
     fun createGroupChat(groupName: String, members: List<String>, creatorId: String, onResult: (Boolean, String) -> Unit) {
         val db = Firebase.firestore
         val groupId = db.collection("groupChats").document().id
