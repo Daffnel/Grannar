@@ -98,6 +98,7 @@ class FragmentHomeChatt : Fragment() {
 
         Handler(Looper.getMainLooper()).postDelayed({
             binding.progressBar.visibility = View.GONE
+
             chatAdapter = GroupAdapter(testGroups) { group ->
                 openGroupChat(group)
             }
@@ -133,7 +134,10 @@ class FragmentHomeChatt : Fragment() {
 //    }
         // Handle opening the group chat
     private fun openGroupChat(group: Group) {
+
         val chatFragment = ChatFragment().apply {
+            binding.rvChatGroups.visibility=View.GONE
+            binding.etSearch.visibility=View.GONE
             arguments = Bundle().apply {
                 putString("GROUP_ID", group.groupId)
                 putString("GROUP_NAME", group.groupName)

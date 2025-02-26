@@ -15,6 +15,7 @@ import com.example.grannar.databinding.ActivityHomeBinding
 import com.example.grannar.ui.activities.MainActivity
 import com.example.grannar.ui.fragment.CalendarFragment
 import com.example.grannar.ui.fragment.ChatFragment
+import com.example.grannar.ui.fragment.FragmentHomeChatt
 import com.example.grannar.ui.fragment.GroupFragment
 //import com.example.grannar.ui.fragment.GroupsFragment
 import com.example.grannar.ui.fragment.ProfileFragment
@@ -62,10 +63,10 @@ class HomeActivity : AppCompatActivity(), CalenderEventAdapter.OnItemClickListen
                     showCalendarFragment()
                     true
                 }
-                /*R.id.chat_menu -> {
+                R.id.chat_menu -> {
                     showChatFragment()
                     true
-                } */
+                }
                 R.id.home_menu -> {
                     supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
                     true
@@ -98,13 +99,16 @@ class HomeActivity : AppCompatActivity(), CalenderEventAdapter.OnItemClickListen
             .commit()
     }
 
-    /* private fun showChatFragment() {
-         val chatFragment = ChatFragment()
+     private fun showChatFragment() {
+
+         binding.rvHomescreen1.visibility=View.GONE
+         binding.rvHomescreen2.visibility=View.GONE
+         binding.rvHomescreen3.visibility=View.GONE
          supportFragmentManager.beginTransaction()
-             .replace(R.id.main_frame_layout, chatFragment)
+             .replace(R.id.main_frame_layout, FragmentHomeChatt())
              .addToBackStack(null)
              .commit()
-     } */
+     }
 
      private fun showGroupFragment() {
          val groupFragment = GroupFragment()
