@@ -3,6 +3,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -69,6 +70,9 @@ class HomeActivity : AppCompatActivity(), CalenderEventAdapter.OnItemClickListen
                 }
                 R.id.home_menu -> {
                     supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+                    binding.rvHomescreen1.visibility = View.VISIBLE
+                    binding.rvHomescreen2.visibility = View.VISIBLE
+                    binding.rvHomescreen3.visibility = View.VISIBLE
                     true
                 }
                 R.id.group_menu -> {
