@@ -35,7 +35,7 @@ class CityGroupRepository {
         if(userId != null){
             return userId
         }else {
-            return "Saknar ID"
+            return "Missing ID"
         }
     }
 
@@ -53,7 +53,7 @@ class CityGroupRepository {
                 callback(groups)
             }
             .addOnFailureListener { e ->
-                Log.e("!!!","Kunde inte hämta grupper i stad ${userCity}",e)
+                Log.e("!!!","Could not get groups for ${userCity}",e)
             }
     }
 
@@ -89,9 +89,9 @@ class CityGroupRepository {
         db.collection("groups")
             .add(group).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    Log.d("!!!", "Ny grupp registrerad")
+                    Log.d("!!!", "New group registered")
                 } else {
-                    Log.e("!!!", "Misslyckades med registrera ny grupp, task.exception")
+                    Log.e("!!!", "Failed to register new group, task.exception")
                 }
 
             }
@@ -106,10 +106,10 @@ class CityGroupRepository {
         db.collection("groups").document(groupId)
             .update("members", FieldValue.arrayUnion(userId))
             .addOnSuccessListener {
-                Log.d("!!!","Ny medlem har lagts till i gruppen")
+                Log.d("!!!","New member added to the group")
             }
             .addOnFailureListener { e ->
-                Log.e("!!!","Misslyckades att lägga till medlem",e)
+                Log.e("!!!","Failed to add member to the group",e)
             }
     }
 }
