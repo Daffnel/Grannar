@@ -4,7 +4,7 @@ data class CityGroups(
     val id: String = "",
     val name: String = "",
     val createdBy: String = "",
-    val members: List<String> = emptyList() // Lista med UID för medlemmar
+    val members: List<String> = emptyList() // List w UID for members
 
 ) {
 }

@@ -123,7 +123,7 @@ class CalendarFragment : Fragment(), CalenderEventAdapter.OnItemClickListener {
 
     }
 
-    //en popup för att kunna registera en ny aktivitet
+    //a pop up where you can register a new activity
 
     private fun addNewEventPopUp(){
 
@@ -160,7 +160,7 @@ class CalendarFragment : Fragment(), CalenderEventAdapter.OnItemClickListener {
             val moreInfo = etMoreInfo.text.toString().trim()
 
             if (dialogPickedYear == 0 || dialogPickedMonth == 0 || dialogPickedDay == 0) {
-                Toast.makeText(context, "Välj ett datum!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Choose a date!", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
@@ -181,15 +181,15 @@ class CalendarFragment : Fragment(), CalenderEventAdapter.OnItemClickListener {
         }
 
         btnCancel.setOnClickListener {
-            popupMenu.dismiss()         //Stänger popupmenyn
-            Log.d("!!!","Stänger")
+            popupMenu.dismiss()         //closes the popup menu
+            Log.d("!!!","Closing")
         }
 
         popupMenu.show()
     }
 
     fun showDatePicDialog(chosenDate: TextView, onDateSelected: (Int, Int, Int) -> Unit){
-        val calendar = Calendar.getInstance()   //hämta dagens datum (år, månad och dag)
+        val calendar = Calendar.getInstance()   //gets today's date (yy, mm, dd)
         val year = calendar.get(Calendar.YEAR)
         val month = calendar.get(Calendar.MONTH)
         val day = calendar.get(Calendar.DAY_OF_MONTH)
@@ -197,16 +197,16 @@ class CalendarFragment : Fragment(), CalenderEventAdapter.OnItemClickListener {
 
         val datePickerDialog = DatePickerDialog(requireContext(),{ _, selectedYear, selectedMonth , selectedDay ->
 
-            val dayMonthText = EventsData.makeDayMonth(selectedDay,selectedMonth +1)     //snygga till det i formatet 1 mars
-            val formatedText = "Valt datum: $dayMonthText $selectedYear"
+            val dayMonthText = EventsData.makeDayMonth(selectedDay,selectedMonth +1)
+            val formatedText = "Chosen date: $dayMonthText $selectedYear"
             chosenDate.text = formatedText
             onDateSelected(selectedYear, selectedMonth + 1, selectedDay)
-        }, year, month, day)        //öppna med dagens datum
+        }, year, month, day)        //opens today's date
 
         datePickerDialog.show()
     }
 
-    //Popup meny för att bekräfta en aktivitet
+    //Pop up menu where you validate an activity
 
     override fun showPopUpDialog(events: EventsData){
 
@@ -229,11 +229,11 @@ class CalendarFragment : Fragment(), CalenderEventAdapter.OnItemClickListener {
          tvDate.text = date
          tvMoreInfo.text = events.moreInfo
 
-         //knapparna för att Deltaga eller inte på en aktivitet
+         //buttons to attend an event or not
 
          btnAccept.setOnClickListener {
              events.attend = true
-             Toast.makeText(context, "Du deltar i eventet!", Toast.LENGTH_SHORT).show()
+             Toast.makeText(context, "You are attending this event!", Toast.LENGTH_SHORT).show()
              bottomSheetDialog.dismiss()
          }
 

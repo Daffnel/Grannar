@@ -22,7 +22,7 @@ class HomeScreenAdapter(var events: List<EventsData>): RecyclerView.Adapter<Home
             tvEventDate = itemView.findViewById(R.id.tvEventDate)
         }
 
-        //lägga till så dessa blir klickbara
+        //TODO lägga till så dessa blir klickbara
     }
 
 

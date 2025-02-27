@@ -11,23 +11,24 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginHorizontal="2dp"
+        android:layout_marginTop="2dp"
         android:background="@drawable/border"
         android:orientation="horizontal"
-        android:padding="8dp">
+        android:padding="2dp">
 
         <ImageButton
             android:id="@+id/btnPrevMonth"
             android:layout_width="68dp"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/green"
+            android:backgroundTint="@color/powder"
             app:srcCompat="@drawable/back_icon" />
 
         <TextView
             android:id="@+id/tvCalendarMontYear"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:fontFamily="casual"
             android:gravity="center"
@@ -40,21 +41,21 @@
             android:id="@+id/btnNextMonth"
             android:layout_width="68dp"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/green"
+            android:backgroundTint="@color/powder"
             android:rotationY="180"
-            app:srcCompat="@drawable/back_icon" />
-        />
-
-
+            app:srcCompat="@drawable/back_icon" />/>
     </LinearLayout>
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="2dp"
         android:layout_marginTop="2dp"
         android:background="@drawable/border"
         android:padding="8dp">
+
+
 
         <TextView
             android:layout_width="0dp"
@@ -140,14 +141,16 @@
         android:id="@+id/calenderRecyclerview"
         android:layout_width="match_parent"
         android:layout_height="14dp"
+        android:layout_marginHorizontal="2dp"
         android:layout_marginTop="2dp"
-        android:layout_weight="0.65"
+        android:layout_weight="0.7"
         android:background="@drawable/border" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/eventsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginHorizontal="2dp"
         android:layout_marginTop="2dp"
         android:layout_weight="1"
         android:background="@drawable/border" />
@@ -157,7 +160,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
         android:backgroundTint="@color/green"
         android:shadowColor="#000000"
         android:shadowDx="2"

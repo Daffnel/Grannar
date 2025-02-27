@@ -17,12 +17,12 @@ class CityGroupRepository {
     val db = Firebase.firestore
     val user = FirebaseAuth.getInstance().currentUser
 
-    val userId = user?.uid          //Hämta användarens unika ID
+    val userId = user?.uid          //Gets the user's unique ID
 
 
     /**
-     * Loggar ut användaren och återvänder till
-     * första activityn samt tömmer backstacken
+     * Logs the user out and returns to the first activity
+     * as well as clearing the backstack
      */
     fun logout(context: Context) {
         FirebaseAuth.getInstance().signOut()
@@ -40,8 +40,8 @@ class CityGroupRepository {
     }
 
     /**
-     * Hämtar alla grupper som matchar med användarens stad
-     * Retunerar detta i en lista med Group objekt
+     * Gets all the groups that match the user's city
+     * Returns those in a list of group objects
      */
 
     fun getGroupByCity(userCity: String, callback: (List<CityGroups>) -> Unit){
@@ -60,8 +60,8 @@ class CityGroupRepository {
 
 
     /**
-     *  Hämtar vilken stad Användaren har registrerat
-     *  returnerar stad i en sträng
+     *  Gets the city that the user has registered
+     *  returns it in a string
      */
     fun getUserCity(callback: (String?)-> Unit){
         if(userId != null){
@@ -81,7 +81,7 @@ class CityGroupRepository {
 
 
     /**
-     * Lägger till en ny grupp
+     * Adds a new group
      */
     fun addNewGroup(title: String, moreInfo: String, city: String) {
         val group: Group = Group(title, moreInfo, city)

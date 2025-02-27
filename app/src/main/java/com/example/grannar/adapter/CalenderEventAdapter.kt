@@ -32,7 +32,7 @@ class CalenderEventAdapter(
                     val position = adapterPosition
                     if(position != RecyclerView.NO_POSITION){
                         listener.showPopUpDialog(events[position])
-                        Log.d("!!!","klickat")
+                        Log.d("!!!","clicked")
                     }
                 }
 

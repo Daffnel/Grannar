@@ -25,7 +25,7 @@ class CalendarAdapter(var dayOfMonth: ArrayList<String>): RecyclerView.Adapter<C
                 val position = adapterPosition
 
                //TODO ta bort enbart för test
-                Snackbar.make(v, "du valde ${dayOfMonth[position]} --  $daySelected",
+                Snackbar.make(v, "you chose ${dayOfMonth[position]} --  $daySelected",
                     Snackbar.LENGTH_SHORT).setAction("Action",null).show()
 
             }

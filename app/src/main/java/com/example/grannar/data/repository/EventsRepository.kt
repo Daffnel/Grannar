@@ -33,7 +33,7 @@ class EventsRepository {
             }
     }
 
-   //Funktion som hämtar alla event som är markerad attend = true begränsar oss till aktuell månad och år
+   //Function that gets all events that are marked as attend = true, limited to current month and year
 
     fun getAttendEvents(callback: (List<EventsData>) -> Unit) {
         //Aktuellt år och månad
