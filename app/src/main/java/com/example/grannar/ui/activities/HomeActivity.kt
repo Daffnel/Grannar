@@ -111,14 +111,13 @@ class HomeActivity : AppCompatActivity(), CalenderEventAdapter.OnItemClickListen
     }
 
      private fun showChatFragment() {
-
-         binding.rvHomescreen1.visibility=View.GONE
-         binding.rvHomescreen2.visibility=View.GONE
-         binding.rvHomescreen3.visibility=View.GONE
-         supportFragmentManager.beginTransaction()
-             .replace(R.id.container, FragmentHomeChatt())
-             .addToBackStack(null)
-             .commit()
+         val fragment = supportFragmentManager.findFragmentByTag(ChatFragment::class.java.simpleName)
+         if (fragment == null) {
+             supportFragmentManager.beginTransaction()
+                 .replace(R.id.container, FragmentHomeChatt())
+                 .addToBackStack(null)
+                 .commit()
+         }
      }
 
      private fun showGroupFragment() {
@@ -153,5 +152,6 @@ class HomeActivity : AppCompatActivity(), CalenderEventAdapter.OnItemClickListen
 
     override fun showPopUpDialog(events: EventsData) {
     }
+
 
 }

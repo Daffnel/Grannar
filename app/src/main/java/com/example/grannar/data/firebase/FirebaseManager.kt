@@ -5,6 +5,7 @@ import android.util.Log
 import com.example.grannar.data.model.ChatMessage
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.grannar.data.Groups.CityGroups
 import com.example.grannar.data.model.Group
 import com.example.grannar.data.model.User
 import com.google.firebase.Firebase
@@ -297,18 +298,30 @@ class FirebaseManager {
             }
     }
     //getall gruppchatt
-    fun getAllGroups(onResult: (List<Group>) -> Unit) {
-        db.collection("groupChats")
+//    fun getAllGroups(onResult: (List<Group>) -> Unit) {
+//        db.collection("groupChats")
+//            .get()
+//            .addOnSuccessListener { documents ->
+//                val groups = documents.mapNotNull { it.toObject(Group::class.java) }
+//                onResult(groups)
+//            }
+//            .addOnFailureListener { exception ->
+//                Log.e("FirebaseManager", "Failed to fetch groups: ${exception.message}")
+//                onResult(emptyList()) // Return empty list if there's an error
+//            }
+//    }
+    fun getAllCityGroups(callback: (List<Group>) -> Unit) {
+        db.collection("groups")
             .get()
-            .addOnSuccessListener { documents ->
-                val groups = documents.mapNotNull { it.toObject(Group::class.java) }
-                onResult(groups)
+            .addOnSuccessListener { query ->
+                val group = query.documents.mapNotNull { it.toObject(Group::class.java) }
+                callback(group)
             }
-            .addOnFailureListener { exception ->
-                Log.e("FirebaseManager", "Failed to fetch groups: ${exception.message}")
-                onResult(emptyList()) // Return empty list if there's an error
+            .addOnFailureListener { e ->
+                Log.e("!!!", "Failed to fetch city groups", e)
             }
     }
+
 
 
 

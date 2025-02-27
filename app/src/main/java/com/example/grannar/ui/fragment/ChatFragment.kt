@@ -59,6 +59,11 @@ class ChatFragment : Fragment() {
         binding.sendButton.setOnClickListener {
             sendMessage()
         }
+        binding.imageback.setOnClickListener {
+            // Go back to FragmentHomeChat
+            requireActivity().supportFragmentManager.popBackStack()
+        }
+
     }
 
     private fun setupRecyclerView() {
