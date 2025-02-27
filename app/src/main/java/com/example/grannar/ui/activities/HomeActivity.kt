@@ -100,6 +100,9 @@ class HomeActivity : AppCompatActivity(), CalenderEventAdapter.OnItemClickListen
     }
 
     private fun showCalendarFragment() {
+        binding.rvHomescreen1.visibility=View.GONE
+        binding.rvHomescreen2.visibility=View.GONE
+        binding.rvHomescreen3.visibility=View.GONE
         val calendarFragment = CalendarFragment()
         supportFragmentManager.beginTransaction()
             .replace(R.id.container, calendarFragment)
@@ -119,6 +122,10 @@ class HomeActivity : AppCompatActivity(), CalenderEventAdapter.OnItemClickListen
      }
 
      private fun showGroupFragment() {
+
+         binding.rvHomescreen1.visibility=View.GONE
+         binding.rvHomescreen2.visibility=View.GONE
+         binding.rvHomescreen3.visibility=View.GONE
          val groupFragment = GroupFragment()
          supportFragmentManager.beginTransaction()
              .replace(R.id.container, groupFragment)
@@ -127,6 +134,9 @@ class HomeActivity : AppCompatActivity(), CalenderEventAdapter.OnItemClickListen
      }
 
     private fun showProfileFragment() {
+        binding.rvHomescreen1.visibility=View.GONE
+        binding.rvHomescreen2.visibility=View.GONE
+        binding.rvHomescreen3.visibility=View.GONE
         val profileFragment = ProfileFragment()
         supportFragmentManager.beginTransaction()
             .replace(R.id.container, profileFragment)
