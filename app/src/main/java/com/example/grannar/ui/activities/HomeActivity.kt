@@ -57,6 +57,10 @@ class HomeActivity : AppCompatActivity(), CalenderEventAdapter.OnItemClickListen
 
         viewModel.getEvents(LocalDate.now().year, LocalDate.now().monthValue)
 
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.title = ""
+        supportActionBar?.show()
+
         val bottomNavigationView = binding.bottomNavigation
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
@@ -98,7 +102,7 @@ class HomeActivity : AppCompatActivity(), CalenderEventAdapter.OnItemClickListen
     private fun showCalendarFragment() {
         val calendarFragment = CalendarFragment()
         supportFragmentManager.beginTransaction()
-            .replace(R.id.main_frame_layout, calendarFragment)
+            .replace(R.id.container, calendarFragment)
             .addToBackStack(null)
             .commit()
     }
@@ -109,7 +113,7 @@ class HomeActivity : AppCompatActivity(), CalenderEventAdapter.OnItemClickListen
          binding.rvHomescreen2.visibility=View.GONE
          binding.rvHomescreen3.visibility=View.GONE
          supportFragmentManager.beginTransaction()
-             .replace(R.id.main_frame_layout, FragmentHomeChatt())
+             .replace(R.id.container, FragmentHomeChatt())
              .addToBackStack(null)
              .commit()
      }
@@ -117,7 +121,7 @@ class HomeActivity : AppCompatActivity(), CalenderEventAdapter.OnItemClickListen
      private fun showGroupFragment() {
          val groupFragment = GroupFragment()
          supportFragmentManager.beginTransaction()
-             .replace(R.id.main_frame_layout, groupFragment)
+             .replace(R.id.container, groupFragment)
              .addToBackStack(null)
              .commit()
      }
@@ -125,7 +129,7 @@ class HomeActivity : AppCompatActivity(), CalenderEventAdapter.OnItemClickListen
     private fun showProfileFragment() {
         val profileFragment = ProfileFragment()
         supportFragmentManager.beginTransaction()
-            .replace(R.id.main_frame_layout, profileFragment)
+            .replace(R.id.container, profileFragment)
             .addToBackStack(null)
             .commit()
     }
