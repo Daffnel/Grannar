@@ -54,9 +54,6 @@ class ProfileFragment : Fragment() {
             }
         }
 
-        binding.buttonBackProfile.setOnClickListener {
-            requireActivity().supportFragmentManager.popBackStack()
-        }
 
 
 
