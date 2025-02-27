@@ -55,9 +55,9 @@ class GroupFragment: Fragment(R.layout.fragment_groups){
 
             viewModel.groupsByCity.observe(viewLifecycleOwner) { groups ->
                 if (groups.isNotEmpty()) {
-                    Log.d("!!!", "Hittade ${groups.size} grupper!")
+                    Log.d("!!!", "Found ${groups.size} groups!")
                 } else {
-                    Log.d("!!!", "Inga grupper hittades.")
+                    Log.d("!!!", "No groups were found.")
                 }
             }
 

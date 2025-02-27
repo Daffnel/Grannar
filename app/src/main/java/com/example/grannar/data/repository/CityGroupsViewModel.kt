@@ -30,7 +30,7 @@ class CityGroupsViewModel(private val repository: CityGroupRepository): ViewMode
         repository.getUserCity { cityName ->
            _city.postValue(cityName)
         }
-        Log.d("!!!","Stad === ${city.value}")
+        Log.d("!!!","City === ${city.value}")
     }
 
 
