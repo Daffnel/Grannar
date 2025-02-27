@@ -77,6 +77,7 @@
         android:layout_width="404dp"
         android:layout_height="411dp"
         android:layout_marginTop="4dp"
+        android:contentDescription="title"
         android:src="@drawable/neighbors_icon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

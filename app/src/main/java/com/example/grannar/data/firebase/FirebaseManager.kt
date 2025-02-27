@@ -56,7 +56,7 @@ class FirebaseManager {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful){
-                    onResult(true, "Login Successfully")
+                    onResult(true, "Login successful")
                 } else{
                     onResult(false, "Login failed")
                 }
