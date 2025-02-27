@@ -12,6 +12,8 @@
         android:id="@+id/groupNameTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:drawableStart="@drawable/group_image_icon"
+        android:drawablePadding="15dp"
         android:layout_weight="1"
         android:padding="16dp"
         android:text="@string/group_name"
@@ -23,7 +25,7 @@
         android:layout_height="57dp"
         android:layout_gravity="end"
         android:padding="8dp"
-        android:src="@drawable/ic_next" />
+        android:src="@drawable/chat_next_icon" />
 
 
 </LinearLayout>
