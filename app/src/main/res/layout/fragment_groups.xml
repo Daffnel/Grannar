@@ -7,22 +7,33 @@
     android:background="@color/powder"
     android:orientation="vertical">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Search"
-            android:layout_margin="20dp"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:layout_marginBottom="9dp">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/searchEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:padding="5dp"
-                android:drawableStart="@drawable/search_icon" />
+        <!-- EditText for Search -->
 
-        </com.google.android.material.textfield.TextInputLayout>
+
+        <EditText
+            android:id="@+id/etGroupSearch"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="0dp"
+            android:layout_marginBottom="8dp"
+            android:hint="   Search for groups"
+            android:drawableStart="@drawable/search_icon"
+            android:paddingStart="16dp"
+            android:paddingEnd="6dp"
+            android:maxLines="1"
+            android:ellipsize="end"/>
+
+
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -36,7 +47,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="@drawable/border"/>
+        android:background="@drawable/border"
+        android:backgroundTint="@color/green"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recommendedGroupsRecyclerView"
@@ -45,7 +57,8 @@
         android:layout_height="0dp"
         android:layout_weight="2"
         android:layout_marginTop="5dp"
-        android:background="@drawable/border"/>
+        android:background="@drawable/border"
+        android:backgroundTint="@color/green"/>
 
         <Button
             android:id="@+id/btnAddGroup"
