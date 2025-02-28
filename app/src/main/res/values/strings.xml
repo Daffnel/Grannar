@@ -1,11 +1,9 @@
 <resources>
     <string name="app_name">Neighbors</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="btnLabel_calendar">Calendar</string>
     <string name="btn_label_calender_previous">Previous</string>
     <string name="btn_label_next">Next</string>
-
     <string name="calendar_label_saturday">Sat</string>
     <string name="calendar_label_sunday">Sun</string>
     <string name="btn_calendar_label_prev_month">Previous</string>
@@ -18,15 +16,15 @@
     <string name="calendar_label_lordag">Lör</string>
     <string name="calendar_label_sondag">Sön</string>
     <string name="calendar_addEvent_button">Add activities</string>
-    <string name="Caelnder_title_demo">Sun 3 March</string>
+    <string name="calender_title_demo">Sun 3 March</string>
     <string name="Calendar_demo_text">Grilla with Bosse and Måns</string>
     <string name="calender_popup_title">Event Title</string>
     <string name="calender_popup_dateAndTime">Date: 12/2/2025</string>
     <string name="calendar_popup_moreinfo">Here comes info about the event</string>
     <string name="calendar_popup_accept">Attending</string>
-    <string name="calendar_popup_not_intressted">Not interested</string>
-    <string name="Calender_dialog_reg_newEvent">Register new Activity</string>
-    <string name="registrera_ny_aktvitet">Register new Activity</string>
+    <string name="calendar_popup_not_interested">Not interested</string>
+    <string name="calender_dialog_reg_newEvent">Register new Activity</string>
+    <string name="registrera_ny_aktivitet">Register new Activity</string>
     <string name="group_name">Group Name</string>
     <string name="starta_ny_grupp">Start a new group</string>
 </resources>

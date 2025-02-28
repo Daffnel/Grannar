@@ -96,7 +96,6 @@ class HomeActivity : AppCompatActivity(), CalenderEventAdapter.OnItemClickListen
         }
 
         eventHomeScreen()
-
     }
 
     private fun showCalendarFragment() {

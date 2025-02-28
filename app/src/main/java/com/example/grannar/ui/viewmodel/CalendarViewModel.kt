@@ -18,7 +18,7 @@ class CalendarViewModel(private val repository: EventsRepository): ViewModel() {
     private val _events = MutableLiveData<List<EventsData>>()
     val events: LiveData<List<EventsData>> get() = _events
 
-    fun getEvents(year: Int, month: Int){                           //hämtar aktiviteter per månad
+    fun getEvents(year: Int, month: Int){  //hämtar aktiviteter per månad
         repository.getEventsForMonth(year, month){ eventList ->
             val sortedList = eventList.sortedBy { it.day }
             _events.value = sortedList
@@ -31,7 +31,7 @@ class CalendarViewModel(private val repository: EventsRepository): ViewModel() {
 
     fun getEventsHomeDisply(){
         repository.getAttendEvents(){ attendedList ->
-            Log.d("!!!", "Attended List: $attendedList") //TODO test
+            Log.d("!!!", "Attended List: $attendedList")
             _eventsHomeDisplay.value = attendedList
         }
     }
@@ -39,12 +39,6 @@ class CalendarViewModel(private val repository: EventsRepository): ViewModel() {
     fun addEvent(event: EventsData){
         repository.addEventToFirebase(event)
     }
-
-
-
-
-
-
     /**
      * Skapar en array utfrån vilken dag månaden startar på
      * samt antalet dagar i månaden
@@ -54,14 +48,14 @@ class CalendarViewModel(private val repository: EventsRepository): ViewModel() {
     val daysInMonthArray = arrayListOf<String>()
     val yearMonth = YearMonth.from(date)
 
-    val daysInMonth = yearMonth.lengthOfMonth()                // Antal dagar i månaden
+    val daysInMonth = yearMonth.lengthOfMonth()              // Antal dagar i månaden
     val firstOfMonth = date.withDayOfMonth(1)     //  Hämta 1:a dagen i månaden
     val dayOfWeek =
 
-    firstOfMonth.dayOfWeek.value - 1                    //  Hämta veckodagen (1=måndag, 7= söndag value gör om text till 1 -> 7
+    firstOfMonth.dayOfWeek.value - 1                        //Hämta veckodagen (1=måndag, 7= söndag value gör om text till 1 -> 7
                                                             // -1 eftersom första dagen i veckan är måndag
 
-    for (i in 1..42) {                              // 7x6 = 42 rutor
+    for (i in 1..42) {                                 // 7x6 = 42 rutor
         if (i <= dayOfWeek) {
             daysInMonthArray.add(" ")                           // Tomma rutor före månadens start
         } else if (i - dayOfWeek <= daysInMonth) {

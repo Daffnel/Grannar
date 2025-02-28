@@ -36,14 +36,11 @@ class CalendarFragment : Fragment(), CalenderEventAdapter.OnItemClickListener {
     private var _binding: FragmentCalendarBinding? = null
     private val binding get() = _binding!!
 
-
     private lateinit var layoutManagerEvents: LinearLayoutManager
     private lateinit var adapterEvents: CalenderEventAdapter
 
     private var selectedYear = LocalDate.now().year
     private var selectedMonth = LocalDate.now().monthValue
-
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -62,14 +59,13 @@ class CalendarFragment : Fragment(), CalenderEventAdapter.OnItemClickListener {
         setupRecyclerView()
         setMonthView()
 
-        viewModel.getEventsHomeDisply() //TODO test
+        viewModel.getEventsHomeDisply()
 
         viewModel.getEvents(selectedYear, selectedMonth)
 
         viewModel.events.observe(viewLifecycleOwner) { eventList ->
             adapterEvents.updateData(eventList)
         }
-
 
         binding.btnNextMonth.setOnClickListener {
             showNextMoth()
@@ -84,7 +80,6 @@ class CalendarFragment : Fragment(), CalenderEventAdapter.OnItemClickListener {
             //Toast.makeText(context, "knappjäveln fungerar", Toast.LENGTH_SHORT).show()
         }
     }
-
 
     private fun setupRecyclerView() {
         layoutManagerEvents = LinearLayoutManager(requireContext())
@@ -119,8 +114,6 @@ class CalendarFragment : Fragment(), CalenderEventAdapter.OnItemClickListener {
         binding.calenderRecyclerview.layoutManager = layoutManager
         val adapter = CalendarAdapter(daysInMonth)
         binding.calenderRecyclerview.adapter = adapter
-
-
     }
 
     //a pop up where you can register a new activity
@@ -223,9 +216,8 @@ class CalendarFragment : Fragment(), CalenderEventAdapter.OnItemClickListener {
          val btnCancel = view.findViewById<Button>(R.id.btnPopUpCancel)
 
          val date ="${events.day}/${events.month}/${events.year}"
-        tvTitle.text = events.title
+         tvTitle.text = events.title
 
-        // TODO fixa i ordnning datum strängarna tvDate.text =
          tvDate.text = date
          tvMoreInfo.text = events.moreInfo
 
@@ -244,15 +236,10 @@ class CalendarFragment : Fragment(), CalenderEventAdapter.OnItemClickListener {
 
          bottomSheetDialog.setContentView(view)
          bottomSheetDialog.show()
-
      }
-
 
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
-
-
-
 }
