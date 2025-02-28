@@ -5,12 +5,7 @@
     <string name="btnLabel_calendar">Calendar</string>
     <string name="btn_label_calender_previous">Previous</string>
     <string name="btn_label_next">Next</string>
-    <string name="calendar_label_monday">Mon</string>
-    <string name="calendar_label_thuesday">Tue</string>
-    <string name="calendar_label_wensday">Wed</string>
-    <string name="calendar_label_wendsday">Wed</string>
-    <string name="calendar_label_torsdag">Thu</string>
-    <string name="calendar_label_friday">Fri</string>
+
     <string name="calendar_label_saturday">Sat</string>
     <string name="calendar_label_sunday">Sun</string>
     <string name="btn_calendar_label_prev_month">Previous</string>
