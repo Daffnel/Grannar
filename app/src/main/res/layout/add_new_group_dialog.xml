@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/powder">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:text="Skapa en ny grupp i "
+        android:textStyle="bold"
+        android:fontFamily="casual"
+        android:textAlignment="center"
+        android:textColor="@color/dark_blue"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="4dp"/>
+
+        <TextView
+            android:id="@+id/tvAddNewGroupCityName"
+            android:layout_width="wrap_content"
+            android:textStyle="bold"
+            android:fontFamily="casual"
+            android:textSize="18sp"
+            android:textColor="@color/dark_blue"
+            android:layout_height="match_parent"
+            android:hint="stad"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="4dp"/>
+
+
+</LinearLayout>
+
+    <EditText
+        android:id="@+id/etAddNewGroupTitle"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="24dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Gruppens namn"/>
+
+    <EditText
+        android:id="@+id/etAddNewGroupMoreInfo"
+        android:layout_width="match_parent"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:layout_height="wrap_content"
+        android:inputType="textShortMessage"
+        android:hint="Beskrivning av gruppen"
+        android:maxLines="6"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnAddGNewGroupOk"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:backgroundTint="@color/green"
+            android:shadowColor="#000000"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            android:shadowRadius="5"
+            android:gravity="center"
+            android:layout_marginStart="32dp"
+            android:text="Lägg till grupp"
+            android:textColor="@color/powder"
+            android:textSize="15sp"
+            android:layout_marginTop="32dp"/>
+
+        <Button
+            android:id="@+id/btnAddNewGroupCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:backgroundTint="@color/green"
+            android:shadowColor="#000000"
+            android:gravity="center"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            android:shadowRadius="5"
+            android:text="Avbryt"
+            android:layout_marginStart="16dp"
+            android:textColor="@color/powder"
+            android:textSize="15sp"
+            android:layout_marginTop="32dp"/>
+
+
+
+
+
+
+
+</LinearLayout>
+
+</LinearLayout>

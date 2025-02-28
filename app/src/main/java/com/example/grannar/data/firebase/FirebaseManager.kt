@@ -1,10 +1,9 @@
 package com.example.grannar.data.firebase
 
+import android.annotation.SuppressLint
 import android.util.Log
 
 import com.example.grannar.data.model.ChatMessage
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.example.grannar.data.Groups.CityGroups
 import com.example.grannar.data.model.Group
 import com.example.grannar.data.model.User
@@ -31,14 +30,14 @@ class FirebaseManager {
                     saveNewUser(user) { success, message ->
                         onResult(success, message)
                     }
-                } else{
+                } else {
                     onResult(false, task.exception?.message ?: "Failed to create user")
                 }
             }
     }
 
     //Function to save the user to firestore database with userId and Email
-    fun saveNewUser(user: User, onResult: (Boolean, String) -> Unit){
+    fun saveNewUser(user: User, onResult: (Boolean, String) -> Unit) {
         val userId = auth.currentUser?.uid ?: return
 
         //Create new user document in Firestore
@@ -53,24 +52,31 @@ class FirebaseManager {
     }
 
     //Function to login with firebase authentication
-    fun loginUser(email: String, password: String, onResult: (Boolean, String) -> Unit){
+    fun loginUser(email: String, password: String, onResult: (Boolean, String) -> Unit) {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
-                if (task.isSuccessful){
+                if (task.isSuccessful) {
                     onResult(true, "Login successful")
-                } else{
+                } else {
                     onResult(false, "Login failed")
                 }
             }
     }
 
 
-    fun logout(){
+    fun logout() {
         auth.signOut()
     }
 
     //Function to update the other fields of the user that's logged in through the profile
-    fun updateUserProfile(name: String, age: Int, city: String, bio: String, interests: List<String>, callback: (Boolean, String?) -> Unit){
+    fun updateUserProfile(
+        name: String,
+        age: Int,
+        city: String,
+        bio: String,
+        interests: List<String>,
+        callback: (Boolean, String?) -> Unit
+    ) {
         val userId = auth.currentUser?.uid ?: return
 
         val userUpdate = mapOf(
@@ -92,7 +98,7 @@ class FirebaseManager {
     }
 
     //Function to get the currently logged in user to update the information fields in the profile
-    fun getUserProfile(callback: (User?) -> Unit){
+    fun getUserProfile(callback: (User?) -> Unit) {
         val userId = auth.currentUser?.uid ?: return
 
         db.collection("users").document(userId)
@@ -132,13 +138,19 @@ class FirebaseManager {
                     Log.e("Chat", "Failed to load messages: ${error.message}")
                     return@addSnapshotListener
                 }
-                val messages = snapshots?.documents?.map { it.toObject(ChatMessage::class.java)!! } ?: emptyList()
+                val messages = snapshots?.documents?.map { it.toObject(ChatMessage::class.java)!! }
+                    ?: emptyList()
                 onResult(messages)
             }
     }
 
     // fun create group chat
-    fun createGroupChat(groupName: String, members: List<String>, creatorId: String, onResult: (Boolean, String) -> Unit) {
+    fun createGroupChat(
+        groupName: String,
+        members: List<String>,
+        creatorId: String,
+        onResult: (Boolean, String) -> Unit
+    ) {
         val db = Firebase.firestore
         val groupId = db.collection("groupChats").document().id
 
@@ -162,7 +174,11 @@ class FirebaseManager {
 
     //sendgrupmessage
 
-    fun sendGroupMessage(groupId: String, message: ChatMessage, onResult: (Boolean, String) -> Unit) {
+    fun sendGroupMessage(
+        groupId: String,
+        message: ChatMessage,
+        onResult: (Boolean, String) -> Unit
+    ) {
         val db = Firebase.firestore
 
         db.collection("groupChats").document(groupId).collection("messages")
@@ -187,14 +203,20 @@ class FirebaseManager {
                     return@addSnapshotListener
                 }
 
-                val messages = snapshots?.documents?.map { it.toObject(ChatMessage::class.java)!! } ?: emptyList()
+                val messages = snapshots?.documents?.map { it.toObject(ChatMessage::class.java)!! }
+                    ?: emptyList()
                 onResult(messages)
             }
     }
 
     //removegrupp
 
-    fun removeMemberFromGroup(groupId: String, userId: String, currentUserId: String, onResult: (Boolean, String) -> Unit) {
+    fun removeMemberFromGroup(
+        groupId: String,
+        userId: String,
+        currentUserId: String,
+        onResult: (Boolean, String) -> Unit
+    ) {
         val db = Firebase.firestore
 
         // Fetch the group data to check if the current user is the admin
@@ -221,7 +243,12 @@ class FirebaseManager {
     }
     // only admin can change name grupp
 
-    fun changeGroupName(groupId: String, newGroupName: String, currentUserId: String, onResult: (Boolean, String) -> Unit) {
+    fun changeGroupName(
+        groupId: String,
+        newGroupName: String,
+        currentUserId: String,
+        onResult: (Boolean, String) -> Unit
+    ) {
         val db = Firebase.firestore
 
         db.collection("groupChats").document(groupId).get()
@@ -247,7 +274,12 @@ class FirebaseManager {
     }
 
     // إadd member to grupp
-    fun addMemberToGroup(groupId: String, userId: String, currentUserId: String, onResult: (Boolean, String) -> Unit) {
+    fun addMemberToGroup(
+        groupId: String,
+        userId: String,
+        currentUserId: String,
+        onResult: (Boolean, String) -> Unit
+    ) {
         val db = Firebase.firestore
 
         db.collection("groupChats").document(groupId).get()
@@ -273,7 +305,12 @@ class FirebaseManager {
     }
 
     // Manage group rules (admin only)
-    fun setGroupRules(groupId: String, rules: String, currentUserId: String, onResult: (Boolean, String) -> Unit) {
+    fun setGroupRules(
+        groupId: String,
+        rules: String,
+        currentUserId: String,
+        onResult: (Boolean, String) -> Unit
+    ) {
         val db = Firebase.firestore
 
         db.collection("groupChats").document(groupId).get()
@@ -297,6 +334,7 @@ class FirebaseManager {
                 onResult(false, "Failed to fetch group data: ${exception.message}")
             }
     }
+
     //getall gruppchatt
 //    fun getAllGroups(onResult: (List<Group>) -> Unit) {
 //        db.collection("groupChats")
@@ -322,9 +360,88 @@ class FirebaseManager {
             }
     }
 
+    /**
+     * Get all groups that matches users profile City.
+     *  Returns a List
+     */
+    fun getGroupsByUsersCity(callback: (List<CityGroups>) -> Unit) {
+
+        var userCity = ""
+        val userId: String? = auth.uid
+
+        if (userId != null) {
+            db.collection("users").document(userId).get()
+                .addOnSuccessListener { document ->
+                    userCity = document.getString("city").toString() // Hämta stad
+                    db.collection("groups")
+                        .whereEqualTo("city", userCity)
+                        .get()
+                        .addOnSuccessListener { query ->
+                            val groups =
+                                query.documents.mapNotNull { it.toObject(CityGroups::class.java) }
+                            Log.d("!!!", "Hittade ${groups.size} grupper i $userCity")
+                            callback(groups)
+                        }
+                        .addOnFailureListener { e ->
+                            Log.e("!!!", "Misslyckades att hämta grupper för $userCity", e)
+                            callback(emptyList())
+                        }
+                }
+                .addOnFailureListener {
+                    Log.e("!!!", "Misslyckades att hämta användarens stad", it)
+                    callback(emptyList())
+                }
+
+        }
+
+    }
+
+    /**
+     * Get users city
+     */
+
+    fun getUserCity(callback: (String) -> Unit) {
+
+        val userId: String? = auth.uid
+
+        if (userId != null) {
+            db.collection("users").document(userId).get()
+                .addOnSuccessListener { document ->
+                    if (document.exists()) {
+                        val city = document.getString("city")
+                        if (city != null) {
+                            callback(city)
+                        }
+                    } else {
+                        callback("") // Användaren finns inte
+                    }
+                }
+                .addOnFailureListener { e ->
+                    Log.e("Firestore", "Misslyckades att hämta stad", e)
+                    callback("")
+                }
+        }
 
 
+    }
 
+    /**
+     * Adds a new group
+     */
+    fun addNewGroup(title: String, moreInfo: String, city: String) {
+        val group: CityGroups = CityGroups(title = title, moreInfo = moreInfo, city = city)
+
+        db.collection("groups")
+            .add(group).addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Log.d("!!!", "New group registered")
+                } else {
+                    Log.e("!!!", "Failed to register new group, task.exception")
+                }
+
+            }
+
+    }
 
 }
 

@@ -8,6 +8,7 @@ import com.example.grannar.data.model.Group
 import com.example.grannar.ui.activities.MainActivity
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.firestore
 import kotlinx.coroutines.tasks.await
@@ -17,8 +18,9 @@ class CityGroupRepository {
     val db = Firebase.firestore
     val user = FirebaseAuth.getInstance().currentUser
 
-    val userId = user?.uid          //Gets the user's unique ID
+    val userId = user?.uid    //Gets the user's unique ID
 
+ private val auth = Firebase.auth
 
     /**
      * Logs the user out and returns to the first activity
@@ -44,7 +46,22 @@ class CityGroupRepository {
      * Returns those in a list of group objects
      */
 
-    fun getGroupByCity(userCity: String, callback: (List<CityGroups>) -> Unit){
+    /*fun getGroupByUserCity(callback: (List<CityGroups>) -> Unit){
+
+        var city: String = ""
+
+        if (userId != null) {
+            db.collection("users").document(userId)
+                .get()
+                .addOnSuccessListener { document ->
+                   city = document.getString("city").toString()
+                }else {
+                    Log.d("!!!","hittar ingen matcahde stad")
+            }
+
+        }
+
+
         db.collection("groups")
             .whereEqualTo("city",userCity)
             .get()
@@ -55,7 +72,7 @@ class CityGroupRepository {
             .addOnFailureListener { e ->
                 Log.e("!!!","Could not get groups for ${userCity}",e)
             }
-    }
+    }*/
 
 
 

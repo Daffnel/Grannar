@@ -4,60 +4,39 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.grannar.data.Groups.CityGroups
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import com.example.grannar.data.firebase.FirebaseManager
 
-class CityGroupsViewModel(private val repository: CityGroupRepository): ViewModel() {
+class CityGroupsViewModel(private val repository: FirebaseManager): ViewModel() {
 
-    private val _groupsByCity = MutableLiveData<List<CityGroups>>()
-    val groupsByCity: LiveData<List<CityGroups>> = _groupsByCity
-
-    fun getGroupByCity(city: String){
-        repository.getGroupByCity(city){ groups ->
-            _groupsByCity.postValue(groups)
-        }
-    }
+   // lateinit var fireBaseManager: FirebaseManager
 
 
-    private val _city= MutableLiveData<String?>()
-    val city: MutableLiveData<String?> = _city
+    private val _userCity = MutableLiveData<String>()
+    val userCity: LiveData<String> get() = _userCity
 
     fun getUserCity(){
-        repository.getUserCity { cityName ->
-           _city.postValue(cityName)
-        }
-        Log.d("!!!","City === ${city.value}")
-    }
-
-
-    fun joinGroup(groupId: String){
-        if (repository.userId != null) {
-            repository.joinGrupp(groupId, repository.userId)
+        Log.d("!!!","get user Anropad")
+        repository.getUserCity { city ->
+            _userCity.postValue(city ?: "Hittar ingen stad")
         }
     }
 
+    fun addNewGroup(title: String, moreInfo: String,city: String){
 
-
-
-   /* suspend fun getGroupsByCity(userCity: String): List<CityGroups> {
-        return cityGroupRepository.getGroupByCity(userCity)
+        repository.addNewGroup(title,moreInfo,city)
     }
 
-    fun logout(context: Context) {
-        cityGroupRepository.logout(context)
-    }
+    private val _groups = MutableLiveData<List<CityGroups>>()
+    val groups: LiveData<List<CityGroups>> get() = _groups
 
-    suspend fun getUserCity(): String? {
-        return cityGroupRepository.getUserCity()
-    }
+    fun getGroupByCity(){
 
-    fun addNewGroup(title: String, moreInfo: String, city: String) {
-        cityGroupRepository.addNewGroup(title, moreInfo, city)
-    }*/
+        repository.getGroupsByUsersCity{ groups ->
+            _groups.value = groups
+
+        }
+    }
 
 }
 
