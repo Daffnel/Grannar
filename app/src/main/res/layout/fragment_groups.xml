@@ -24,6 +24,8 @@
                 android:padding="5dp"
                 android:drawableStart="@drawable/search_icon" />
 
+        </com.google.android.material.textfield.TextInputLayout>
+
 
         <EditText
             android:id="@+id/etGroupSearch"
@@ -41,7 +43,6 @@
 
 
 
-    </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"
