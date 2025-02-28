@@ -21,12 +21,7 @@ class HomeScreenAdapter(var events: List<EventsData>): RecyclerView.Adapter<Home
             tvEventTitle = itemView.findViewById(R.id.tvEventTitle)
             tvEventDate = itemView.findViewById(R.id.tvEventDate)
         }
-
-        //TODO lägga till så dessa blir klickbara
     }
-
-
-
 
     override fun onCreateViewHolder( viewGroup: ViewGroup,viewType: Int): HomeScreenAdapter.ViewHolder {
         val v = LayoutInflater.from(viewGroup.context).inflate(R.layout.calendar_event_cell,viewGroup,false)
@@ -41,5 +36,4 @@ class HomeScreenAdapter(var events: List<EventsData>): RecyclerView.Adapter<Home
     override fun getItemCount(): Int {
         return events.size
     }
-
 }

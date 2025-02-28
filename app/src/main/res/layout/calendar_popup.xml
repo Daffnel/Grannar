@@ -43,7 +43,7 @@
         android:id="@+id/btnPopUpCancel"
         android:layout_width="155dp"
         android:layout_height="wrap_content"
-        android:text="@string/calendar_popup_not_intressted"
+        android:text="@string/calendar_popup_not_interested"
         android:backgroundTint="@android:color/darker_gray"
         android:textColor="@android:color/white"
         android:layout_marginTop="8dp"/>
