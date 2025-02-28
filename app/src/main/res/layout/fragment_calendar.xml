@@ -13,14 +13,15 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="2dp"
         android:layout_marginTop="2dp"
-        android:background="@drawable/border"
+        android:background="@android:drawable/editbox_dropdown_light_frame"
         android:orientation="horizontal"
         android:padding="2dp">
 
         <ImageButton
             android:id="@+id/btnPrevMonth"
             android:layout_width="68dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="fill_vertical"
             android:backgroundTint="@color/powder"
             app:srcCompat="@drawable/back_icon" />
 
@@ -40,21 +41,18 @@
         <ImageButton
             android:id="@+id/btnNextMonth"
             android:layout_width="68dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:backgroundTint="@color/powder"
             android:rotationY="180"
-            app:srcCompat="@drawable/back_icon" />/>
+            app:srcCompat="@drawable/back_icon" />
     </LinearLayout>
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="2dp"
         android:layout_marginTop="2dp"
-        android:background="@drawable/border"
         android:padding="8dp">
-
 
 
         <TextView
@@ -66,7 +64,8 @@
             android:textAlignment="center"
             android:textColor="@color/dark_blue"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:background="@drawable/weekday_background"/>
 
         <TextView
             android:layout_width="0dp"
@@ -77,7 +76,8 @@
             android:textAlignment="center"
             android:textColor="@color/dark_blue"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:background="@drawable/weekday_background" />
 
         <TextView
             android:layout_width="0dp"
@@ -88,7 +88,8 @@
             android:textAlignment="center"
             android:textColor="@color/dark_blue"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:background="@drawable/weekday_background" />
 
         <TextView
             android:layout_width="0dp"
@@ -99,7 +100,8 @@
             android:textAlignment="center"
             android:textColor="@color/dark_blue"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:background="@drawable/weekday_background" />
 
         <TextView
             android:layout_width="0dp"
@@ -110,7 +112,8 @@
             android:textAlignment="center"
             android:textColor="@color/dark_blue"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:background="@drawable/weekday_background" />
 
         <TextView
             android:layout_width="0dp"
@@ -121,7 +124,8 @@
             android:textAlignment="center"
             android:textColor="@color/dark_blue"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:background="@drawable/weekend_background" />
 
         <TextView
             android:layout_width="0dp"
@@ -132,7 +136,8 @@
             android:textAlignment="center"
             android:textColor="@color/dark_blue"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:background="@drawable/weekend_background" />
 
 
     </LinearLayout>
@@ -142,9 +147,9 @@
         android:layout_width="match_parent"
         android:layout_height="14dp"
         android:layout_marginHorizontal="2dp"
-        android:layout_marginTop="2dp"
         android:layout_weight="0.7"
-        android:background="@drawable/border" />
+        android:background="@android:drawable/toast_frame"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/eventsRecyclerView"
@@ -152,7 +157,7 @@
         android:layout_height="0dp"
         android:layout_marginHorizontal="2dp"
         android:layout_marginTop="2dp"
-        android:layout_weight="1"
+        android:layout_weight="0.8"
         android:background="@drawable/border" />
 
     <Button
