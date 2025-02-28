@@ -2,7 +2,6 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -47,13 +46,11 @@
             app:srcCompat="@drawable/back_icon" />
     </LinearLayout>
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
         android:padding="8dp">
-
 
         <TextView
             android:layout_width="0dp"
@@ -139,7 +136,6 @@
             android:textStyle="bold"
             android:background="@drawable/weekend_background" />
 
-
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -174,6 +170,5 @@
         android:shadowRadius="5"
         android:text="@string/calendar_addEvent_button"
         android:textColor="@color/powder" />
-
 
 </LinearLayout>
