@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.grannar.R
 import com.example.grannar.adapter.CityGroupsAdapter
 import com.example.grannar.data.firebase.FirebaseManager
+import com.example.grannar.data.model.Group
 import com.example.grannar.data.repository.CityGroupsViewModel
 //import com.example.grannar.data.repository.CityGroupsViewModel
 //import com.example.grannar.ui.viewmodel.CityGroupsViewModel
@@ -83,6 +84,28 @@ class GroupFragment: Fragment(R.layout.fragment_groups){
 
     }
 
+    fun showMoreInfoGroup(group: Group){
+
+
+        val vy = layoutInflater.inflate(R.layout.group_show_more_info_popup,null)
+        val builder = AlertDialog.Builder(requireContext())
+
+        builder.setView(vy)
+        val dialogRuta = builder.create()
+
+        val tvGroupTitle: TextView
+
+        tvGroupTitle = vy.findViewById(R.id.etGroupShowMoreInfoTitle)
+
+        dialogRuta.show()
+
+    }
+
+    /***
+     *
+     * PopUp dialog to add a new group
+     */
+
     private fun addNewGroupDialog() {
 
 
@@ -106,7 +129,6 @@ class GroupFragment: Fragment(R.layout.fragment_groups){
         viewModel.userCity.observe(viewLifecycleOwner){city ->
             tvCityName.text = city
         }
-
 
 
        val btnAddGroup = vy.findViewById<Button>(R.id.btnAddGNewGroupOk).setOnClickListener {

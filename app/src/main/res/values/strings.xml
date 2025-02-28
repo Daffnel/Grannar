@@ -27,4 +27,5 @@
     <string name="registrera_ny_aktivitet">Register new Activity</string>
     <string name="group_name">Group Name</string>
     <string name="starta_ny_grupp">Start a new group</string>
+    <string name="title_group_name">Här ska gruppnamnet stå</string>
 </resources>
