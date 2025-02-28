@@ -9,12 +9,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.grannar.R
 import com.example.grannar.adapter.CalenderEventAdapter
 import com.example.grannar.data.Calender.EventsData
+import com.example.grannar.data.firebase.FirebaseManager
 import com.example.grannar.data.repository.EventsRepository
 import com.example.grannar.databinding.ActivityHomeBinding
 import com.example.grannar.ui.fragment.CalendarFragment
 import com.example.grannar.ui.fragment.ChatFragment
 import com.example.grannar.ui.fragment.FragmentHomeChatt
 import com.example.grannar.ui.fragment.GroupFragment
+
+import com.example.grannar.ui.fragment.LoginFragment
+//import com.example.grannar.ui.fragment.GroupsFragment
+
 import com.example.grannar.ui.fragment.ProfileFragment
 import com.example.grannar.ui.viewmodel.CalendarViewModel
 import com.example.grannar.ui.viewmodel.UserStatusViewModel
@@ -28,6 +33,7 @@ class HomeActivity : AppCompatActivity(), CalenderEventAdapter.OnItemClickListen
     private lateinit var layoutManagerEvents: LinearLayoutManager
     private lateinit var adapterEvents: CalenderEventAdapter
     private val eventsRepository = EventsRepository()
+    private val firebaseManager = FirebaseManager()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,7 +76,6 @@ class HomeActivity : AppCompatActivity(), CalenderEventAdapter.OnItemClickListen
                 R.id.home_menu -> {
                     supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
                     binding.rvHomescreen1.visibility = View.VISIBLE
-                    binding.rvHomescreen2.visibility = View.VISIBLE
                     binding.rvHomescreen3.visibility = View.VISIBLE
                     true
                 }
@@ -91,11 +96,17 @@ class HomeActivity : AppCompatActivity(), CalenderEventAdapter.OnItemClickListen
         }
 
         eventHomeScreen()
+
+
+        binding.logoutButton.setOnClickListener {
+            logoutUser()
+        }
+
+
     }
 
     private fun showCalendarFragment() {
         binding.rvHomescreen1.visibility=View.GONE
-        binding.rvHomescreen2.visibility=View.GONE
         binding.rvHomescreen3.visibility=View.GONE
         val calendarFragment = CalendarFragment()
         supportFragmentManager.beginTransaction()
@@ -117,7 +128,6 @@ class HomeActivity : AppCompatActivity(), CalenderEventAdapter.OnItemClickListen
      private fun showGroupFragment() {
 
          binding.rvHomescreen1.visibility=View.GONE
-         binding.rvHomescreen2.visibility=View.GONE
          binding.rvHomescreen3.visibility=View.GONE
          val groupFragment = GroupFragment()
          supportFragmentManager.beginTransaction()
@@ -128,7 +138,6 @@ class HomeActivity : AppCompatActivity(), CalenderEventAdapter.OnItemClickListen
 
     private fun showProfileFragment() {
         binding.rvHomescreen1.visibility=View.GONE
-        binding.rvHomescreen2.visibility=View.GONE
         binding.rvHomescreen3.visibility=View.GONE
         val profileFragment = ProfileFragment()
         supportFragmentManager.beginTransaction()
@@ -147,5 +156,11 @@ class HomeActivity : AppCompatActivity(), CalenderEventAdapter.OnItemClickListen
     override fun showPopUpDialog(events: EventsData) {
     }
 
+    private fun logoutUser() {
+        firebaseManager.logout()
+        val intent = Intent(this, HomeActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+    }
 
 }
