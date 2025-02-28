@@ -12,6 +12,13 @@ import com.example.grannar.data.Groups.CityGroups
 
 class CityGroupsAdapter(var grouplist: List<CityGroups>): RecyclerView.Adapter<CityGroupsAdapter.ViewHolder>() {
 
+
+
+    interface OnItemClickListener {
+        fun showMoreInfoGroup(group: CityGroups)
+    }
+
+
     //Hålll oss updaterad med grupplistan
 
     fun updateGroups(newGroups: List<CityGroups>) {
@@ -28,7 +35,16 @@ class CityGroupsAdapter(var grouplist: List<CityGroups>): RecyclerView.Adapter<C
         init {
             etTitle = itemView.findViewById(R.id.tvGroupName)
             btNext = itemView.findViewById(R.id.btnNextPage)
+
+            itemView.setOnClickListener {
+                val position = adapterPosition
+                if(position != RecyclerView.NO_POSITION){
+                    // listener.showMoreInfoGroup(grouplist[position])
+                }
+            }
         }
+
+
     }
 
     override fun onCreateViewHolder(
