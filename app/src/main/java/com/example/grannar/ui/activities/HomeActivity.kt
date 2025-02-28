@@ -3,28 +3,26 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.grannar.R
 import com.example.grannar.adapter.CalenderEventAdapter
-import com.example.grannar.adapter.HomeScreenAdapter
 import com.example.grannar.data.Calender.EventsData
 import com.example.grannar.data.firebase.FirebaseManager
 import com.example.grannar.data.repository.EventsRepository
 import com.example.grannar.databinding.ActivityHomeBinding
-import com.example.grannar.ui.activities.MainActivity
 import com.example.grannar.ui.fragment.CalendarFragment
 import com.example.grannar.ui.fragment.ChatFragment
 import com.example.grannar.ui.fragment.FragmentHomeChatt
 import com.example.grannar.ui.fragment.GroupFragment
+
 import com.example.grannar.ui.fragment.LoginFragment
 //import com.example.grannar.ui.fragment.GroupsFragment
+
 import com.example.grannar.ui.fragment.ProfileFragment
 import com.example.grannar.ui.viewmodel.CalendarViewModel
 import com.example.grannar.ui.viewmodel.UserStatusViewModel
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.time.LocalDate
 
 class HomeActivity : AppCompatActivity(), CalenderEventAdapter.OnItemClickListener {
@@ -99,9 +97,11 @@ class HomeActivity : AppCompatActivity(), CalenderEventAdapter.OnItemClickListen
 
         eventHomeScreen()
 
+
         binding.logoutButton.setOnClickListener {
             logoutUser()
         }
+
 
     }
 

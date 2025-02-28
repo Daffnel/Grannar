@@ -35,13 +35,11 @@
         android:maxLines="2"
         android:minLines="2" />
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_margin="16dp">
-
 
         <ImageButton
             android:id="@+id/btnNewEventPopUpPickDate"
@@ -60,12 +58,7 @@
             android:textColor="@color/dark_blue"
             android:textStyle="bold"
             android:layout_marginStart="16dp"/>
-
-
-
-
 </LinearLayout>
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -86,8 +79,6 @@
             android:text="Lägg till"
             android:textColor="@color/powder"/>
 
-
-
         <Button
         android:id="@+id/btnbtnAddNewEventPopUpCancel"
             android:layout_width="0dp"
@@ -101,13 +92,6 @@
             android:shadowRadius="5"
             android:text="Ångra"
             android:textColor="@color/powder"/>
-
-
-
-
-
-
 </LinearLayout>
-
 
 </LinearLayout>

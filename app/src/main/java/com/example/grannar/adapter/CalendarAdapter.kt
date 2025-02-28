@@ -24,18 +24,11 @@ class CalendarAdapter(var dayOfMonth: ArrayList<String>): RecyclerView.Adapter<C
             itemView.setOnClickListener { v: View ->
                 val position = adapterPosition
 
-               //TODO ta bort enbart för test
                 Snackbar.make(v, "you chose ${dayOfMonth[position]} --  $daySelected",
                     Snackbar.LENGTH_SHORT).setAction("Action",null).show()
-
             }
-
-
         }
-
     }
-
-
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): CalendarAdapter.ViewHolder {
 
@@ -55,14 +48,9 @@ class CalendarAdapter(var dayOfMonth: ArrayList<String>): RecyclerView.Adapter<C
             daySelected = position  // Uppdatera valt datum
             notifyDataSetChanged()  // Uppdatera RecyclerView hitta en bättre lösning??
         }
-
-
     }
 
     override fun getItemCount(): Int {
-
         return dayOfMonth.size
     }
-
-
 }

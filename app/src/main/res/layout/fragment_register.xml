@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/powder">
-
 
     <Button
         android:id="@+id/button_next"
@@ -40,9 +38,10 @@
 
     <ImageView
         android:id="@+id/imageview_registerLogo"
-        android:layout_width="404dp"
-        android:layout_height="411dp"
+        android:layout_width="388dp"
+        android:layout_height="331dp"
         android:layout_marginTop="4dp"
+        android:contentDescription="title"
         android:src="@drawable/neighbors_icon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -74,7 +73,6 @@
         android:inputType="textPassword"
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText_registerName" />
 
@@ -82,7 +80,7 @@
         android:id="@+id/editText_registerName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:drawableStart="@drawable/mail_icon"
         android:drawablePadding="10dp"
         android:ems="10"
@@ -90,8 +88,6 @@
         android:inputType="text"
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageview_registerLogo" />
-
+        app:layout_constraintTop_toBottomOf="@+id/imageview_registerLogo"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
