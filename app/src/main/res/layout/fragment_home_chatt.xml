@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="16dp"
+        android:padding="8dp"
         android:layout_marginBottom="9dp">
 
         <!-- EditText for Search -->
@@ -19,17 +19,17 @@
 
         <EditText
             android:id="@+id/etSearch"
-            android:layout_width="0dp"
+            android:layout_width="393dp"
             android:layout_height="50dp"
-            android:layout_weight="1"
             android:layout_marginHorizontal="0dp"
             android:layout_marginBottom="8dp"
-            android:hint="   Search for chats"
+            android:layout_weight="1"
             android:drawableStart="@drawable/search_icon"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
+            android:ellipsize="end"
+            android:hint="   Search for chats"
             android:maxLines="1"
-            android:ellipsize="end"/>
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp" />
 
 
 
