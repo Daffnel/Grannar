@@ -12,7 +12,7 @@
     <string name="calendar_label_tisdag">Tis</string>
     <string name="calendar_label_onsdag">Ons</string>
     <string name="calendar_label_torsda">Tor</string>
-    <string name="calendar_label_fredag">Fri</string>
+    <string name="calendar_label_fredag">Fre</string>
     <string name="calendar_label_lordag">Lör</string>
     <string name="calendar_label_sondag">Sön</string>
     <string name="calendar_addEvent_button">Add activities</string>

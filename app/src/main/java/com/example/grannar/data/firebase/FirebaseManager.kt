@@ -9,6 +9,7 @@ import com.example.grannar.data.model.Group
 import com.example.grannar.data.model.User
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.DocumentId
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.firestore
@@ -429,10 +430,14 @@ class FirebaseManager {
      * Adds a new group
      */
     fun addNewGroup(title: String, moreInfo: String, city: String) {
-        val group: CityGroups = CityGroups(title = title, moreInfo = moreInfo, city = city)
 
-        db.collection("groups")
-            .add(group).addOnCompleteListener { task ->
+        val newGroup = db.collection("groups").document()
+        val id = newGroup.id
+
+        val group: CityGroups = CityGroups(title = title, moreInfo = moreInfo, city = city, id= id )
+
+        newGroup.set(group)
+            .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Log.d("!!!", "New group registered")
                 } else {
