@@ -14,13 +14,13 @@ class CalendarAdapter(var dayOfMonth: ArrayList<String>): RecyclerView.Adapter<C
 
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
 
-        var tvDayOfMonth: TextView    //det datum som visas i griden
+        var tvDayOfMonth: TextView    //the date that is shown on the grid
 
         init{
 
             tvDayOfMonth = itemView.findViewById(R.id.tvDayOfMonth)
 
-            //if some of the days number are pressed
+            //if some of the day's numbers are pressed
             itemView.setOnClickListener { v: View ->
                 val position = adapterPosition
 

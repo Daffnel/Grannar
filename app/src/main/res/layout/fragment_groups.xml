@@ -7,6 +7,7 @@
     android:background="@color/powder"
     android:orientation="vertical">
 
+
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -23,7 +24,24 @@
                 android:padding="5dp"
                 android:drawableStart="@drawable/search_icon" />
 
-        </com.google.android.material.textfield.TextInputLayout>
+
+        <EditText
+            android:id="@+id/etGroupSearch"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="0dp"
+            android:layout_marginBottom="8dp"
+            android:hint="   Search for groups"
+            android:drawableStart="@drawable/search_icon"
+            android:paddingStart="16dp"
+            android:paddingEnd="6dp"
+            android:maxLines="1"
+            android:ellipsize="end"/>
+
+
+
+    </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"

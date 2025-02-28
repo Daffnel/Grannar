@@ -57,7 +57,7 @@ class CalenderEventAdapter(
        holder.itemTitle.text = events[position].title
         holder.itemDate.text = EventsData.makeDayMonth(events[position].day,events[position].month)
 
-        //sätt en ok bild om deltaga på eventet
+        //puts a checkmark on accepted event
         if(events[position].attend == true){
 
             holder.itemAttendIcon.setImageResource(R.drawable.ic_attend)

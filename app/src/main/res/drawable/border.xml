@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- res/drawable/border.xml -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="@android:color/transparent"/> <!-- Bakgrundsfärg -->
-    <stroke android:width="2dp" android:color="@color/dark_blue"/> <!-- Ramfärg och tjocklek -->
-    <corners android:radius="10dp"/> <!-- Rundade hörn -->
+    <solid android:color="@android:color/transparent"/> <!-- Background color -->
+    <stroke android:width="2dp" android:color="@color/dark_blue"/> <!-- border color and thickness -->
+    <corners android:radius="10dp"/> <!-- Rounded corners -->
 </shape>
