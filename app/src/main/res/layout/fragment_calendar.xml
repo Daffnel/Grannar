@@ -2,7 +2,6 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -43,9 +42,8 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/powder"
             android:rotationY="180"
-            app:srcCompat="@drawable/back_icon" />/>
+            app:srcCompat="@drawable/back_icon" />
     </LinearLayout>
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -54,8 +52,6 @@
         android:layout_marginTop="2dp"
         android:background="@drawable/border"
         android:padding="8dp">
-
-
 
         <TextView
             android:layout_width="0dp"
@@ -133,8 +129,6 @@
             android:textColor="@color/dark_blue"
             android:textSize="16sp"
             android:textStyle="bold" />
-
-
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -169,6 +163,5 @@
         android:shadowRadius="5"
         android:text="@string/calendar_addEvent_button"
         android:textColor="@color/powder" />
-
 
 </LinearLayout>

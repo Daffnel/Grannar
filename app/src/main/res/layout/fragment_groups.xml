@@ -7,14 +7,12 @@
     android:background="@color/powder"
     android:orientation="vertical">
 
-
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Search"
             android:layout_margin="8dp"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/searchEditText"
@@ -23,9 +21,7 @@
                 android:textSize="20sp"
                 android:padding="5dp"
                 android:drawableStart="@drawable/search_icon" />
-
         </com.google.android.material.textfield.TextInputLayout>
-
 
         <EditText
             android:id="@+id/etGroupSearch"
@@ -40,9 +36,6 @@
             android:paddingEnd="6dp"
             android:maxLines="1"
             android:ellipsize="end"/>
-
-
-
 
     <TextView
         android:layout_width="match_parent"
