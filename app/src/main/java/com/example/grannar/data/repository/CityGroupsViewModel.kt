@@ -65,5 +65,13 @@ class CityGroupsViewModel(private val repository: FirebaseManager): ViewModel() 
         }
     }
 
+    fun leaveGroup(groupId: String) {
+        repository.leaveGroup(groupId) { success ->
+            if (success){
+                getGroupsWhenMember()
+            }
+        }
+    }
+
 }
 

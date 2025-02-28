@@ -10,7 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.grannar.R
 import com.example.grannar.data.Groups.CityGroups
 
-class MyGroupsAdapter(var grouplist: List<CityGroups>): RecyclerView.Adapter<MyGroupsAdapter.MyGroupsViewHolder>() {
+class MyGroupsAdapter(var grouplist: List<CityGroups>,
+                      private val onGroupClick : (CityGroups) -> Unit
+): RecyclerView.Adapter<MyGroupsAdapter.MyGroupsViewHolder>() {
 
     fun updateGroups(newGroups: List<CityGroups>) {
         grouplist = newGroups
@@ -32,10 +34,9 @@ class MyGroupsAdapter(var grouplist: List<CityGroups>): RecyclerView.Adapter<MyG
         holder.groupTitle.text = group.title
         holder.groupCity.text = group.city
 
-
-        //ONCLICK popup ruta med info som ex. antal medlemmar som är med i gruppen,
-        //Beskrivning, Datum vid medgång i gruppen, (gå ur grupp) knapp??
-
+        holder.itemView.setOnClickListener{
+            onGroupClick(group)
+        }
     }
 
     override fun getItemCount(): Int {

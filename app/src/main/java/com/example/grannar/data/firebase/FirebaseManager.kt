@@ -491,5 +491,29 @@ class FirebaseManager {
                 callback(emptyList())
             }
     }
+
+    //Funktion för att lämna en grupp man är med i och ta bort sig som member från firebase
+    fun leaveGroup(groupId: String, callback: (Boolean) -> Unit){
+        val groupRef =db.collection("groups").document(groupId)
+
+        groupRef.get().addOnSuccessListener { document ->
+            val members = document.get("members") as? List<String> ?: listOf()
+
+            val userId = auth.currentUser?.uid
+            if (userId != null && members.contains(userId)){
+                groupRef.update("members", FieldValue.arrayRemove(userId))
+                    .addOnSuccessListener {
+                        Log.d("!!!", "User left the group")
+                        callback(true)
+                    }
+                    .addOnFailureListener { e ->
+                        Log.e("!!!", "Failed to leave group", e)
+                        callback(false)
+                    }
+            } else {
+                callback(false)
+            }
+        }
+    }
 }
 
