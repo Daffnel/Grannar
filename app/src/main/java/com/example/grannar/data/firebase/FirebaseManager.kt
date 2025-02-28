@@ -12,6 +12,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.firestore
+import com.google.firebase.firestore.toObject
+import kotlinx.coroutines.tasks.await
 
 class FirebaseManager {
     private val db = Firebase.firestore
@@ -440,8 +442,54 @@ class FirebaseManager {
                 }
 
             }
-
     }
 
+    //Function to join a group by adding current userId to members field in groups
+    fun joinGroup(groupId: String, userId: String, callback: (Boolean) -> Unit){
+        val groupRef = db.collection("groups").document(groupId)
+
+        groupRef.get()
+            .addOnSuccessListener { document ->
+                val members = document.get("members") as? List<String> ?: listOf()
+
+                //Check so the user is not already a member
+                if (members.contains(userId)){
+                    Log.e("!!!", "User already member")
+                    callback(false)
+                } else {
+                    groupRef.update("members", FieldValue.arrayUnion(userId))
+                        .addOnSuccessListener {
+                            Log.d("!!!", "User has joined the group")
+                            callback(true)
+                        }
+                        .addOnFailureListener { e ->
+                            Log.e("!!!", "Failed to join group", e)
+                            callback(false)
+                        }
+                }
+            }
+    }
+
+
+    //Get all the groups where the user is a member
+    fun getGroupsWhenMember(callback: (List<CityGroups>) -> Unit) {
+        val userId = auth.currentUser?.uid
+        if (userId == null){
+            callback(emptyList())
+            return
+        }
+
+        db.collection("groups")
+            .whereArrayContains("members", userId)
+            .get()
+            .addOnSuccessListener { querySnapshot ->
+                val groups = querySnapshot.documents.mapNotNull { it.toObject(CityGroups::class.java) }
+                callback(groups)
+            }
+            .addOnFailureListener { e ->
+                Log.e("!!!", "Failed to get groups", e)
+                callback(emptyList())
+            }
+    }
 }
 

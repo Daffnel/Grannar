@@ -1,6 +1,7 @@
 package com.example.grannar.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
@@ -9,11 +10,13 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.grannar.R
 import com.example.grannar.adapter.CityGroupsAdapter
+import com.example.grannar.adapter.MyGroupsAdapter
 import com.example.grannar.data.firebase.FirebaseManager
 import com.example.grannar.data.repository.CityGroupsViewModel
 //import com.example.grannar.data.repository.CityGroupsViewModel
@@ -30,7 +33,9 @@ class GroupFragment: Fragment(R.layout.fragment_groups){
     private val binding get() = _binding!!
 
      var layoutManagerSecond: RecyclerView.LayoutManager? = null
+    var layoutManagerSeconds: RecyclerView.LayoutManager? = null
      var adapterSecond: RecyclerView.Adapter<CityGroupsAdapter.ViewHolder>? = null
+    var myGroupsAdapter: RecyclerView.Adapter<MyGroupsAdapter.MyGroupsViewHolder>? = null
 
 
 
@@ -52,12 +57,30 @@ class GroupFragment: Fragment(R.layout.fragment_groups){
 
 
         showRecyclerviewAvailableGroups()
+        showRecyclerviewMyGroups()
 
         binding.btnAddGroup.setOnClickListener {
 
             addNewGroupDialog()
 
             }
+
+        //Test för grupper man är medlem i
+
+//        viewModel.mygroups.observe(viewLifecycleOwner, Observer { groups ->
+//            if (groups.isNullOrEmpty()) {
+//                Log.d("!!!", "Ingen grupp tillgänglig eller användaren är inte medlem i några grupper.")
+//            } else {
+//                groups.forEach { group ->
+//                    Log.d("!!!", "Användaren är medlem i grupp: ${group.title}")
+//                }
+//            }
+//        })
+//
+//        binding.btnAddGroup.setOnClickListener {
+//            val groupId = "R9zd0O1tb8Xzlw8cMRO3"
+//            viewModel.joinGroup(groupId)
+//        }
 
 
     }
@@ -81,6 +104,20 @@ class GroupFragment: Fragment(R.layout.fragment_groups){
 
 
 
+    }
+    private fun showRecyclerviewMyGroups() {
+
+        layoutManagerSeconds = LinearLayoutManager(requireContext())
+        binding.myGroupsRecyclerView.layoutManager = layoutManagerSeconds
+        myGroupsAdapter = MyGroupsAdapter(emptyList())
+        binding.myGroupsRecyclerView.adapter = myGroupsAdapter
+
+        //Hämta alla tillgänliga grupper
+        viewModel.getGroupsWhenMember()
+
+        viewModel.mygroups.observe(viewLifecycleOwner){groups ->
+            (myGroupsAdapter as MyGroupsAdapter).updateGroups(groups)
+        }
     }
 
     private fun addNewGroupDialog() {
