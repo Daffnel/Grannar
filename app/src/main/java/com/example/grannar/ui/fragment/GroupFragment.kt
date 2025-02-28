@@ -1,6 +1,7 @@
 package com.example.grannar.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
@@ -9,11 +10,13 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.grannar.R
 import com.example.grannar.adapter.CityGroupsAdapter
+import com.example.grannar.adapter.MyGroupsAdapter
 import com.example.grannar.data.firebase.FirebaseManager
 import com.example.grannar.data.model.Group
 import com.example.grannar.data.repository.CityGroupsViewModel
@@ -23,16 +26,17 @@ import com.example.grannar.data.repository.CityGroupsViewModel
 import com.example.grannar.databinding.FragmentGroupsBinding
 import com.example.grannar.ui.viewmodel.CityGroupsViewModelFactory
 
-class GroupFragment: Fragment(R.layout.fragment_groups){
+class GroupFragment: Fragment(R.layout.fragment_groups) {
 
-    private lateinit var  viewModel: CityGroupsViewModel
+    private lateinit var viewModel: CityGroupsViewModel
     private val repository = FirebaseManager()
     private var _binding: FragmentGroupsBinding? = null
     private val binding get() = _binding!!
 
-     var layoutManagerSecond: RecyclerView.LayoutManager? = null
-     var adapterSecond: RecyclerView.Adapter<CityGroupsAdapter.ViewHolder>? = null
-
+    var layoutManagerSecond: RecyclerView.LayoutManager? = null
+    var layoutManagerMyGroups: RecyclerView.LayoutManager? = null
+    var adapterSecond: RecyclerView.Adapter<CityGroupsAdapter.ViewHolder>? = null
+    var myGroupsAdapter: RecyclerView.Adapter<MyGroupsAdapter.MyGroupsViewHolder>? = null
 
 
     override fun onCreateView(
@@ -40,7 +44,7 @@ class GroupFragment: Fragment(R.layout.fragment_groups){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-       _binding = FragmentGroupsBinding.inflate(inflater, container, false)
+        _binding = FragmentGroupsBinding.inflate(inflater, container, false)
         return binding.root
 
     }
@@ -53,12 +57,30 @@ class GroupFragment: Fragment(R.layout.fragment_groups){
 
 
         showRecyclerviewAvailableGroups()
+        showRecyclerviewMyGroups()
 
         binding.btnAddGroup.setOnClickListener {
 
             addNewGroupDialog()
 
-            }
+        }
+
+        //Test för grupper man är medlem i
+
+//        viewModel.mygroups.observe(viewLifecycleOwner, Observer { groups ->
+//            if (groups.isNullOrEmpty()) {
+//                Log.d("!!!", "Ingen grupp tillgänglig eller användaren är inte medlem i några grupper.")
+//            } else {
+//                groups.forEach { group ->
+//                    Log.d("!!!", "Användaren är medlem i grupp: ${group.title}")
+//                }
+//            }
+//        })
+//
+//        binding.btnAddGroup.setOnClickListener {
+//            val groupId = "R9zd0O1tb8Xzlw8cMRO3"
+//            viewModel.joinGroup(groupId)
+//        }
 
 
     }
@@ -78,10 +100,30 @@ class GroupFragment: Fragment(R.layout.fragment_groups){
         }
 
 
+    }
 
+    //Uppdaterar Mina grupper recyclerviewen
+    private fun showRecyclerviewMyGroups() {
+        layoutManagerMyGroups = LinearLayoutManager(requireContext())
+        binding.myGroupsRecyclerView.layoutManager = layoutManagerMyGroups
 
+        //startar en dialog ruta med gruppen du klickat på med en callback leaveGroup
+        myGroupsAdapter = MyGroupsAdapter(emptyList()) { group ->
+            val dialog = GroupInfoDialog(group) { groupId ->
+                viewModel.leaveGroup(groupId)
+            }
+            dialog.show(parentFragmentManager, "GroupInfoDialog")
+        }
+        binding.myGroupsRecyclerView.adapter = myGroupsAdapter
 
+        viewModel.getGroupsWhenMember()
 
+        viewModel.mygroups.observe(viewLifecycleOwner) { groups ->
+            if (groups.isEmpty()) {
+                Log.d("!!!", "Användaren är inte med i några grupper")
+            }
+            (myGroupsAdapter as MyGroupsAdapter).updateGroups(groups)
+        }
     }
 
     fun showMoreInfoGroup(group: Group){
