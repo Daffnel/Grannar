@@ -58,7 +58,7 @@ class ChatAdapter(private val messages: List<ChatMessage>, private val currentUs
         private val timeText: TextView = itemView.findViewById(R.id.sendtimeTextView)
 
         fun bind(chatMessage: ChatMessage) {
-            nameText.text =chatMessage.senderName
+            nameText.text = chatMessage.senderName
             messageText.text = chatMessage.message
             timeText.text = formatTime(chatMessage.timestamp)
         }
@@ -72,7 +72,7 @@ class ChatAdapter(private val messages: List<ChatMessage>, private val currentUs
         fun bind(chatMessage: ChatMessage) {
             senderNameText.text = chatMessage.senderName
             messageText.text = chatMessage.message
-            timeText.text=formatTime(chatMessage.timestamp)
+            timeText.text = formatTime(chatMessage.timestamp)
         }
     }
 }
