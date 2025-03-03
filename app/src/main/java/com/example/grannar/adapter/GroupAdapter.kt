@@ -16,6 +16,8 @@ class GroupAdapter(
 
     private var filteredList: List<Group> = groupList
 
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GroupViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_group_chatt, parent, false)
         return GroupViewHolder(view)
@@ -29,9 +31,11 @@ class GroupAdapter(
     override fun getItemCount(): Int = filteredList.size
 
 
+
+
     fun updateData(newGroups: List<Group>) {
-        groupList = newGroups
-        filteredList = newGroups
+        this.groupList = newGroups
+        this.filteredList = newGroups
         notifyDataSetChanged()
     }
 
@@ -39,7 +43,7 @@ class GroupAdapter(
         filteredList = if (query.isEmpty()) {
             groupList
         } else {
-            groupList.filter { it.groupName.contains(query, ignoreCase = true) }
+            groupList.filter { it.title.contains(query, ignoreCase = true) }
         }
         notifyDataSetChanged()
     }
@@ -49,7 +53,7 @@ class GroupAdapter(
         private val groupNameTextView: TextView = itemView.findViewById(R.id.groupNameTextView)
 
         fun bind(group: Group) {
-            groupNameTextView.text = group.groupName
+            groupNameTextView.text = group.title
 
 
             itemView.setOnClickListener {
