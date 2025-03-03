@@ -115,15 +115,16 @@ class HomeActivity : AppCompatActivity(), CalenderEventAdapter.OnItemClickListen
             .commit()
     }
 
-     private fun showChatFragment() {
-         val fragment = supportFragmentManager.findFragmentByTag(ChatFragment::class.java.simpleName)
-         if (fragment == null) {
-             supportFragmentManager.beginTransaction()
-                 .replace(R.id.container, FragmentHomeChatt())
-                 .addToBackStack(null)
-                 .commit()
-         }
-     }
+
+    private fun showChatFragment() {
+        val fragment = supportFragmentManager.findFragmentByTag(FragmentHomeChatt::class.java.simpleName)
+        if (fragment == null) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.container, FragmentHomeChatt())
+                .addToBackStack(null)
+                .commit()
+        }
+    }
 
      private fun showGroupFragment() {
 

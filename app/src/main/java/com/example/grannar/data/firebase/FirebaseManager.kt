@@ -11,13 +11,16 @@ import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentId
 import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.firestore
 import com.google.firebase.firestore.toObject
 import kotlinx.coroutines.tasks.await
 
 class FirebaseManager {
-    private val db = Firebase.firestore
+    private val dbb = Firebase.firestore
+    private val db = FirebaseFirestore.getInstance()
     private val auth = FirebaseAuth.getInstance()
 
     //Function to register the user with firebase authentication also calls the saveNewUser if successful
@@ -115,229 +118,39 @@ class FirebaseManager {
             }
     }
 
-
-    //fun sendmessage
-    fun sendMessage(chatId: String, message: ChatMessage, onResult: (Boolean, String) -> Unit) {
-        val db = Firebase.firestore
-
-        //  Firestore
-        db.collection("chats").document(chatId).collection("messages")
-            .add(message)
-            .addOnSuccessListener {
-                onResult(true, "Message sent successfully")
-            }
-            .addOnFailureListener { exception ->
-                onResult(false, "Failed to send message: ${exception.message}")
-            }
+    fun sendGroupMessage(groupId: String, message: ChatMessage, callback: (Boolean, String?) -> Unit) {
+        val ref = db.collection("groups").document(groupId).collection("messages").document()
+        ref.set(message)
+            .addOnSuccessListener { callback(true, null) }
+            .addOnFailureListener { callback(false, it.message) }
     }
 
-    //fun receive message
-    fun getMessages(chatId: String, onResult: (List<ChatMessage>) -> Unit) {
-        val db = Firebase.firestore
-        db.collection("chats").document(chatId).collection("messages")
+    fun getGroupMessages(groupId: String, callback: (List<ChatMessage>) -> Unit) {
+        db.collection("groups").document(groupId).collection("messages")
             .orderBy("timestamp", Query.Direction.ASCENDING)
-            .addSnapshotListener { snapshots, error ->
-                if (error != null) {
-                    Log.e("Chat", "Failed to load messages: ${error.message}")
-                    return@addSnapshotListener
-                }
-                val messages = snapshots?.documents?.map { it.toObject(ChatMessage::class.java)!! }
-                    ?: emptyList()
-                onResult(messages)
-            }
-    }
-
-    // fun create group chat
-    fun createGroupChat(
-        groupName: String,
-        members: List<String>,
-        creatorId: String,
-        onResult: (Boolean, String) -> Unit
-    ) {
-        val db = Firebase.firestore
-        val groupId = db.collection("groupChats").document().id
-
-        val groupData = mapOf(
-            "groupId" to groupId,
-            "groupName" to groupName,
-            "members" to members,
-            "creatorId" to creatorId  //  administrator id
-        )
-
-        db.collection("groupChats").document(groupId)
-            .set(groupData)
-            .addOnSuccessListener {
-                onResult(true, "Group created successfully")
-            }
-            .addOnFailureListener { exception ->
-                onResult(false, "Failed to create group: ${exception.message}")
-            }
-    }
-
-
-    //sendgrupmessage
-
-    fun sendGroupMessage(
-        groupId: String,
-        message: ChatMessage,
-        onResult: (Boolean, String) -> Unit
-    ) {
-        val db = Firebase.firestore
-
-        db.collection("groupChats").document(groupId).collection("messages")
-            .add(message)
-            .addOnSuccessListener {
-                onResult(true, "Message sent successfully")
-            }
-            .addOnFailureListener { exception ->
-                onResult(false, "Failed to send message: ${exception.message}")
-            }
-    }
-
-    // getmessage on grupp
-    fun getGroupMessages(groupId: String, onResult: (List<ChatMessage>) -> Unit) {
-        val db = Firebase.firestore
-
-        db.collection("groupChats").document(groupId).collection("messages")
-            .orderBy("timestamp", Query.Direction.ASCENDING)
-            .addSnapshotListener { snapshots, error ->
-                if (error != null) {
-                    Log.e("GroupChat", "Failed to load messages: ${error.message}")
+            .addSnapshotListener { snapshot, e ->
+                if (e != null || snapshot == null) {
+                    callback(emptyList())
                     return@addSnapshotListener
                 }
 
-                val messages = snapshots?.documents?.map { it.toObject(ChatMessage::class.java)!! }
-                    ?: emptyList()
-                onResult(messages)
+                val messages = snapshot.toObjects(ChatMessage::class.java)
+                callback(messages)
             }
     }
 
-    //removegrupp
-
-    fun removeMemberFromGroup(
-        groupId: String,
-        userId: String,
-        currentUserId: String,
-        onResult: (Boolean, String) -> Unit
-    ) {
-        val db = Firebase.firestore
-
-        // Fetch the group data to check if the current user is the admin
-        db.collection("groupChats").document(groupId).get()
+    fun getCurrentUserName(callback: (String) -> Unit) {
+        val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return
+        db.collection("users").document(userId)
+            .get()
             .addOnSuccessListener { document ->
-                val creatorId = document.getString("creatorId") // creatorId (admin)
-                if (creatorId == currentUserId) {
-                    //  admin, proceed to remove the member
-                    db.collection("groupChats").document(groupId)
-                        .update("members", FieldValue.arrayRemove(userId))
-                        .addOnSuccessListener {
-                            onResult(true, "Member removed successfully")
-                        }
-                        .addOnFailureListener { exception ->
-                            onResult(false, "Failed to remove member: ${exception.message}")
-                        }
-                } else {
-                    onResult(false, "Only the group creator can remove members")
-                }
+                val name = document.getString("name") ?: "Unknown"
+                callback(name)
             }
-            .addOnFailureListener { exception ->
-                onResult(false, "Failed to fetch group data: ${exception.message}")
+            .addOnFailureListener {
+                callback("Unknown")
             }
     }
-    // only admin can change name grupp
-
-    fun changeGroupName(
-        groupId: String,
-        newGroupName: String,
-        currentUserId: String,
-        onResult: (Boolean, String) -> Unit
-    ) {
-        val db = Firebase.firestore
-
-        db.collection("groupChats").document(groupId).get()
-            .addOnSuccessListener { document ->
-                val creatorId = document.getString("creatorId") // creatorId (admin)
-                if (creatorId == currentUserId) {
-                    //  admin, proceed to change group name
-                    db.collection("groupChats").document(groupId)
-                        .update("groupName", newGroupName)
-                        .addOnSuccessListener {
-                            onResult(true, "Group name changed successfully")
-                        }
-                        .addOnFailureListener { exception ->
-                            onResult(false, "Failed to change group name: ${exception.message}")
-                        }
-                } else {
-                    onResult(false, "Only the group creator can change the group name")
-                }
-            }
-            .addOnFailureListener { exception ->
-                onResult(false, "Failed to fetch group data: ${exception.message}")
-            }
-    }
-
-    // إadd member to grupp
-    fun addMemberToGroup(
-        groupId: String,
-        userId: String,
-        currentUserId: String,
-        onResult: (Boolean, String) -> Unit
-    ) {
-        val db = Firebase.firestore
-
-        db.collection("groupChats").document(groupId).get()
-            .addOnSuccessListener { document ->
-                val creatorId = document.getString("creatorId") // creatorId (admin)
-                if (creatorId == currentUserId) {
-                    // admin, proceed to add the member
-                    db.collection("groupChats").document(groupId)
-                        .update("members", FieldValue.arrayUnion(userId))
-                        .addOnSuccessListener {
-                            onResult(true, "Member added successfully")
-                        }
-                        .addOnFailureListener { exception ->
-                            onResult(false, "Failed to add member: ${exception.message}")
-                        }
-                } else {
-                    onResult(false, "Only the group creator can add members")
-                }
-            }
-            .addOnFailureListener { exception ->
-                onResult(false, "Failed to fetch group data: ${exception.message}")
-            }
-    }
-
-    // Manage group rules (admin only)
-    fun setGroupRules(
-        groupId: String,
-        rules: String,
-        currentUserId: String,
-        onResult: (Boolean, String) -> Unit
-    ) {
-        val db = Firebase.firestore
-
-        db.collection("groupChats").document(groupId).get()
-            .addOnSuccessListener { document ->
-                val creatorId = document.getString("creatorId") // creatorId (admin)
-                if (creatorId == currentUserId) {
-                    // admin, proceed to set group rules
-                    db.collection("groupChats").document(groupId)
-                        .update("rules", rules)
-                        .addOnSuccessListener {
-                            onResult(true, "Group rules set successfully")
-                        }
-                        .addOnFailureListener { exception ->
-                            onResult(false, "Failed to set group rules: ${exception.message}")
-                        }
-                } else {
-                    onResult(false, "Only the group creator can set group rules")
-                }
-            }
-            .addOnFailureListener { exception ->
-                onResult(false, "Failed to fetch group data: ${exception.message}")
-            }
-    }
-
     //getall gruppchatt
 //    fun getAllGroups(onResult: (List<Group>) -> Unit) {
 //        db.collection("groupChats")
@@ -355,11 +168,16 @@ class FirebaseManager {
         db.collection("groups")
             .get()
             .addOnSuccessListener { query ->
-                val group = query.documents.mapNotNull { it.toObject(Group::class.java) }
-                callback(group)
+                val groups = query.documents.mapNotNull { document ->
+                    val id = document.id
+                    val title = document.getString("title") ?: ""
+                    Group(id, title)
+                }
+                callback(groups)
             }
             .addOnFailureListener { e ->
-                Log.e("!!!", "Failed to fetch city groups", e)
+                Log.e("FirebaseManager", "Failed to fetch city groups", e)
+                callback(emptyList())
             }
     }
 
@@ -375,7 +193,7 @@ class FirebaseManager {
         if (userId != null) {
             db.collection("users").document(userId).get()
                 .addOnSuccessListener { document ->
-                    userCity = document.getString("city").toString() // Hämta stad
+                    userCity = document.getString("city").toString()
                     db.collection("groups")
                         .whereEqualTo("city", userCity)
                         .get()
@@ -434,9 +252,9 @@ class FirebaseManager {
     fun addNewGroup(title: String, moreInfo: String, city: String) {
 
         val newGroup = db.collection("groups").document()
-        val id = newGroup.id
+        //val id = newGroup.id
 
-        val group: CityGroups = CityGroups(title = title, moreInfo = moreInfo, city = city, id= id )
+        val group: CityGroups = CityGroups(title = title, moreInfo = moreInfo, city = city )
 
         newGroup.set(group)
             .addOnCompleteListener { task ->
