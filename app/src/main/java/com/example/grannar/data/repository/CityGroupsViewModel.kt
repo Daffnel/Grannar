@@ -19,9 +19,9 @@ class CityGroupsViewModel(private val repository: FirebaseManager): ViewModel() 
     val userCity: LiveData<String> get() = _userCity
 
     fun getUserCity(){
-        Log.d("!!!","get user Anropad")
+        Log.d("!!!","get user called")
         repository.getUserCity { city ->
-            _userCity.postValue(city ?: "Hittar ingen stad")
+            _userCity.postValue(city ?: "Can not find city")
         }
     }
 

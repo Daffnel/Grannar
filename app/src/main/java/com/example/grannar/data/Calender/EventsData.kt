@@ -24,18 +24,18 @@ data class EventsData(
             val monthOut: String
 
             when(month){
-                1 -> monthOut = "jan"
-                2 -> monthOut =  "feb"
-                3 -> monthOut = "mars"
-                4 -> monthOut = "apr"
-                5 -> monthOut = "maj"
-                6 -> monthOut = "juni"
-                7 -> monthOut = "juli"
-                8 -> monthOut = "aug"
-                9 -> monthOut =  "sep"
-                10 -> monthOut =  "okt"
-                11-> monthOut = "nov"
-                12 -> monthOut = "dec"
+                1 -> monthOut = "Jan"
+                2 -> monthOut =  "Feb"
+                3 -> monthOut = "Mar"
+                4 -> monthOut = "Apr"
+                5 -> monthOut = "May"
+                6 -> monthOut = "Jun"
+                7 -> monthOut = "Jul"
+                8 -> monthOut = "Aug"
+                9 -> monthOut =  "Sep"
+                10 -> monthOut =  "Oct"
+                11-> monthOut = "Nov"
+                12 -> monthOut = "Dec"
                 else -> monthOut = "xxx"
             }
 

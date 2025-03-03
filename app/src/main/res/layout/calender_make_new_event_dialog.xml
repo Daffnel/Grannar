@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:fontFamily="casual"
-        android:text="skapa ny aktivitet"
+        android:text="Create new activity"
         android:textColor="@color/dark_blue"
         android:textSize="20sp"
         android:textStyle="bold"/>
@@ -21,7 +21,7 @@
             android:layout_marginStart="16dp"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
-            android:hint="Vad är det som händer"/>
+            android:hint="Title"/>
 
     <EditText
         android:id="@+id/etNewEventPopUPMoreInfo"
@@ -30,7 +30,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:gravity="top"
-        android:hint="Berätta vad som ska hända "
+        android:hint="Description"
         android:inputType="textNoSuggestions|textMultiLine"
         android:maxLines="2"
         android:minLines="2" />
@@ -52,7 +52,7 @@
             android:id="@+id/tvNewEventPopUpSelectedDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Inget Datum valt"
+            android:text="No date picked"
             android:textSize="15sp"
             android:fontFamily="casual"
             android:textColor="@color/dark_blue"
@@ -76,7 +76,7 @@
             android:shadowDx="2"
             android:shadowDy="2"
             android:shadowRadius="5"
-            android:text="Lägg till"
+            android:text="Add"
             android:textColor="@color/powder"/>
 
         <Button
@@ -90,7 +90,7 @@
             android:shadowDx="2"
             android:shadowDy="2"
             android:shadowRadius="5"
-            android:text="Ångra"
+            android:text="Cancel"
             android:textColor="@color/powder"/>
 </LinearLayout>
 

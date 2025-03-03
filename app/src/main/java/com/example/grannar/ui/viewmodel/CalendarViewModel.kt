@@ -40,28 +40,28 @@ class CalendarViewModel(private val repository: EventsRepository): ViewModel() {
         repository.addEventToFirebase(event)
     }
     /**
-     * Skapar en array utfrån vilken dag månaden startar på
-     * samt antalet dagar i månaden
+     * Creates an array based on what day the month starts at
+     * as well as the number of days in that month
      */
     fun daysInMonthArray(date: LocalDate): ArrayList<String> {
 
     val daysInMonthArray = arrayListOf<String>()
     val yearMonth = YearMonth.from(date)
 
-    val daysInMonth = yearMonth.lengthOfMonth()              // Antal dagar i månaden
-    val firstOfMonth = date.withDayOfMonth(1)     //  Hämta 1:a dagen i månaden
+    val daysInMonth = yearMonth.lengthOfMonth()              // number of days in the month
+    val firstOfMonth = date.withDayOfMonth(1)     //  gets the 1st day of the month
     val dayOfWeek =
 
-    firstOfMonth.dayOfWeek.value - 1                        //Hämta veckodagen (1=måndag, 7= söndag value gör om text till 1 -> 7
-                                                            // -1 eftersom första dagen i veckan är måndag
+    firstOfMonth.dayOfWeek.value - 1                        // gets the week days (1=Monday, 7= Sunday value is converted to text 1 -> 7
+                                                            // -1 because the first day of the week is Monday (in our app)
 
-    for (i in 1..42) {                                 // 7x6 = 42 rutor
+    for (i in 1..42) {                                 // 7x6 = 42 cells
         if (i <= dayOfWeek) {
-            daysInMonthArray.add(" ")                           // Tomma rutor före månadens start
+            daysInMonthArray.add(" ")                           // empty cells before the start of the month
         } else if (i - dayOfWeek <= daysInMonth) {
-            daysInMonthArray.add((i - dayOfWeek).toString())    // Faktiska datum
+            daysInMonthArray.add((i - dayOfWeek).toString())    // the actual date
         } else {
-            daysInMonthArray.add(" ")                           // Tomma rutor efter månadens slut
+            daysInMonthArray.add(" ")                           // empty cells after the month ends
         }
     }
     return daysInMonthArray
@@ -69,7 +69,7 @@ class CalendarViewModel(private val repository: EventsRepository): ViewModel() {
 
     /**
      *
-     * Formaterar ett datumobjekt i formatet: år sen månad
+     * Formats a date object from year then month
      *
      */
 
@@ -77,7 +77,7 @@ class CalendarViewModel(private val repository: EventsRepository): ViewModel() {
 
         val formatedDate: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy MMMM")
 
-        return date.format(formatedDate) //  Använd `format()` på `date`
+        return date.format(formatedDate) //  use `format()` on `date`
 
     }
 }
