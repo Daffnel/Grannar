@@ -10,11 +10,11 @@ import com.example.grannar.data.Groups.CityGroups
 import com.example.grannar.data.model.Group
 
 class GroupAdapter(
-    private var groupList: List<Group>,
-    private val itemClickListener: (Group) -> Unit
+    private var groupList: List<CityGroups>,
+    private val itemClickListener: (CityGroups) -> Unit
 ) : RecyclerView.Adapter<GroupAdapter.GroupViewHolder>() {
 
-    private var filteredList: List<Group> = groupList
+    private var filteredList: List<CityGroups> = groupList
 
 
 
@@ -33,7 +33,7 @@ class GroupAdapter(
 
 
 
-    fun updateData(newGroups: List<Group>) {
+    fun updateData(newGroups: List<CityGroups>) {
         this.groupList = newGroups
         this.filteredList = newGroups
         notifyDataSetChanged()
@@ -52,7 +52,7 @@ class GroupAdapter(
     inner class GroupViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val groupNameTextView: TextView = itemView.findViewById(R.id.groupNameTextView)
 
-        fun bind(group: Group) {
+        fun bind(group: CityGroups) {
             groupNameTextView.text = group.title
 
 
