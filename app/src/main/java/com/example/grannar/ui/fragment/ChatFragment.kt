@@ -26,6 +26,7 @@ class ChatFragment : Fragment() {
     private var messagesList = mutableListOf<ChatMessage>()
     private var currentUserId = ""
     private var groupId = ""
+    private var groupName=""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,22 +41,28 @@ class ChatFragment : Fragment() {
 
         viewModel = ViewModelProvider(this).get(ChatViewModel::class.java)
 
+        // التحقق من الـ arguments و تحديث currentUserId و groupId
         arguments?.let {
             currentUserId = it.getString("currentUserId") ?: ""
             groupId = it.getString("GROUP_ID") ?: ""
+            groupName = it.getString("GROUP_NAME") ?: ""
+
         }
+        Log.d("ChatFragment", "Current User ID: $currentUserId")
+        Log.d("ChatFragment", "Group ID: $groupId")
 
         if (groupId.isEmpty()) {
             Log.e("ChatFragment", "Group ID is empty")
             return
         }
+        binding.groupName.text = groupName
 
         setupRecyclerView()
         setupObservers()
         viewModel.listenForMessages(groupId)
 
         binding.imageback.setOnClickListener {
-            //back to fragmenthomechatt
+            // العودة إلى FragmentHomeChatt
             requireActivity().supportFragmentManager.popBackStack()
         }
 
@@ -85,3 +92,4 @@ class ChatFragment : Fragment() {
         }
     }
 }
+

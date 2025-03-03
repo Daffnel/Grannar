@@ -25,6 +25,7 @@ import com.example.grannar.data.firebase.FirebaseManager
 import com.example.grannar.data.model.Group
 import com.example.grannar.databinding.FragmentHomeChattBinding
 import com.example.grannar.ui.viewmodel.GroupViewModel
+import com.google.firebase.auth.FirebaseAuth
 
 
 class FragmentHomeChatt : Fragment() {
@@ -110,11 +111,16 @@ class FragmentHomeChatt : Fragment() {
             return
         }
 
-        val fragment = requireActivity().supportFragmentManager.findFragmentByTag(ChatFragment::class.java.simpleName)
 
-        if (fragment == null) {
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        if (currentUser != null) {
+            val currentUserId = currentUser.uid
+            Log.d("FirebaseAuth", "Current User ID: $currentUserId")
+
+
             val chatFragment = ChatFragment().apply {
                 arguments = Bundle().apply {
+                    putString("currentUserId", currentUserId)
                     putString("GROUP_ID", cityGroups.id)
                     putString("GROUP_NAME", cityGroups.title)
                 }
@@ -124,6 +130,11 @@ class FragmentHomeChatt : Fragment() {
                 .replace(R.id.container, chatFragment, ChatFragment::class.java.simpleName)
                 .addToBackStack(null)
                 .commit()
+        } else {
+            Log.e("FirebaseAuth", "User is not logged in")
+
+            startActivity(Intent(requireContext(),LoginFragment::class.java))
+            requireActivity().finish()
         }
     }
 
