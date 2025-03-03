@@ -18,20 +18,20 @@ class GroupInfoDialog(private val group: CityGroups, private val leaveGroup: (St
         val inflater = requireActivity().layoutInflater
         val view = inflater.inflate(R.layout.group_info_dialog, null)
 
-        //Uppdaterar xml filen med informationen vi vill visa
+        //Uppdates the xml file with the information we want to show
         view.findViewById<TextView>(R.id.groupTitle).text = group.title
         view.findViewById<TextView>(R.id.groupMembers).text = "Medlemmar: ${group.members?.size ?: 0}"
         view.findViewById<TextView>(R.id.groupCity).text = "Stad: ${group.city}"
         view.findViewById<TextView>(R.id.groupMoreInfo).text = "Info: ${group.moreInfo}"
 
-        //knapp för att lämna gruppen som man just nu är inne och kollar i
+        //button to leave the group you are currently watching
         val btnLeave = view.findViewById<Button>(R.id.btnLeaveGroup)
         btnLeave.setOnClickListener {
             leaveGroup(group.id)
             dismiss()
         }
 
-        //knapp för att stänga ner popup rutan
+        //button the close the pop-up window
         val btnClose = view.findViewById<Button>(R.id.btnClose)
         btnClose.setOnClickListener {
             dismiss()

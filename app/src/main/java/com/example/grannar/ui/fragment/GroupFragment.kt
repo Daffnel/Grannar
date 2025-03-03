@@ -92,7 +92,7 @@ class GroupFragment: Fragment(R.layout.fragment_groups) {
         adapterSecond = CityGroupsAdapter(emptyList())
         binding.recommendedGroupsRecyclerView.adapter = adapterSecond
 
-        //Hämta alla tillgänliga grupper
+        //Gets all available groups
         viewModel.getGroupByCity()
 
         viewModel.groups.observe(viewLifecycleOwner){groups ->
@@ -102,12 +102,12 @@ class GroupFragment: Fragment(R.layout.fragment_groups) {
 
     }
 
-    //Uppdaterar Mina grupper recyclerviewen
+    //Updates my groups' recyclerview
     private fun showRecyclerviewMyGroups() {
         layoutManagerMyGroups = LinearLayoutManager(requireContext())
         binding.myGroupsRecyclerView.layoutManager = layoutManagerMyGroups
 
-        //startar en dialog ruta med gruppen du klickat på med en callback leaveGroup
+        // Starts a dialog route with the group you clicked on with a callback leaveGroup
         myGroupsAdapter = MyGroupsAdapter(emptyList()) { group ->
             val dialog = GroupInfoDialog(group) { groupId ->
                 viewModel.leaveGroup(groupId)
@@ -120,7 +120,7 @@ class GroupFragment: Fragment(R.layout.fragment_groups) {
 
         viewModel.mygroups.observe(viewLifecycleOwner) { groups ->
             if (groups.isEmpty()) {
-                Log.d("!!!", "Användaren är inte med i några grupper")
+                Log.d("!!!", "User is not part of any group")
             }
             (myGroupsAdapter as MyGroupsAdapter).updateGroups(groups)
         }
@@ -166,7 +166,7 @@ class GroupFragment: Fragment(R.layout.fragment_groups) {
         etTitle = vy.findViewById(R.id.etAddNewGroupTitle)
         etMoreInfo = vy.findViewById(R.id.etAddNewGroupMoreInfo)
 
-        // lägg ut anvädarens stad i ui
+        // adds the user's city to the UI
         viewModel.getUserCity()
         viewModel.userCity.observe(viewLifecycleOwner){city ->
             tvCityName.text = city
@@ -175,18 +175,18 @@ class GroupFragment: Fragment(R.layout.fragment_groups) {
 
        val btnAddGroup = vy.findViewById<Button>(R.id.btnAddGNewGroupOk).setOnClickListener {
 
-           val city = viewModel.userCity.value // senaste värdet av användarens stad
+           val city = viewModel.userCity.value // latest value of the user's city
 
            if (city != null) {
                viewModel.addNewGroup(etTitle.text.toString(),etMoreInfo.text.toString(),city)
            }
            dialogRuta.dismiss()
-            showRecyclerviewAvailableGroups()     //updatera recylerviewn
+            showRecyclerviewAvailableGroups()     //updates the recylerview
        }
 
        val btnAddGroupCancel = vy.findViewById<Button>(R.id.btnAddNewGroupCancel).setOnClickListener{
 
-           // Avsluta
+           // End
 
            dialogRuta.dismiss()
        }

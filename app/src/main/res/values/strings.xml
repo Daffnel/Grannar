@@ -20,12 +20,12 @@
     <string name="Calendar_demo_text">BBQ with Bosse and Måns</string>
     <string name="calender_popup_title">Event Title</string>
     <string name="calender_popup_dateAndTime">Date: 12/2/2025</string>
-    <string name="calendar_popup_moreinfo">Here comes info about the event</string>
+    <string name="calendar_popup_moreinfo">Here\'s info about the event</string>
     <string name="calendar_popup_accept">Attending</string>
     <string name="calendar_popup_not_interested">Not interested</string>
     <string name="calender_dialog_reg_newEvent">Register new Activity</string>
     <string name="registrera_ny_aktivitet">Register new Activity</string>
     <string name="group_name">Group Name</string>
     <string name="starta_ny_grupp">Start a new group</string>
-    <string name="title_group_name">Här ska gruppnamnet stå</string>
+    <string name="title_group_name">The group name should be here</string>
 </resources>

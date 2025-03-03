@@ -200,16 +200,16 @@ class FirebaseManager {
                         .addOnSuccessListener { query ->
                             val groups =
                                 query.documents.mapNotNull { it.toObject(CityGroups::class.java) }
-                            Log.d("!!!", "Hittade ${groups.size} grupper i $userCity")
+                            Log.d("!!!", "Found ${groups.size} groups in $userCity")
                             callback(groups)
                         }
                         .addOnFailureListener { e ->
-                            Log.e("!!!", "Misslyckades att hämta grupper för $userCity", e)
+                            Log.e("!!!", "Failed to fetch groups for: $userCity", e)
                             callback(emptyList())
                         }
                 }
                 .addOnFailureListener {
-                    Log.e("!!!", "Misslyckades att hämta användarens stad", it)
+                    Log.e("!!!", "Failed to fetch user's city", it)
                     callback(emptyList())
                 }
 
@@ -238,7 +238,7 @@ class FirebaseManager {
                     }
                 }
                 .addOnFailureListener { e ->
-                    Log.e("Firestore", "Misslyckades att hämta stad", e)
+                    Log.e("Firestore", "Failed to fetch city", e)
                     callback("")
                 }
         }
@@ -315,7 +315,7 @@ class FirebaseManager {
             }
     }
 
-    //Funktion för att lämna en grupp man är med i och ta bort sig som member från firebase
+    //Function to leave a group and remove the user from the members list on Firebase
     fun leaveGroup(groupId: String, callback: (Boolean) -> Unit){
         val groupRef =db.collection("groups").document(groupId)
 

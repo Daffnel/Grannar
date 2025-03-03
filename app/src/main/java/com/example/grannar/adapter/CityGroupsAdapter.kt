@@ -19,7 +19,7 @@ class CityGroupsAdapter(var grouplist: List<CityGroups>): RecyclerView.Adapter<C
     }
 
 
-    //Hålll oss updaterad med grupplistan
+    //Keeps updating the group list
 
     fun updateGroups(newGroups: List<CityGroups>) {
         grouplist = newGroups
@@ -64,7 +64,7 @@ class CityGroupsAdapter(var grouplist: List<CityGroups>): RecyclerView.Adapter<C
     }
 
     override fun getItemCount(): Int {
-        Log.d("!!!","Antal grupper ${grouplist.size}")
+        Log.d("!!!","Number of groups ${grouplist.size}")
         return grouplist.size
 
     }

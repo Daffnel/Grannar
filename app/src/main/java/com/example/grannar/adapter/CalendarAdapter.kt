@@ -45,8 +45,8 @@ class CalendarAdapter(var dayOfMonth: ArrayList<String>): RecyclerView.Adapter<C
         }
 
         holder.tvDayOfMonth.setOnClickListener {
-            daySelected = position  // Uppdatera valt datum
-            notifyDataSetChanged()  // Uppdatera RecyclerView hitta en bättre lösning??
+            daySelected = position  // Update the chosen date
+            notifyDataSetChanged()  // Update RecyclerView find a better solution??
         }
     }
 
