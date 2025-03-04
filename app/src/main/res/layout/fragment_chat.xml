@@ -4,17 +4,15 @@
 
 android:layout_width="match_parent"
 android:layout_height="match_parent"
-android:orientation="vertical"
-    android:layout_marginTop="0dp">
+android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="13dp"
+        android:paddingBottom="15dp"
         android:gravity="start"
-        android:layout_marginBottom="2dp"
-
-        android:background="@drawable/border">
+        android:layout_margin="10dp"
+        android:background="@drawable/chat_title">
 
         <ImageView
             android:id="@+id/imageback"
@@ -29,9 +27,9 @@ android:orientation="vertical"
             android:id="@+id/groupName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="7dp"
             android:text="Group Name"
             android:textSize="18sp"
+            android:fontFamily="casual"
             android:textStyle="bold"
             android:gravity="center_vertical"/>
     </LinearLayout>
@@ -41,26 +39,28 @@ android:orientation="vertical"
     android:id="@+id/recyclerViewchatt"
     android:layout_width="match_parent"
     android:layout_height="0dp"
-    android:layout_weight="1"/>
+    android:layout_weight="1"
+    android:padding="8dp"/>
 
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:padding="8dp"
-    android:layout_marginBottom="10dp">
+    android:layout_marginBottom="15dp">
 
     <EditText
         android:id="@+id/messageInput"
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:hint="write a message..."/>
+        android:hint="Write a message..."/>
 
     <Button
         android:id="@+id/sendButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="send"/>
+        android:text="send"
+        android:textSize="20sp"/>
 </LinearLayout>
 </LinearLayout>

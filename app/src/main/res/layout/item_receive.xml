@@ -25,7 +25,6 @@
             android:text="Message Text"
             android:textColor="#000000"
             android:textSize="18sp"
-            android:textStyle="bold"
             android:background="@drawable/received_message_bg"
             android:padding="10dp"
             android:maxWidth="250dp"
