@@ -38,15 +38,17 @@ class LoginFragment : Fragment() {
         login.setOnClickListener {
             val email = binding.editTextLoginEmail.text.toString()
             val password = binding.editTextLoginPassword.text.toString()
+
+
+            if (email.isEmpty() || password.isEmpty()) {
+                Toast.makeText(requireContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+
+            }
+
             authViewModel.loginUser(email, password)
-        }
 
 
-        gotToRegister.setOnClickListener {
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.main, RegisterFragment())
-                .addToBackStack(null)
-                .commit()
         }
 
         // Goes to the home activity if successful
@@ -60,6 +62,14 @@ class LoginFragment : Fragment() {
                 Toast.makeText(requireContext(), "$message!", Toast.LENGTH_SHORT).show()
             }
         }
+
+        gotToRegister.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.main, RegisterFragment())
+                .addToBackStack(null)
+                .commit()
+        }
+
     }
 
 }
