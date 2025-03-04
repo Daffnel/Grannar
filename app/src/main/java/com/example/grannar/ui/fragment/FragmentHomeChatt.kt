@@ -93,7 +93,7 @@ class FragmentHomeChatt : Fragment() {
     private fun fetchGroups() {
         binding.progressBar.visibility = View.VISIBLE
 
-        firebaseManager.getAllCityGroups { citygroups ->
+        firebaseManager.getGroupsWhenMember { citygroups ->
             binding.progressBar.visibility = View.GONE
 
             if (citygroups.isNotEmpty()) {
@@ -104,7 +104,7 @@ class FragmentHomeChatt : Fragment() {
         }
     }
 
-    private fun openGroupChat(cityGroups: Group) {
+    private fun openGroupChat(cityGroups: CityGroups) {
         if (cityGroups.id.isNullOrEmpty() || cityGroups.title.isNullOrEmpty()) {
             Log.e("FragmentHomeChatt", "Group ID or Title is empty")
             Toast.makeText(requireContext(), "Group information is missing", Toast.LENGTH_SHORT).show()
