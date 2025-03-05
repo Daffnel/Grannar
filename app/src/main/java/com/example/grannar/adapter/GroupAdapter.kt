@@ -51,9 +51,11 @@ class GroupAdapter(
 
     inner class GroupViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val groupNameTextView: TextView = itemView.findViewById(R.id.groupNameTextView)
+        private val groupCitynameTextView: TextView = itemView.findViewById(R.id.groupCitynameTextView)
 
         fun bind(group: CityGroups) {
             groupNameTextView.text = group.title
+            groupCitynameTextView.text=group.city
 
 
             itemView.setOnClickListener {
