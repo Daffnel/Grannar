@@ -7,7 +7,8 @@ data class CityGroups(
     val name: String = "",
     val createdBy: String = "",
     val city: String = "",
-    val members: List<String> = emptyList(),// List w UID for members
-    //val date: String = "",   // for information  on when the group was created
+    val adminId: String = "",
+    val members: List<String> = emptyList(),
+
 ) {
 }
