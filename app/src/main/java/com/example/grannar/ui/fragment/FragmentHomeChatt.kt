@@ -119,9 +119,9 @@ class FragmentHomeChatt : Fragment() {
             firebaseManager.getUserName(currentUserId) { userName ->
                 val groupName = group.title ?: "Unknown Group"
 
-                Log.d("GroupCheck", "Current User ID: $currentUserId")
-                Log.d("GroupCheck", "Admin ID: ${group.adminId}")
-                Log.d("GroupCheck", "Group Members: ${group.members}")
+              //  Log.d("GroupCheck", "Current User ID: $currentUserId")
+              //  Log.d("GroupCheck", "Admin ID: ${group.adminId}")
+               // Log.d("GroupCheck", "Group Members: ${group.members}")
 
                 if (group.adminId.isNullOrEmpty() || group.members.isNullOrEmpty()) {
                     Log.e("GroupCheck", "Admin ID or Members list is empty!")
@@ -146,17 +146,18 @@ class FragmentHomeChatt : Fragment() {
                         .addToBackStack(null)
                         .commit()
                 } else {
-                    Log.e("GroupCheck", "User is NOT a member or admin!")
+                   // Log.e("GroupCheck", "User is NOT a member or admin!")
                     showJoinGroupDialog(group.id, currentUserId, userName, groupName)
                 }
             }
         } else {
-            Log.e("FirebaseAuth", "User is not logged in")
+           // Log.e("FirebaseAuth", "User is not logged in")
             startActivity(Intent(requireContext(), LoginFragment::class.java))
             requireActivity().finish()
         }
     }
 
+    // fun To request to join a group
     private fun showJoinGroupDialog(groupId: String, userId: String, userName: String, groupName: String) {
         val dialog = AlertDialog.Builder(requireContext())
             .setTitle("Join Group")

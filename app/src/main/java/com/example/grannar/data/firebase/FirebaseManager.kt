@@ -165,6 +165,8 @@ class FirebaseManager {
 //                onResult(emptyList()) // Return empty list if there's an error
 //            }
 //    }
+
+    //get all groups
     fun getAllCityGroups(callback: (List<CityGroups>) -> Unit) {
         db.collection("groups")
             .get()
@@ -175,8 +177,8 @@ class FirebaseManager {
                         title = document.getString("title") ?: "",
                         moreInfo = document.getString("moreInfo") ?: "",
                         city = document.getString("city") ?: "",
-                        adminId = document.getString("adminId") ?: "", // تأكد من تعيين adminId
-                        members = document.get("members") as? List<String> ?: emptyList() // تأكد من تعيين members
+                        adminId = document.getString("adminId") ?: "",
+                        members = document.get("members") as? List<String> ?: emptyList()
                     )
                 }
                 callback(groups)
@@ -264,8 +266,8 @@ class FirebaseManager {
             title = title,
             moreInfo = moreInfo,
             city = city,
-            adminId = userId, // تأكد من تعيين adminId
-            members = listOf(userId) // تأكد من تعيين members
+            adminId = userId,
+            members = listOf(userId)
         )
 
         newGroup.set(group)
@@ -363,7 +365,7 @@ class FirebaseManager {
         db.collection("join_requests")
             .add(joinRequest)
             .addOnSuccessListener { documentReference ->
-                val requestId = documentReference.id // الحصول على الـ ID الذي تم إنشاؤه تلقائيًا
+                val requestId = documentReference.id
                 callback(true)
             }
             .addOnFailureListener {
@@ -389,7 +391,7 @@ class FirebaseManager {
                         .addOnSuccessListener { requestsSnapshot ->
                             val requests = requestsSnapshot.documents.map { document ->
                                 JoinRequest(
-                                    requestId = document.id, // تعيين requestId هنا
+                                    requestId = document.id,
                                     userId = document.getString("userId") ?: "",
                                     groupId = document.getString("groupId") ?: "",
                                     userName = document.getString("userName") ?: "",
@@ -410,12 +412,14 @@ class FirebaseManager {
                 callback(emptyList())
             }
     }
+
     // accepet add usser requsr in groupp
+
     fun approveJoinRequest(groupId: String, userId: String, callback: (Boolean) -> Unit) {
         val groupRef = db.collection("groups").document(groupId)
         groupRef.update("members", FieldValue.arrayUnion(userId))
             .addOnSuccessListener {
-                // تحديث حالة الطلب إلى "approved"
+
                 db.collection("join_requests")
                     .whereEqualTo("groupId", groupId)
                     .whereEqualTo("userId", userId)
@@ -437,6 +441,7 @@ class FirebaseManager {
 
 
     //recject add user to grupp
+
     fun rejectJoinRequest(requestId: String, callback: (Boolean) -> Unit) {
         if (requestId.isNotEmpty()) {
             Log.d("FirebaseManager", "Rejecting request with ID: $requestId")

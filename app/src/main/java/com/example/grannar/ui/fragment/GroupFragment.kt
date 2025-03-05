@@ -69,10 +69,14 @@ class GroupFragment: Fragment(R.layout.fragment_groups) {
 
         }
         observeJoinRequests()
-        // النقر على أيقونة الإشعارات لعرض طلبات الانضمام
+
+
+        // click icon notification
         binding.imageViewnofification.setOnClickListener {
             showJoinRequests()
         }
+
+
         //Test för grupper man är medlem i
 
 //        viewModel.mygroups.observe(viewLifecycleOwner, Observer { groups ->
@@ -201,6 +205,8 @@ class GroupFragment: Fragment(R.layout.fragment_groups) {
           dialogRuta.show()
     }
 
+    //A function that monitors join requests.
+
     private fun observeJoinRequests() {
         firebaseManager.getJoinRequestsForAdmin { requests ->
             if (requests.isNotEmpty()) {
@@ -212,14 +218,17 @@ class GroupFragment: Fragment(R.layout.fragment_groups) {
             }
         }
     }
+
+    // fun change  icon
     private fun showNotification(hasNewNotification: Boolean) {
         if (hasNewNotification) {
-            binding.imageViewnofification.setImageResource(R.drawable.ic_notifications_new) // أيقونة مع لون جديد
+            binding.imageViewnofification.setImageResource(R.drawable.ic_notifications_new)
         } else {
-            binding.imageViewnofification.setImageResource(R.drawable.ice_notification) // الأيقونة الأصلية
+            binding.imageViewnofification.setImageResource(R.drawable.ice_notification)
         }
     }
 
+    //Function that displays a list of join requests
     private fun showJoinRequests() {
         firebaseManager.getJoinRequestsForAdmin { requests ->
             if (requests.isNotEmpty()) {
@@ -239,6 +248,8 @@ class GroupFragment: Fragment(R.layout.fragment_groups) {
         }
     }
 
+    //Function that displays a dialog to confirm or reject a join request based on the user's choice (yes/no)
+
     private fun showApproveDialog(request: JoinRequest) {
         val dialog = AlertDialog.Builder(requireContext())
             .setTitle("Approve Request")
@@ -247,14 +258,14 @@ class GroupFragment: Fragment(R.layout.fragment_groups) {
                 firebaseManager.approveJoinRequest(request.groupId, request.userId) { success ->
                     if (success) {
                         Toast.makeText(requireContext(), "User added to group", Toast.LENGTH_SHORT).show()
-                        showJoinRequests() // إعادة تحميل قائمة طلبات الانضمام
+                        showJoinRequests()
                     } else {
                         Toast.makeText(requireContext(), "Failed to add user to group", Toast.LENGTH_SHORT).show()
                     }
                 }
             }
             .setNegativeButton("No") { dialog, _ ->
-                if (request.requestId.isNotEmpty()) { // تأكد من أن requestId غير فارغ
+                if (request.requestId.isNotEmpty()) {
                     firebaseManager.rejectJoinRequest(request.requestId) { success ->
                         if (success) {
                             Toast.makeText(requireContext(), "Request rejected", Toast.LENGTH_SHORT).show()
