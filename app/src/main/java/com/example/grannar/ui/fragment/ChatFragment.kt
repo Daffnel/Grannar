@@ -41,7 +41,7 @@ class ChatFragment : Fragment() {
 
         viewModel = ViewModelProvider(this).get(ChatViewModel::class.java)
 
-        // التحقق من الـ arguments و تحديث currentUserId و groupId
+
         arguments?.let {
             currentUserId = it.getString("currentUserId") ?: ""
             groupId = it.getString("GROUP_ID") ?: ""
@@ -62,7 +62,7 @@ class ChatFragment : Fragment() {
         viewModel.listenForMessages(groupId)
 
         binding.imageback.setOnClickListener {
-            // العودة إلى FragmentHomeChatt
+
             requireActivity().supportFragmentManager.popBackStack()
         }
 

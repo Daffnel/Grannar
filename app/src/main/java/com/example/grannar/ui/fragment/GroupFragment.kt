@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -19,6 +20,7 @@ import com.example.grannar.adapter.CityGroupsAdapter
 import com.example.grannar.adapter.MyGroupsAdapter
 import com.example.grannar.data.firebase.FirebaseManager
 import com.example.grannar.data.model.Group
+import com.example.grannar.data.model.JoinRequest
 import com.example.grannar.data.repository.CityGroupsViewModel
 //import com.example.grannar.data.repository.CityGroupsViewModel
 //import com.example.grannar.ui.viewmodel.CityGroupsViewModel
@@ -32,6 +34,7 @@ class GroupFragment: Fragment(R.layout.fragment_groups) {
     private val repository = FirebaseManager()
     private var _binding: FragmentGroupsBinding? = null
     private val binding get() = _binding!!
+    private lateinit var firebaseManager: FirebaseManager
 
     var layoutManagerSecond: RecyclerView.LayoutManager? = null
     var layoutManagerMyGroups: RecyclerView.LayoutManager? = null
@@ -52,6 +55,7 @@ class GroupFragment: Fragment(R.layout.fragment_groups) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        firebaseManager = FirebaseManager()
         val factory = CityGroupsViewModelFactory(repository)
         viewModel = ViewModelProvider(this, factory).get(CityGroupsViewModel::class.java)
 
@@ -64,6 +68,14 @@ class GroupFragment: Fragment(R.layout.fragment_groups) {
             addNewGroupDialog()
 
         }
+        observeJoinRequests()
+
+
+        // click icon notification
+        binding.imageViewnofification.setOnClickListener {
+            showJoinRequests()
+        }
+
 
         //Test för grupper man är medlem i
 
@@ -193,10 +205,85 @@ class GroupFragment: Fragment(R.layout.fragment_groups) {
           dialogRuta.show()
     }
 
+    //A function that monitors join requests.
 
+    private fun observeJoinRequests() {
+        firebaseManager.getJoinRequestsForAdmin { requests ->
+            if (requests.isNotEmpty()) {
+
+                showNotification(true)
+            } else {
+
+                showNotification(false)
+            }
+        }
+    }
+
+    // fun change  icon
+    private fun showNotification(hasNewNotification: Boolean) {
+        if (hasNewNotification) {
+            binding.imageViewnofification.setImageResource(R.drawable.ic_notifications_new)
+        } else {
+            binding.imageViewnofification.setImageResource(R.drawable.ice_notification)
+        }
+    }
+
+    //Function that displays a list of join requests
+    private fun showJoinRequests() {
+        firebaseManager.getJoinRequestsForAdmin { requests ->
+            if (requests.isNotEmpty()) {
+                val dialog = AlertDialog.Builder(requireContext())
+                    .setTitle("Join Requests")
+                    .setItems(requests.map { "${it.userName} - ${it.groupName}" }.toTypedArray()) { _, which ->
+                        val request = requests[which]
+                        showApproveDialog(request)
+                    }
+                    .create()
+
+                dialog.show()
+            } else {
+                Toast.makeText(requireContext(), "No new join requests", Toast.LENGTH_SHORT).show()
+            }
+            showNotification(requests.isNotEmpty())
+        }
+    }
+
+    //Function that displays a dialog to confirm or reject a join request based on the user's choice (yes/no)
+
+    private fun showApproveDialog(request: JoinRequest) {
+        val dialog = AlertDialog.Builder(requireContext())
+            .setTitle("Approve Request")
+            .setMessage("Do you want to approve ${request.userName} to join ${request.groupName}?")
+            .setPositiveButton("Yes") { _, _ ->
+                firebaseManager.approveJoinRequest(request.groupId, request.userId) { success ->
+                    if (success) {
+                        Toast.makeText(requireContext(), "User added to group", Toast.LENGTH_SHORT).show()
+                        showJoinRequests()
+                    } else {
+                        Toast.makeText(requireContext(), "Failed to add user to group", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+            .setNegativeButton("No") { dialog, _ ->
+                if (request.requestId.isNotEmpty()) {
+                    firebaseManager.rejectJoinRequest(request.requestId) { success ->
+                        if (success) {
+                            Toast.makeText(requireContext(), "Request rejected", Toast.LENGTH_SHORT).show()
+                        } else {
+                            Toast.makeText(requireContext(), "Failed to reject request", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                } else {
+                    Toast.makeText(requireContext(), "Invalid request ID", Toast.LENGTH_SHORT).show()
+                }
+                dialog.dismiss()
+            }
+            .create()
+
+        dialog.show()
+    }
     override fun onDestroy() {
         super.onDestroy()
-    _binding = null
+        _binding = null
     }
 }
-

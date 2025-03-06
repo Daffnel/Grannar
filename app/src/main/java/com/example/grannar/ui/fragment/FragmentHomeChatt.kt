@@ -1,5 +1,6 @@
 package com.example.grannar.ui.fragment
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -93,7 +94,7 @@ class FragmentHomeChatt : Fragment() {
     private fun fetchGroups() {
         binding.progressBar.visibility = View.VISIBLE
 
-        firebaseManager.getGroupsWhenMember { citygroups ->
+        firebaseManager.getAllCityGroups { citygroups ->
             binding.progressBar.visibility = View.GONE
 
             if (citygroups.isNotEmpty()) {
@@ -104,38 +105,79 @@ class FragmentHomeChatt : Fragment() {
         }
     }
 
-    private fun openGroupChat(cityGroups: CityGroups) {
-        if (cityGroups.id.isNullOrEmpty() || cityGroups.title.isNullOrEmpty()) {
+    private fun openGroupChat(group: CityGroups) {
+        if (group.id.isNullOrEmpty() || group.title.isNullOrEmpty()) {
             Log.e("FragmentHomeChatt", "Group ID or Title is empty")
             Toast.makeText(requireContext(), "Group information is missing", Toast.LENGTH_SHORT).show()
             return
         }
 
-
         val currentUser = FirebaseAuth.getInstance().currentUser
         if (currentUser != null) {
             val currentUserId = currentUser.uid
-            Log.d("FirebaseAuth", "Current User ID: $currentUserId")
 
+            firebaseManager.getUserName(currentUserId) { userName ->
+                val groupName = group.title ?: "Unknown Group"
 
-            val chatFragment = ChatFragment().apply {
-                arguments = Bundle().apply {
-                    putString("currentUserId", currentUserId)
-                    putString("GROUP_ID", cityGroups.id)
-                    putString("GROUP_NAME", cityGroups.title)
+              //  Log.d("GroupCheck", "Current User ID: $currentUserId")
+              //  Log.d("GroupCheck", "Admin ID: ${group.adminId}")
+               // Log.d("GroupCheck", "Group Members: ${group.members}")
+
+                if (group.adminId.isNullOrEmpty() || group.members.isNullOrEmpty()) {
+                    Log.e("GroupCheck", "Admin ID or Members list is empty!")
+                    Toast.makeText(requireContext(), "Group data is incomplete", Toast.LENGTH_SHORT).show()
+                    return@getUserName
+                }
+
+                val isAdmin = group.adminId == currentUserId
+                val isMember = group.members.contains(currentUserId)
+
+                if (isAdmin || isMember) {
+                    val chatFragment = ChatFragment().apply {
+                        arguments = Bundle().apply {
+                            putString("currentUserId", currentUserId)
+                            putString("GROUP_ID", group.id)
+                            putString("GROUP_NAME", group.title)
+                        }
+                    }
+
+                    requireActivity().supportFragmentManager.beginTransaction()
+                        .replace(R.id.container, chatFragment, ChatFragment::class.java.simpleName)
+                        .addToBackStack(null)
+                        .commit()
+                } else {
+                   // Log.e("GroupCheck", "User is NOT a member or admin!")
+                    showJoinGroupDialog(group.id, currentUserId, userName, groupName)
                 }
             }
-
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.container, chatFragment, ChatFragment::class.java.simpleName)
-                .addToBackStack(null)
-                .commit()
         } else {
-            Log.e("FirebaseAuth", "User is not logged in")
-
-            startActivity(Intent(requireContext(),LoginFragment::class.java))
+           // Log.e("FirebaseAuth", "User is not logged in")
+            startActivity(Intent(requireContext(), LoginFragment::class.java))
             requireActivity().finish()
         }
+    }
+
+    // fun To request to join a group
+    private fun showJoinGroupDialog(groupId: String, userId: String, userName: String, groupName: String) {
+        val dialog = AlertDialog.Builder(requireContext())
+            .setTitle("Join Group")
+            .setMessage("You are not a member of this group. Do you want to join?")
+            .setPositiveButton("Yes") { _, _ ->
+
+                firebaseManager.sendJoinRequest(groupId, userId, userName, groupName) { success ->
+                    if (success) {
+                        Toast.makeText(requireContext(), "Join request sent to admin", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(requireContext(), "Failed to send join request", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+            .setNegativeButton("No") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .create()
+
+        dialog.show()
     }
 
     private fun showNoGroupsMessage() {

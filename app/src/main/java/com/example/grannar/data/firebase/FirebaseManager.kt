@@ -6,6 +6,7 @@ import android.util.Log
 import com.example.grannar.data.model.ChatMessage
 import com.example.grannar.data.Groups.CityGroups
 import com.example.grannar.data.model.Group
+import com.example.grannar.data.model.JoinRequest
 import com.example.grannar.data.model.User
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
@@ -164,14 +165,21 @@ class FirebaseManager {
 //                onResult(emptyList()) // Return empty list if there's an error
 //            }
 //    }
-    fun getAllCityGroups(callback: (List<Group>) -> Unit) {
+
+    //get all groups
+    fun getAllCityGroups(callback: (List<CityGroups>) -> Unit) {
         db.collection("groups")
             .get()
             .addOnSuccessListener { query ->
                 val groups = query.documents.mapNotNull { document ->
-                    val id = document.id
-                    val title = document.getString("title") ?: ""
-                    Group(id, title)
+                    CityGroups(
+                        id = document.id,
+                        title = document.getString("title") ?: "",
+                        moreInfo = document.getString("moreInfo") ?: "",
+                        city = document.getString("city") ?: "",
+                        adminId = document.getString("adminId") ?: "",
+                        members = document.get("members") as? List<String> ?: emptyList()
+                    )
                 }
                 callback(groups)
             }
@@ -250,20 +258,25 @@ class FirebaseManager {
      * Adds a new group
      */
     fun addNewGroup(title: String, moreInfo: String, city: String) {
+        val userId = auth.currentUser?.uid ?: return
 
         val newGroup = db.collection("groups").document()
-        //val id = newGroup.id
-
-        val group: CityGroups = CityGroups(title = title, moreInfo = moreInfo, city = city )
+        val group = CityGroups(
+            id = newGroup.id,
+            title = title,
+            moreInfo = moreInfo,
+            city = city,
+            adminId = userId,
+            members = listOf(userId)
+        )
 
         newGroup.set(group)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Log.d("!!!", "New group registered")
                 } else {
-                    Log.e("!!!", "Failed to register new group, task.exception")
+                    Log.e("!!!", "Failed to register new group", task.exception)
                 }
-
             }
     }
 
@@ -313,6 +326,140 @@ class FirebaseManager {
                 Log.e("!!!", "Failed to get groups", e)
                 callback(emptyList())
             }
+    }
+    //check if you are members
+    fun isUserMemberOfGroup(groupId: String, userId: String, callback: (Boolean) -> Unit) {
+        db.collection("groups").document(groupId)
+            .get()
+            .addOnSuccessListener { document ->
+                val members = document.get("members") as? List<String> ?: emptyList()
+                callback(members.contains(userId))
+            }
+            .addOnFailureListener { e ->
+                Log.e("FirebaseManager", "Failed to check group membership", e)
+                callback(false)
+            }
+    }
+    //get name user
+    fun getUserName(userId: String, callback: (String) -> Unit) {
+        db.collection("users").document(userId)
+            .get()
+            .addOnSuccessListener { document ->
+                val name = document.getString("name") ?: "Unknown User"
+                callback(name)
+            }
+            .addOnFailureListener {
+                callback("Unknown User")
+            }
+    }
+    //send enjoy members
+    fun sendJoinRequest(groupId: String, userId: String, userName: String, groupName: String, callback: (Boolean) -> Unit) {
+        val joinRequest = hashMapOf(
+            "userId" to userId,
+            "groupId" to groupId,
+            "userName" to userName,
+            "groupName" to groupName,
+            "status" to "pending"
+        )
+
+        db.collection("join_requests")
+            .add(joinRequest)
+            .addOnSuccessListener { documentReference ->
+                val requestId = documentReference.id
+                callback(true)
+            }
+            .addOnFailureListener {
+                callback(false)
+            }
+    }
+
+    //get requst enjo
+    fun getJoinRequestsForAdmin(callback: (List<JoinRequest>) -> Unit) {
+        val userId = auth.currentUser?.uid ?: return
+
+        db.collection("groups")
+            .whereEqualTo("adminId", userId)
+            .get()
+            .addOnSuccessListener { groupsSnapshot ->
+                val groupIds = groupsSnapshot.documents.map { it.id }
+
+                if (groupIds.isNotEmpty()) {
+                    db.collection("join_requests")
+                        .whereIn("groupId", groupIds)
+                        .whereEqualTo("status", "pending")
+                        .get()
+                        .addOnSuccessListener { requestsSnapshot ->
+                            val requests = requestsSnapshot.documents.map { document ->
+                                JoinRequest(
+                                    requestId = document.id,
+                                    userId = document.getString("userId") ?: "",
+                                    groupId = document.getString("groupId") ?: "",
+                                    userName = document.getString("userName") ?: "",
+                                    groupName = document.getString("groupName") ?: "",
+                                    status = document.getString("status") ?: "pending"
+                                )
+                            }
+                            callback(requests)
+                        }
+                        .addOnFailureListener {
+                            callback(emptyList())
+                        }
+                } else {
+                    callback(emptyList())
+                }
+            }
+            .addOnFailureListener {
+                callback(emptyList())
+            }
+    }
+
+    // accepet add usser requsr in groupp
+
+    fun approveJoinRequest(groupId: String, userId: String, callback: (Boolean) -> Unit) {
+        val groupRef = db.collection("groups").document(groupId)
+        groupRef.update("members", FieldValue.arrayUnion(userId))
+            .addOnSuccessListener {
+
+                db.collection("join_requests")
+                    .whereEqualTo("groupId", groupId)
+                    .whereEqualTo("userId", userId)
+                    .get()
+                    .addOnSuccessListener { querySnapshot ->
+                        for (document in querySnapshot.documents) {
+                            document.reference.update("status", "approved")
+                        }
+                        callback(true)
+                    }
+                    .addOnFailureListener {
+                        callback(false)
+                    }
+            }
+            .addOnFailureListener {
+                callback(false)
+            }
+    }
+
+
+    //recject add user to grupp
+
+    fun rejectJoinRequest(requestId: String, callback: (Boolean) -> Unit) {
+        if (requestId.isNotEmpty()) {
+            Log.d("FirebaseManager", "Rejecting request with ID: $requestId")
+            db.collection("join_requests")
+                .document(requestId)
+                .update("status", "rejected")
+                .addOnSuccessListener {
+                    Log.d("FirebaseManager", "Request rejected successfully")
+                    callback(true)
+                }
+                .addOnFailureListener { e ->
+                    Log.e("FirebaseManager", "Failed to reject request", e)
+                    callback(false)
+                }
+        } else {
+            Log.e("FirebaseManager", "Invalid request ID: $requestId")
+            callback(false)
+        }
     }
 
     //Function to leave a group and remove the user from the members list on Firebase
