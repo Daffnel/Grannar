@@ -24,8 +24,14 @@ class GroupAdapter(
     }
 
     override fun onBindViewHolder(holder: GroupViewHolder, position: Int) {
-        val group = groupList[position]
-        holder.bind(group)
+        if (filteredList.isEmpty()) {
+
+            holder.bindEmpty()
+        } else {
+            val group = filteredList[position]
+            holder.bind(group)
+        }
+
     }
 
     override fun getItemCount(): Int = filteredList.size
@@ -61,6 +67,11 @@ class GroupAdapter(
             itemView.setOnClickListener {
                 itemClickListener(group)
             }
+        }
+
+        fun bindEmpty() {
+            groupNameTextView.text = "No groups found"
+            groupCitynameTextView.text = ""
         }
     }
 
