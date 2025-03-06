@@ -3,6 +3,7 @@ package com.example.grannar.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.grannar.R
@@ -14,7 +15,7 @@ class GroupAdapter(
     private val itemClickListener: (CityGroups) -> Unit
 ) : RecyclerView.Adapter<GroupAdapter.GroupViewHolder>() {
 
-    private var filteredList: List<CityGroups> = groupList
+     var filteredList: List<CityGroups> = groupList
 
 
 
@@ -24,8 +25,14 @@ class GroupAdapter(
     }
 
     override fun onBindViewHolder(holder: GroupViewHolder, position: Int) {
-        val group = groupList[position]
-        holder.bind(group)
+        if (filteredList.isEmpty()) {
+
+            holder.bindEmpty()
+        } else {
+            val group = filteredList[position]
+            holder.bind(group)
+        }
+
     }
 
     override fun getItemCount(): Int = filteredList.size
@@ -52,6 +59,7 @@ class GroupAdapter(
     inner class GroupViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val groupNameTextView: TextView = itemView.findViewById(R.id.groupNameTextView)
         private val groupCitynameTextView: TextView = itemView.findViewById(R.id.groupCitynameTextView)
+        private val swipeBackground: LinearLayout = itemView.findViewById(R.id.swipeBackground)
 
         fun bind(group: CityGroups) {
             groupNameTextView.text = group.title
@@ -61,9 +69,21 @@ class GroupAdapter(
             itemView.setOnClickListener {
                 itemClickListener(group)
             }
+            swipeBackground.visibility = View.GONE
         }
-    }
 
+        fun bindEmpty() {
+            groupNameTextView.text = "No groups found"
+            groupCitynameTextView.text = ""
+        }
+        fun showSwipeBackground() {
+            swipeBackground.visibility = View.VISIBLE
+        }
+        fun hideSwipeBackground() {
+            swipeBackground.visibility = View.GONE
+        }
+
+    }
 
 
 }
