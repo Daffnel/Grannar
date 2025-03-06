@@ -1,46 +1,73 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
     android:background="@drawable/group_item_background"
     android:layout_marginBottom="3dp"
     android:padding="16dp">
 
-<LinearLayout
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:orientation="horizontal"
-android:gravity="center_vertical">
+    <!-- Swipe Background (Hidden by default) -->
+    <LinearLayout
+        android:id="@+id/swipeBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="end|center_vertical"
+        android:background="@drawable/group_ithem_delet"
+        android:visibility="gone"
+        >
 
-<TextView
-    android:id="@+id/groupNameTextView"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:drawableStart="@drawable/group_image_icon"
-    android:drawablePadding="15dp"
-    android:layout_weight="1"
-    android:fontFamily="casual"
-    android:text="@string/group_name"
-    android:textColor="@color/black"
-    android:textSize="16sp"
-    android:textStyle="bold" />
-
-<ImageView
-    android:layout_width="55dp"
-    android:layout_height="57dp"
-    android:layout_gravity="end"
-    android:padding="8dp"
-    android:src="@drawable/chat_next_icon" />
-</LinearLayout>
-
-
-<TextView
-android:id="@+id/groupCitynameTextView"
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:text="cityname"
-android:textColor="@color/black"
-android:textSize="14sp"
-android:paddingTop="8dp" />
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_deleted"
+            android:layout_marginEnd="16dp"
+            android:contentDescription="Delete Icon" />
     </LinearLayout>
+
+    <!-- Group Item Content -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_vertical">
+
+        <!-- Group Name and Icon -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/groupNameTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/group_image_icon"
+                android:drawablePadding="15dp"
+                android:layout_weight="1"
+                android:fontFamily="casual"
+                android:text="@string/group_name"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:layout_width="55dp"
+                android:layout_height="57dp"
+                android:layout_gravity="end"
+                android:padding="8dp"
+                android:src="@drawable/chat_next_icon" />
+        </LinearLayout>
+
+        <!-- City Name -->
+        <TextView
+            android:id="@+id/groupCitynameTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="cityname"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:paddingTop="8dp"
+            android:gravity="center" />
+    </LinearLayout>
+</FrameLayout>

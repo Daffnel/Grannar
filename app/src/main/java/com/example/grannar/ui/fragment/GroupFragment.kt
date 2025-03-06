@@ -119,10 +119,16 @@ class GroupFragment: Fragment(R.layout.fragment_groups) {
         layoutManagerMyGroups = LinearLayoutManager(requireContext())
         binding.myGroupsRecyclerView.layoutManager = layoutManagerMyGroups
 
-        // Starts a dialog route with the group you clicked on with a callback leaveGroup
         myGroupsAdapter = MyGroupsAdapter(emptyList()) { group ->
             val dialog = GroupInfoDialog(group) { groupId ->
-                viewModel.leaveGroup(groupId)
+                // Add logging here
+                Log.d("GroupFragment", "Group ID: $groupId")
+                if (groupId.isNullOrEmpty()) {
+                    Log.e("GroupFragment", "Group ID is null or empty")
+                    Toast.makeText(requireContext(), "Invalid group ID", Toast.LENGTH_SHORT).show()
+                } else {
+                    viewModel.leaveGroup(groupId)
+                }
             }
             dialog.show(parentFragmentManager, "GroupInfoDialog")
         }
@@ -132,7 +138,7 @@ class GroupFragment: Fragment(R.layout.fragment_groups) {
 
         viewModel.mygroups.observe(viewLifecycleOwner) { groups ->
             if (groups.isEmpty()) {
-                Log.d("!!!", "User is not part of any group")
+                Log.d("GroupFragment", "User is not part of any group")
             }
             (myGroupsAdapter as MyGroupsAdapter).updateGroups(groups)
         }

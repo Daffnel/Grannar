@@ -280,6 +280,53 @@ class FirebaseManager {
             }
     }
 
+
+    // Deletes a group if the current user is the admin
+    fun deleteGroupIfAdmin(groupId: String, callback: (Boolean, String?) -> Unit) {
+        // Validate groupId
+        if (groupId.isNullOrEmpty()) {
+            Log.e("FirebaseManager", "Group ID is null or empty")
+            callback(false, "Invalid group ID")
+            return
+        }
+
+        val userId = auth.currentUser?.uid
+        if (userId == null) {
+            Log.e("FirebaseManager", "User is not logged in")
+            callback(false, "User is not logged in")
+            return
+        }
+
+        val groupRef = db.collection("groups").document(groupId)
+
+        // Fetch the group document
+        groupRef.get().addOnSuccessListener { document ->
+            if (document.exists()) {
+                val adminId = document.getString("adminId") ?: ""
+                if (adminId == userId) {
+                    // Current user is the admin, delete the group
+                    groupRef.delete()
+                        .addOnSuccessListener {
+                            Log.d("FirebaseManager", "Group deleted successfully")
+                            callback(true, "Group deleted successfully")
+                        }
+                        .addOnFailureListener { e ->
+                            Log.e("FirebaseManager", "Failed to delete group", e)
+                            callback(false, "Failed to delete group: ${e.message}")
+                        }
+                } else {
+                    Log.e("FirebaseManager", "User is not the admin of the group")
+                    callback(false, "You are not the admin of this group")
+                }
+            } else {
+                Log.e("FirebaseManager", "Group document does not exist")
+                callback(false, "Group does not exist")
+            }
+        }.addOnFailureListener { e ->
+            Log.e("FirebaseManager", "Failed to fetch group document", e)
+            callback(false, "Failed to fetch group details: ${e.message}")
+        }
+    }
     //Function to join a group by adding current userId to members field in groups
     fun joinGroup(groupId: String, userId: String, callback: (Boolean) -> Unit){
         val groupRef = db.collection("groups").document(groupId)
@@ -463,26 +510,47 @@ class FirebaseManager {
     }
 
     //Function to leave a group and remove the user from the members list on Firebase
-    fun leaveGroup(groupId: String, callback: (Boolean) -> Unit){
-        val groupRef =db.collection("groups").document(groupId)
+    fun leaveGroup(groupId: String, callback: (Boolean) -> Unit) {
+        // Validate groupId
+        if (groupId.isNullOrEmpty()) {
+            Log.e("FirebaseManager", "Group ID is null or empty")
+            callback(false)
+            return
+        }
+
+        val userId = auth.currentUser?.uid
+        if (userId == null) {
+            Log.e("FirebaseManager", "User is not logged in")
+            callback(false)
+            return
+        }
+
+        val groupRef = db.collection("groups").document(groupId)
 
         groupRef.get().addOnSuccessListener { document ->
-            val members = document.get("members") as? List<String> ?: listOf()
-
-            val userId = auth.currentUser?.uid
-            if (userId != null && members.contains(userId)){
-                groupRef.update("members", FieldValue.arrayRemove(userId))
-                    .addOnSuccessListener {
-                        Log.d("!!!", "User left the group")
-                        callback(true)
-                    }
-                    .addOnFailureListener { e ->
-                        Log.e("!!!", "Failed to leave group", e)
-                        callback(false)
-                    }
+            if (document.exists()) {
+                val members = document.get("members") as? List<String> ?: listOf()
+                if (members.contains(userId)) {
+                    groupRef.update("members", FieldValue.arrayRemove(userId))
+                        .addOnSuccessListener {
+                            Log.d("FirebaseManager", "User left the group")
+                            callback(true)
+                        }
+                        .addOnFailureListener { e ->
+                            Log.e("FirebaseManager", "Failed to leave group", e)
+                            callback(false)
+                        }
+                } else {
+                    Log.e("FirebaseManager", "User is not a member of the group")
+                    callback(false)
+                }
             } else {
+                Log.e("FirebaseManager", "Group document does not exist")
                 callback(false)
             }
+        }.addOnFailureListener { e ->
+            Log.e("FirebaseManager", "Failed to fetch group document", e)
+            callback(false)
         }
     }
 }

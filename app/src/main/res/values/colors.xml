@@ -7,4 +7,6 @@
     <color name="powder">#FFFCF7</color>
     <color name="light_green">#E4F0D0</color>
     <color name="green">#C2D8B9</color>
+    <color name="red">#ED3E08</color>
+    <color name="light_red">#FF5722</color>
 </resources>

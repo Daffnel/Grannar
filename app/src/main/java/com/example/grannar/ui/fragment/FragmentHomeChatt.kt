@@ -2,6 +2,7 @@ package com.example.grannar.ui.fragment
 
 import android.app.AlertDialog
 import android.content.Intent
+import android.graphics.Canvas
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -13,11 +14,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.ItemTouchHelper
 
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.grannar.R
 
 import com.example.grannar.adapter.GroupAdapter
@@ -62,13 +66,15 @@ class FragmentHomeChatt : Fragment() {
                 showNoGroupsMessage()
             }
         }
-
+//call fun getgrup
         fetchGroups()
 
         binding.rvChatGroups.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = chatAdapter
         }
+        // call fun delete
+        setupSwipeToDelete()
 
         //  search
         val searchEditText: EditText = binding.etSearch
@@ -192,6 +198,93 @@ class FragmentHomeChatt : Fragment() {
 
         dialog.show()
     }
+// fun delete group when swipe to lift
+    private fun setupSwipeToDelete() {
+        val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(
+            0, // No drag-and-drop support
+            ItemTouchHelper.LEFT // Enable swipe to the left
+        ) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return false // No drag-and-drop support
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val position = viewHolder.adapterPosition
+
+                // Check if the position is valid and filteredList is not empty
+                if (position >= 0 && position < chatAdapter.filteredList.size) {
+                    val group = chatAdapter.filteredList[position]
+
+                    // Check if the current user is the admin
+                    val currentUserId = FirebaseAuth.getInstance().currentUser?.uid
+                    if (currentUserId == group.adminId) {
+                        // User is the admin, delete the group
+                        firebaseManager.deleteGroupIfAdmin(group.id) { success, message ->
+                            if (success) {
+                                // Remove the group from the adapter
+                                val updatedList = chatAdapter.filteredList.toMutableList()
+                                updatedList.removeAt(position)
+                                chatAdapter.updateData(updatedList)
+                                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+                            } else {
+                                // Show error message
+                                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+
+                                chatAdapter.notifyItemChanged(position)
+                            }
+                        }
+                    } else {
+                        // User is not the admin, show a message
+                        Toast.makeText(requireContext(), "Only the admin can delete this group", Toast.LENGTH_SHORT).show()
+
+                        chatAdapter.notifyItemChanged(position)
+                    }
+                } else {
+                    // Invalid position, reset the item view
+                    chatAdapter.notifyItemChanged(position)
+                }
+            }
+
+            override fun onChildDraw(
+                canvas: Canvas,
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                dX: Float,
+                dY: Float,
+                actionState: Int,
+                isCurrentlyActive: Boolean
+            ) {
+                // Show  background when swiping
+                if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
+                    val itemView = viewHolder.itemView
+                    val background = itemView.findViewById<LinearLayout>(R.id.swipeBackground)
+                    if (dX < 0) { // the left
+                        background.visibility = View.VISIBLE
+                    } else {
+                        background.visibility = View.GONE
+                    }
+                }
+                super.onChildDraw(canvas, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+            }
+
+            override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
+                // Hide the swipe background when the swipe gesture is completed
+                val itemView = viewHolder.itemView
+                val background = itemView.findViewById<LinearLayout>(R.id.swipeBackground)
+                background.visibility = View.GONE
+                super.clearView(recyclerView, viewHolder)
+            }
+        }
+
+        // Attach the ItemTouchHelper to the RecyclerView
+        val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
+        itemTouchHelper.attachToRecyclerView(binding.rvChatGroups)
+    }
+
 
     private fun showNoGroupsMessage() {
         Toast.makeText(requireContext(), "No groups available", Toast.LENGTH_SHORT).show()
